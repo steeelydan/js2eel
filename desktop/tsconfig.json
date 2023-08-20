@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+        "outDir": "build",
+
+        "strict": true,
+        "target": "ES6",
+        "module": "CommonJS",
+        "lib": ["ESNext", "DOM"],
+        "moduleResolution": "Node",
+        "esModuleInterop": true,
+        "allowJs": false,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+        "isolatedModules": true,
+
+        "useDefineForClassFields": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

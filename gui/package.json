@@ -1,0 +1,49 @@
+{
+    "name": "@js2eel/gui",
+    "private": true,
+    "version": "0.3.0",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "type": "module",
+    "scripts": {
+        "dev": "npm run docs && concurrently -n web,desk -c yellow,green \"vite --config ./webapp/vite.config.webapp.ts --clearScreen false -l info\" \"vite --config ./desktop/vite.config.desktop.ts build --mode development -l info -w --clearScreen false\"",
+        "build": "node ./scripts/createDocs.js && tsc && vite build --config ./webapp/vite.config.webapp.ts && vite build --config ./desktop/vite.config.desktop.ts",
+        "dist:webapp": "node ./scripts/createDocs.js && rm -rf ../../dist/webapp/* && vite build --config ./webapp/vite.config.webapp.ts --mode production --outDir ../../dist/webapp",
+        "dist:desktop": "rm -rf ../desktop/gui-dist/* && vite build --config ./desktop/vite.config.desktop.ts --mode production --outDir ../../desktop/gui-dist/",
+        "dist": "npm run dist:webapp && npm run dist:desktop",
+        "test": "echo \"No tests yet.\"",
+        "check": "tsc --noEmit && eslint ./src",
+        "docs": "node scripts/createDocs.js"
+    },
+    "dependencies": {
+        "@codemirror/lang-javascript": "6.1.9",
+        "@codemirror/lang-json": "6.0.1",
+        "@js2eel/compiler": "file:../compiler",
+        "codemirror": "6.0.1",
+        "eslint-linter-browserify": "8.44.0",
+        "preact": "10.15.1",
+        "prettier": "3.0.0",
+        "react-feather": "2.0.10",
+        "zustand": "4.3.9"
+    },
+    "devDependencies": {
+        "@preact/preset-vite": "2.5.0",
+        "@types/audioworklet": "0.0.48",
+        "@types/electron": "1.6.10",
+        "@types/estree": "1.0.1",
+        "@typescript-eslint/eslint-plugin": "5.60.1",
+        "@typescript-eslint/parser": "5.60.1",
+        "concurrently": "8.2.0",
+        "csstype": "3.1.2",
+        "eslint": "8.44.0",
+        "eslint-plugin-react": "7.32.2",
+        "eslint-plugin-react-hooks": "4.6.0",
+        "highlight.js": "11.8.0",
+        "marked": "5.1.2",
+        "marked-highlight": "2.0.1",
+        "nodemon": "2.0.22",
+        "typescript": "5.1.6",
+        "vite": "4.3.9"
+    }
+}

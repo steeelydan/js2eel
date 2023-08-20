@@ -1,0 +1,67 @@
+{
+    "name": "js2eel-desktop",
+    "version": "0.3.0",
+    "homepage": "https://js2eel.org",
+    "description": "JS2EEL",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "main": "build/main.js",
+    "scripts": {
+        "electron": "electron .",
+        "dev": "concurrently -n tsc,electron -c blue,green \"tsc --watch\" \"echo 'Waiting for TS build...' && sleep 3 && nodemon --exec npm run electron\"",
+        "build": "rm -rf ./build/* && tsc",
+        "test": "echo \"No tests yet.\"",
+        "check": "eslint ./src && tsc --noEmit",
+        "dist": "npm run build && electron-builder"
+    },
+    "build": {
+        "appId": "js2eel",
+        "productName": "js2eel",
+        "files": [
+            "build/**/*",
+            "gui-dist/**/*",
+            "distResources/**/*"
+        ],
+        "directories": {
+            "output": "../dist/desktop",
+            "buildResources": "distResources"
+        },
+        "linux": {
+            "target": [
+                "AppImage",
+                "deb"
+            ],
+            "icon": "./distResources",
+            "category": "Utils",
+            "packageCategory": "utils",
+            "maintainer": "Steeely Dan",
+            "synopsis": "Compile JavaScript to REAPER JSFX/EEL"
+        },
+        "win": {
+            "target": [
+                "portable"
+            ],
+            "icon": "./distResources/icon.png"
+        },
+        "mac": {}
+    },
+    "author": "steeelydan",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "@js2eel/compiler": "file:../compiler",
+        "chokidar": "3.5.3"
+    },
+    "devDependencies": {
+        "@types/electron": "1.6.10",
+        "@types/node": "20.3.3",
+        "@typescript-eslint/eslint-plugin": "5.60.1",
+        "@typescript-eslint/parser": "5.60.1",
+        "concurrently": "8.2.0",
+        "electron": "25.3.2",
+        "electron-builder": "24.6.3",
+        "eslint": "8.44.0",
+        "nodemon": "3.0.1",
+        "typescript": "5.1.6"
+    }
+}

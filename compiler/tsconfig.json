@@ -1,0 +1,52 @@
+{
+    // "compilerOptions": {
+    //     "outDir": "dist",
+    //     "declaration": true,
+    //     "declarationDir": "dist/types",
+    //     "declarationMap": true,
+
+    //     "strict": true,
+    //     "esModuleInterop": true,
+    //     "allowJs": false,
+    //     "resolveJsonModule": true,
+    //     "allowSyntheticDefaultImports": true,
+    //     "sourceMap": true,
+    //     "skipLibCheck": true,
+    //     "isolatedModules": true,
+
+    //     "useDefineForClassFields": true,
+    //     "noImplicitAny": true,
+    //     "strictNullChecks": true,
+    //     "strictFunctionTypes": true,
+    //     "noImplicitThis": true,
+    //     "noImplicitReturns": true,
+    //     "noFallthroughCasesInSwitch": true,
+    //     "forceConsistentCasingInFileNames": true
+    // }
+    "include": ["./src"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "rootDir": "./src",
+        "declaration": true,
+        "declarationMap": true,
+        "declarationDir": "dist/types",
+
+        "target": "ES2022",
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "allowJs": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "skipLibCheck": true,
+
+        "strict": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "noImplicitThis": true,
+        "noImplicitReturns": true,
+        "noFallthroughCasesInSwitch": true,
+        "forceConsistentCasingInFileNames": true
+    }
+}

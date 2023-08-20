@@ -1,0 +1,9 @@
+eol         =>   [is last token in line] ????? or \ also as a token?
+literal     =>   NUMBER | STRING
+number      =>   NUMBER
+internal    =>   ("desc" ":" literal+ | "in_pin" ":" literal+ | "out_pin" ":" literal+)
+guielement  =>   ("slider" number ":" number "<" number "," number "," number ">" literal+)
+decorator   =>   ("@slider" | "@sample") eol
+symbol      =>   STRING
+assignment  =>   (literal | symbol) assigner (literal | symbol) ";"
+assigner    =>   (= | *= | /= | -= | +=)

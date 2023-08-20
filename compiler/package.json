@@ -1,0 +1,64 @@
+{
+    "name": "@js2eel/compiler",
+    "version": "0.3.0",
+    "description": "Write REAPER JSFX/EEL2 plugins in JavaScript",
+    "engines": {
+        "node": ">=18.0.0"
+    },
+    "main": "dist/cjs/index.js",
+    "module": "dist/esm/index.js",
+    "types": "dist/types/index.d.ts",
+    "exports": {
+        ".": {
+            "import": "./dist/esm/index.js",
+            "require": "./dist/cjs/index.js"
+        }
+    },
+    "scripts": {
+        "watch:esm": "tsc-watch --noClear -p tsconfig.esm.json --onSuccess \"node ./scripts/setVersionConstant.mjs\"",
+        "watch:cjs": "tsc-watch --noClear -p tsconfig.cjs.json --onSuccess \"node ./scripts/setVersionConstant.mjs\"",
+        "dev": "npm run parseTypeDocs && concurrently -n esm,cjs -c yellow,green \"npm run watch:esm\" \"npm run watch:cjs\"",
+        "dist:esm": "tsc -p tsconfig.esm.json",
+        "dist:cjs": "tsc -p tsconfig.cjs.json",
+        "dist": "npm run parseTypeDocs && rm -rf ./dist/* && npm run dist:esm && npm run dist:cjs && node ./scripts/setVersionConstant.mjs",
+        "test": "c8 mocha './dist/cjs/**/*.spec.js'",
+        "test:single": "mocha './dist/cjs/**/*.spec.js' --grep",
+        "check": "eslint ./src && tsc --noEmit",
+        "parseTypeDocs": "node ./scripts/parseTypeDocs.mjs"
+    },
+    "c8": {
+        "all": true,
+        "include": [
+            "dist"
+        ],
+        "exclude": [
+            "**/*.spec.js",
+            "**/*/index.js",
+            "**/*.d.ts",
+            "**/*/types.js",
+            "**/*/constants.js",
+            "**/*/popupDocs.js"
+        ]
+    },
+    "author": "steeelydan",
+    "license": "GPL-3.0",
+    "dependencies": {
+        "acorn": "8.9.0",
+        "joi": "17.9.2"
+    },
+    "devDependencies": {
+        "@types/chai": "4.3.5",
+        "@types/estree": "1.0.1",
+        "@types/mocha": "10.0.1",
+        "@types/node": "20.3.3",
+        "@typescript-eslint/eslint-plugin": "5.60.1",
+        "@typescript-eslint/parser": "5.60.1",
+        "c8": "8.0.0",
+        "chai": "4.3.7",
+        "concurrently": "8.2.0",
+        "eslint": "8.44.0",
+        "mocha": "10.2.0",
+        "tsc-watch": "6.0.4",
+        "typescript": "5.1.6"
+    }
+}

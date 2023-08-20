@@ -1,0 +1,265 @@
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../public/OpenSans-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    src: url('../public/OpenSans-SemiBold.ttf') format('truetype');
+    font-style: bold;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: 'Hack';
+    src: url('../public/Hack-Regular.ttf') format('truetype');
+    font-style: normal;
+    font-weight: normal;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Open Sans';
+    font-size: 10.5pt;
+    height: 100vh;
+    overflow: hidden;
+}
+
+p {
+    margin-bottom: 8px;
+    line-height: 150%;
+}
+
+pre,
+code {
+    font-family: 'Hack';
+}
+
+pre {
+    font-size: 9.5pt;
+}
+
+h1,
+h2,
+h3,
+h4 {
+    font-weight: bold;
+}
+
+h2 {
+    margin-top: 15px;
+    margin-bottom: 14px;
+}
+
+h3 {
+    margin-top: 22px;
+    margin-bottom: 8px;
+}
+
+ul {
+    margin-left: 14px;
+    padding-left: 0;
+    list-style-position: outside;
+}
+
+li {
+    margin-bottom: 6px;
+}
+
+.docs pre {
+    font-size: 10pt;
+    background-color: #f1eeeb;
+    padding: 0px 3px 1px 3px;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    white-space: pre-wrap;
+}
+
+li > code,
+p > code {
+    font-size: 10pt;
+    background-color: #f1eeeb;
+    padding: 0px 3px 1px 3px;
+    border-radius: 3px;
+    white-space: pre-wrap;
+}
+
+table {
+    width: 100%;
+}
+
+table,
+th,
+td {
+    border: 1px solid lightgray;
+    border-collapse: collapse;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 4px 8px 4px 8px;
+}
+
+a,
+a:visited {
+    text-decoration: none;
+}
+
+::-webkit-scrollbar {
+    width: 12px;
+    padding: 3px;
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #c3c5c5;
+    padding: 0 3px 0 0;
+    border: 3px solid transparent;
+    background-clip: padding-box;
+    -webkit-border-radius: 18px;
+    /* -webkit-box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.75); */
+}
+
+::-webkit-scrollbar-track {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #727070;
+    padding: 0 3px 0 0;
+    border-right: 3px solid transparent;
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+@keyframes glowing {
+    0% {
+        background-color: #eee;
+        box-shadow: 0 0 3px transparent;
+    }
+    100% {
+        /* background-color: #ed2121; */
+        box-shadow: 0 0 15px #ed2121;
+        color: #ed2121;
+    }
+}
+
+pre code.hljs {
+    display: block;
+    overflow-x: auto;
+    padding: 1em;
+}
+code.hljs {
+    padding: 3px 5px;
+} /*!
+  Theme: nnfx light
+  Description: a theme inspired by Netscape Navigator/Firefox
+  Author: (c) 2020-2021 Jim Mason <jmason@ibinx.com>
+  Maintainer: @RocketMan
+  License: https://creativecommons.org/licenses/by-sa/4.0  CC BY-SA 4.0
+  Updated: 2021-05-17
+
+  @version 1.1.0
+*/
+.hljs {
+    background: #fff;
+    color: #000;
+}
+.language-xml .hljs-meta,
+.language-xml .hljs-meta-string {
+    /* font-weight: 700; */
+    font-style: italic;
+    color: #48b;
+}
+.hljs-comment,
+.hljs-quote {
+    font-style: italic;
+    color: #070;
+}
+.hljs-built_in,
+.hljs-keyword,
+.hljs-name {
+    color: #808;
+}
+.hljs-attr,
+.hljs-name {
+    /* font-weight: 700; */
+}
+.hljs-string {
+    /* font-weight: 400; */
+}
+.hljs-code,
+.hljs-link,
+.hljs-meta .hljs-string,
+.hljs-number,
+.hljs-regexp,
+.hljs-string {
+    color: #00f;
+}
+.hljs-bullet,
+.hljs-symbol,
+.hljs-template-variable,
+.hljs-title,
+.hljs-variable {
+    color: #f40;
+}
+.hljs-class .hljs-title,
+.hljs-title.class_,
+.hljs-type {
+    /* font-weight: 700; */
+    color: #639;
+}
+.hljs-attr,
+.hljs-function .hljs-title,
+.hljs-subst,
+.hljs-tag,
+.hljs-title.function_ {
+    color: #000;
+}
+.hljs-formula {
+    background-color: #eee;
+    font-style: italic;
+}
+.hljs-addition {
+    background-color: #beb;
+}
+.hljs-deletion {
+    background-color: #fbb;
+}
+.hljs-meta {
+    color: #269;
+}
+.hljs-section,
+.hljs-selector-class,
+.hljs-selector-id,
+.hljs-selector-pseudo,
+.hljs-selector-tag {
+    /* font-weight: 700; */
+    color: #48b;
+}
+.hljs-selector-pseudo {
+    font-style: italic;
+}
+.hljs-doctag,
+.hljs-strong {
+    /* font-weight: 700; */
+}
+.hljs-emphasis {
+    font-style: italic;
+}

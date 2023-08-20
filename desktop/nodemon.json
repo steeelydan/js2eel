@@ -1,0 +1,6 @@
+{
+    "ignore": [".git", "node_modules/**/*"],
+    "watch": ["./build/**/*", "../compiler/dist/cjs/**/*"],
+    "ext": "ts,js",
+    "delay": 1000
+}

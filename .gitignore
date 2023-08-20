@@ -1,0 +1,8 @@
+.DS_Store
+
+node_modules/
+build/
+dist/
+gui-dist/
+coverage/
+debug_tsoutput.json
