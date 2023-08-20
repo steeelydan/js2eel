@@ -22,8 +22,6 @@ export const DirInput = (): VNode => {
     const onSave = async (): Promise<void> => {
         if (storage) {
             if (inputDir && outputDir) {
-                console.log('saving', { inputDir, outputDir });
-
                 const inputSuccess = await storage.saveDesktopSetting('inputDir', inputDir);
                 const outputSuccess = await storage.saveDesktopSetting('outputDir', outputDir);
 

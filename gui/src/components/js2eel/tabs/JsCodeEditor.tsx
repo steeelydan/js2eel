@@ -145,8 +145,6 @@ export const JsCodeEditor = (): VNode => {
         };
     }, [jsEditorRef, onEditorUpdate]);
 
-    console.log('compileResult', compileResult);
-
     return (
         <div
             style={{
