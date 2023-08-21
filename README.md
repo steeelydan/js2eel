@@ -74,8 +74,8 @@ Go to https://github.com/steeelydan/js2eel/releases. Ideally, an executable for 
     -   Linux, MacOS: `bash` or `zsh`
     -   Windows: `git bash` (included with `git`)
 -   Clone this repo
--   Install all dependencies from `npm`: Run `scripts/install.sh`
--   Make a distribution: Run `scripts/dist.sh`
+-   Install all dependencies from `npm`: In `scripts`, run `./install.sh`
+-   Make a distribution: In `scripts`, run `./dist.sh`
 -   You'll find the built executable for your platform in the `dist` folder
 
 ### c) Run the Development Build
@@ -85,7 +85,7 @@ Go to https://github.com/steeelydan/js2eel/releases. Ideally, an executable for 
     -   Linux, MacOS: `bash` or `zsh`
     -   Windows: `git bash` (included with `git`)
 -   Clone this repo
--   Install all dependencies from `npm`: Run `scripts/install.sh`
+-   Install all dependencies from `npm`: In `scripts`, run `./install.sh`
 -   Open a different terminal session for each of the following steps
     -   Go to `compiler` and do `npm run dev`
     -   Go to `gui` and do `npm run dev`
