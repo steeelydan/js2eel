@@ -16,7 +16,7 @@ const codemirrorDocPopup = (
     return (_completion: Completion): CompletionInfo => {
         const docs = POPUP_DOCS[symbol];
         if (docs) {
-            return getPopupContent(docs.signature, docs.text);
+            return getPopupContent(docs.signature, docs.text, docs.example);
         } else {
             return null;
         }
