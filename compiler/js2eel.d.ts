@@ -4,6 +4,9 @@
 
 /**
  * Configures the plugin.
+ * @example ```javascript
+ * config({ description: 'volume', inChannels: 2, outChannels: 2 });
+ * ```
  */
 declare function config({
     description,

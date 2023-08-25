@@ -30,7 +30,12 @@ const formatJsDoc = (jsDoc) => {
 
     jsDoc = split.join('\n');
 
-    return jsDoc;
+    const descExampleSplit = jsDoc.split('@example');
+
+    const description = descExampleSplit[0]?.trim() || jsDoc;
+    const example = descExampleSplit[1]?.trim() || null;
+
+    return { description: description, example: example };
 };
 
 const typeMap = {
@@ -60,7 +65,7 @@ while (src.length > 0) {
         } else {
             fullSignature = src.slice(jsDocEnd + 2);
         }
-        jsDoc = formatJsDoc(jsDoc);
+        const { description, example } = formatJsDoc(jsDoc);
         fullSignature = fullSignature.trim().replace('declare ', '');
         let name = '';
         let type = '';
@@ -147,7 +152,8 @@ while (src.length > 0) {
         parts.push({
             name: name,
             type: type,
-            text: jsDoc,
+            text: description,
+            example: example,
             signature: fullSignature,
             autoCompleteTemplate: autoCompleteTemplate
         });
@@ -172,6 +178,7 @@ export const POPUP_DOCS: {
         name: string;
         type: 'function' | 'class' | 'constant';
         text: string;
+        example: string | null;
         signature: string;
         autoCompleteTemplate: string;
     };
@@ -244,16 +251,19 @@ parts.forEach((part) => {
 
         apiDocsMd += `${part.text}
 
-Signature:
 \`\`\`typescript
 ${part.signature}
 \`\`\`
-
-Example:
-\`\`\`javascript
-TODO
-\`\`\`
 `;
+
+        const example = part.example;
+
+        if (example) {
+            apiDocsMd += `
+Example:
+${example}
+`;
+        }
     }
 });
 
