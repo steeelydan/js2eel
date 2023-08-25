@@ -30,7 +30,7 @@ selectBox: {
     "name": "selectBox",
     "type": "function",
     "text": "Registers a select box and its bound variable to be displayed in the plugin.",
-    "example": "```javascript\nselectBox(\n3,\nalgorithm,\n'sigmoid',\n[\n{ name: 'sigmoid', label: 'Sigmoid' },\n{ name: 'htan', label: 'Hyperbolic Tangent' },\n{ name: 'hclip', label: 'Hard Clip' }\n],\n'Algorithm'\n);\n```",
+    "example": "```javascript\nselectBox(\n    3,\n    algorithm,\n    'sigmoid',\n    [\n        { name: 'sigmoid', label: 'Sigmoid' },\n        { name: 'htan', label: 'Hyperbolic Tangent' },\n        { name: 'hclip', label: 'Hard Clip' }\n    ],\n    'Algorithm'\n);\n```",
     "signature": "selectBox(\n    sliderNumber: number,\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
     "autoCompleteTemplate": "selectBox(${sliderNumber}, ${variable}, ${initialValue}, [${}], ${label});"
 },

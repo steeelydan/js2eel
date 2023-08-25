@@ -25,6 +25,7 @@ export const getPopupContent = (
         exampleHeading.style.marginTop = '16px';
         exampleHeading.style.marginBottom = '8px';
         const exampleEl = document.createElement('pre');
+        exampleEl.style.whiteSpace = 'pre-wrap';
         exampleEl.innerText = example.split('\n').slice(1, -1).join('\n');
 
         info.dom.appendChild(exampleHeading);

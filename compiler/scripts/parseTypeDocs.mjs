@@ -30,7 +30,7 @@ const formatJsDoc = (jsDoc) => {
     let split = jsDoc.split('\n');
 
     split = split.map((line) => {
-        return line.replace(/( )?\*( )?/, '').trim();
+        return line.replace(/( )?\*( )?/, '');
     });
 
     jsDoc = split.join('\n');

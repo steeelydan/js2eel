@@ -66,15 +66,15 @@ selectBox(
 Example:
 ```javascript
 selectBox(
-3,
-algorithm,
-'sigmoid',
-[
-{ name: 'sigmoid', label: 'Sigmoid' },
-{ name: 'htan', label: 'Hyperbolic Tangent' },
-{ name: 'hclip', label: 'Hard Clip' }
-],
-'Algorithm'
+    3,
+    algorithm,
+    'sigmoid',
+    [
+        { name: 'sigmoid', label: 'Sigmoid' },
+        { name: 'htan', label: 'Hyperbolic Tangent' },
+        { name: 'hclip', label: 'Hard Clip' }
+    ],
+    'Algorithm'
 );
 ```
 
