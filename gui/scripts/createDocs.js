@@ -20,8 +20,17 @@ const marked = new Marked(
 
 const renderer = new marked.Renderer();
 
-renderer.link = function (href, title, text) {
+renderer.link = (href, title, text) => {
     return `<a target="_blank" href="${href}">${text}</a>`;
+};
+
+// Removes internal links for now in the webapp as they don't work there.
+renderer.listitem = (text, task, checked) => {
+    if (text.includes('href="#')) {
+        return '';
+    } else {
+        return `<li>${text}</li>`;
+    }
 };
 
 const files = fs.readdirSync(DOCS_MD_PATH);

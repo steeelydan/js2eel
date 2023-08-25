@@ -1,6 +1,6 @@
-## JSFX Features Implemented
+# JSFX Features Implemented
 
-### File Structure and Utility Features
+## File Structure and Utility Features
 
 | Done | Feature       | Comment                        |
 | ---- | ------------- | ------------------------------ |
@@ -16,7 +16,7 @@
 | 🕒   | options       |                                |
 | 🕒   | JSFX comments |                                |
 
-### UI
+## UI
 
 | Done | Feature        | Comment                                              |
 | ---- | -------------- | ---------------------------------------------------- |
@@ -26,7 +26,7 @@
 | 🕒   | Hidden sliders |                                                      |
 | 🕒   | Slider: curves |
 
-### Routing and Input
+## Routing and Input
 
 | Done | Feature         | Comment |
 | ---- | --------------- | ------- |
@@ -34,7 +34,7 @@
 | 🕒   | filename        |         |
 | 🕒   | file_open()     |         |
 
-### Memory and Encodings
+## Memory and Encodings
 
 | Done | Feature                                    | Comment         |
 | ---- | ------------------------------------------ | --------------- |
@@ -49,7 +49,7 @@
 | 🕒   | Bitmasks                                   |                 |
 | ✅   | Strings                                    |                 |
 
-### Control Structures
+## Control Structures
 
 | Done | Feature                         | Comment |
 | ---- | ------------------------------- | ------- |
@@ -60,7 +60,7 @@
 | 🕒   | `while(actions..., condition)`  |         |
 | 🕒   | `while(condition) (actions...)` |         |
 
-### Operators
+## Operators
 
 | Done | Feature                   | Comment                          |
 | ---- | ------------------------- | -------------------------------- |
@@ -101,7 +101,7 @@
 | 🕒   | `y &= z`                  |                                  |
 | 🕒   | `y ~= z`                  |                                  |
 
-### Library Functions
+## Library Functions
 
 | Done | Feature             | Comment |
 | ---- | ------------------- | ------- |
@@ -129,7 +129,7 @@
 | 🕒   | `time([v])`         |         |
 | 🕒   | `time_precise([v])` |         |
 
-### Special Vars & Functions
+## Special Vars & Functions
 
 | Done | Feature                                                             | Comment          |
 | ---- | ------------------------------------------------------------------- | ---------------- |

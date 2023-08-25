@@ -149,7 +149,7 @@ export const Docs = (): VNode | null => {
             <div style={{ maxWidth: 550, margin: 'auto' }}>
                 {helpPath === 'contents' && (
                     <>
-                        <h2>Contents</h2>
+                        <h1>Contents</h1>
                         <div
                             style={{
                                 display: 'flex',

@@ -1,6 +1,6 @@
-## Keyboard Shortcuts
+# Keyboard Shortcuts
 
-### Editor
+## Editor
 
 | Linux & Windows | Mac             | Description                  |
 | --------------- | --------------- | ---------------------------- |
