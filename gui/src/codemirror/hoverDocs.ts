@@ -30,7 +30,11 @@ export const hoverDocs = hoverTooltip((view, pos, side) => {
             end,
             above: true,
             create(_view: EditorView): { dom: HTMLElement } {
-                return getPopupContent(potentialDocs!.signature, potentialDocs!.text);
+                return getPopupContent(
+                    potentialDocs!.signature,
+                    potentialDocs!.text,
+                    potentialDocs!.example
+                );
             }
         };
     } else {
