@@ -50,6 +50,7 @@ Registers a select box and its bound variable to be displayed in the plugin.
 
 ```typescript
 selectBox(
+    sliderNumber: number,
     variable: string,
     initialValue: string,
     values: { name: string; label: string }[],

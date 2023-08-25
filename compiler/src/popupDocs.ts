@@ -31,8 +31,8 @@ selectBox: {
     "type": "function",
     "text": "Registers a select box and its bound variable to be displayed in the plugin.",
     "example": null,
-    "signature": "selectBox(\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
-    "autoCompleteTemplate": "selectBox(${variable}, ${initialValue}, [${}], ${label});"
+    "signature": "selectBox(\n    sliderNumber: number,\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
+    "autoCompleteTemplate": "selectBox(${sliderNumber}, ${variable}, ${initialValue}, [${}], ${label});"
 },
 console: {
     "name": "console",
