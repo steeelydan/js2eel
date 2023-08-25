@@ -160,8 +160,6 @@ while (src.length > 0) {
 let renderedParts = '';
 
 parts.forEach((part, index) => {
-    console.log('part', part);
-
     renderedParts += `${part.name}: ${JSON.stringify(part, null, 4)}${
         index < parts.length - 1 ? ',\n' : ''
     }`;
@@ -188,12 +186,6 @@ fs.writeFileSync(docsPath, docsFile);
 
 let apiDocsMd = '';
 
-apiDocsMd += `# API Documentation
-
-## Configuration
-
-`;
-
 const markDownHeadings = [];
 
 const addMarkdownHeading = (title, text = '') => {
@@ -213,32 +205,68 @@ const addMarkdownHeading = (title, text = '') => {
 };
 
 parts.forEach((part) => {
-    if (part.name.includes('console')) {
+    let skip = false;
+
+    let partHeading = `### ${part.name}${part.type === 'function' ? '()' : ''}
+`;
+
+    if (part.name.startsWith('config')) {
+        addMarkdownHeading('Configuration');
+    } else if (part.name.startsWith('console')) {
         addMarkdownHeading('Debugging');
-    } else if (part.name.includes('onInit')) {
+    } else if (part.name.startsWith('onInit')) {
         addMarkdownHeading(
             'JSFX Computation Stages',
             `These functions correspond to JSFX's \`@sample\` etc.`
         );
-    } else if (part.name.includes('EelBuffer')) {
+    } else if (part.name.startsWith('EelBuffer')) {
         addMarkdownHeading('Data Structures');
     } else if (part.name === 'sin') {
         addMarkdownHeading(
             'Math Functions',
             'These functions correspond exactly to their equivalents in JSFX/EEL2.'
         );
+    } else if (part.name.startsWith('$pi')) {
+        addMarkdownHeading('Math Constants');
+    } else if (part.name.startsWith('srate')) {
+        addMarkdownHeading('Audio Constants');
+    } else if (part.name.match(/^spl\d/)) {
+        if (parseInt(part.name.slice(3, 4)) === 0) {
+            partHeading = `### spl<1-64>
+`;
+        } else {
+            skip = true;
+        }
     }
 
-    apiDocsMd += `### ${part.name}${part.type === 'function' ? '()' : ''}
+    if (!skip) {
+        apiDocsMd += partHeading;
 
-${part.text}
+        apiDocsMd += `${part.text}
 
-\`\`\`javascript
+Signature:
+\`\`\`typescript
 ${part.signature}
 \`\`\`
+
+Example:
+\`\`\`javascript
+TODO
+\`\`\`
 `;
+    }
 });
 
-fs.writeFileSync(apiDocPath, apiDocsMd);
+let apiDocsToc = markDownHeadings
+    .map((heading) => `- [${heading}](#${heading.toLowerCase().replace(/ /g, '-')})`)
+    .join('\n');
+
+const apiDocsMdFinished = `# API Documentation
+
+${apiDocsToc}
+
+${apiDocsMd}`;
+
+fs.writeFileSync(apiDocPath, apiDocsMdFinished);
 
 fs.writeFileSync('debug_tsoutput.json', JSON.stringify(tsOutput, null, 4));

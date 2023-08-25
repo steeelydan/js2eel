@@ -79,152 +79,12 @@ EelArray: {
     "signature": "EelArray {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n}",
     "autoCompleteTemplate": "EelArray(${dimensions}, ${size});"
 },
-sin: {
-    "name": "sin",
-    "type": "function",
-    "text": "Returns the Sine of the angle specified (specified in radians).",
-    "signature": "sin(angle: number): number;",
-    "autoCompleteTemplate": "sin(${angle});"
-},
-cos: {
-    "name": "cos",
-    "type": "function",
-    "text": "Returns the Cosine of the angle specified (specified in radians).",
-    "signature": "cos(angle: number): number;",
-    "autoCompleteTemplate": "cos(${angle});"
-},
-tan: {
-    "name": "tan",
-    "type": "function",
-    "text": "Returns the Tangent of the angle specified (specified in radians).",
-    "signature": "tan(angle: number): number;",
-    "autoCompleteTemplate": "tan(${angle});"
-},
-asin: {
-    "name": "asin",
-    "type": "function",
-    "text": "Returns the Arc Sine of the value specified (return value is in radians).",
-    "signature": "asin(x: number): number;",
-    "autoCompleteTemplate": "asin(${x});"
-},
-acos: {
-    "name": "acos",
-    "type": "function",
-    "text": "Returns the Arc Cosine of the value specified (return value is in radians).",
-    "signature": "acos(x: number): number;",
-    "autoCompleteTemplate": "acos(${x});"
-},
-atan: {
-    "name": "atan",
-    "type": "function",
-    "text": "Returns the Arc Tangent of the value specified (return value is in radians).",
-    "signature": "atan(x: number): number;",
-    "autoCompleteTemplate": "atan(${x});"
-},
-atan2: {
-    "name": "atan2",
-    "type": "function",
-    "text": "Returns the Arc Tangent of x divided by y (return value is in radians).",
-    "signature": "atan2(x: number, y: number): number;",
-    "autoCompleteTemplate": "atan2(${x}, ${y});"
-},
-sqr: {
-    "name": "sqr",
-    "type": "function",
-    "text": "Returns the square of the parameter (similar to x*x, though only evaluating x once).",
-    "signature": "sqr(x: number): number;",
-    "autoCompleteTemplate": "sqr(${x});"
-},
-sqrt: {
-    "name": "sqrt",
-    "type": "function",
-    "text": "Returns the square root of the parameter.",
-    "signature": "sqrt(x: number): number;",
-    "autoCompleteTemplate": "sqrt(${x});"
-},
-pow: {
-    "name": "pow",
-    "type": "function",
-    "text": "Returns the first parameter raised to the second parameter-th power.\nIdentical in behavior and performance to the ^ operator.",
-    "signature": "pow(x: number, y: number): number;",
-    "autoCompleteTemplate": "pow(${x}, ${y});"
-},
-exp: {
-    "name": "exp",
-    "type": "function",
-    "text": "Returns the number e (approx 2.718) raised to the parameter-th power.\nThis function is significantly faster than pow() or the ^ operator.",
-    "signature": "exp(x: number): number;",
-    "autoCompleteTemplate": "exp(${x});"
-},
-log: {
-    "name": "log",
-    "type": "function",
-    "text": "Returns the natural logarithm (base e) of the parameter.",
-    "signature": "log(x: number): number;",
-    "autoCompleteTemplate": "log(${x});"
-},
-log10: {
-    "name": "log10",
-    "type": "function",
-    "text": "Returns the logarithm (base 10) of the parameter.",
-    "signature": "log10(x: number): number;",
-    "autoCompleteTemplate": "log10(${x});"
-},
-abs: {
-    "name": "abs",
-    "type": "function",
-    "text": "Returns the absolute value of the parameter.",
-    "signature": "abs(x: number): number;",
-    "autoCompleteTemplate": "abs(${x});"
-},
-min: {
-    "name": "min",
-    "type": "function",
-    "text": "Returns the minimum value of the two parameters.",
-    "signature": "min(x: number, y: number): number;",
-    "autoCompleteTemplate": "min(${x}, ${y});"
-},
-max: {
-    "name": "max",
-    "type": "function",
-    "text": "Returns the maximum value of the two parameters.",
-    "signature": "max(x: number, y: number): number;",
-    "autoCompleteTemplate": "max(${x}, ${y});"
-},
-sign: {
-    "name": "sign",
-    "type": "function",
-    "text": "Returns the sign of the parameter (-1, 0, or 1).",
-    "signature": "sign(x: number): number;",
-    "autoCompleteTemplate": "sign(${x});"
-},
-rand: {
-    "name": "rand",
-    "type": "function",
-    "text": "Returns a pseudo-random number between 0 and the parameter.",
-    "signature": "rand(x: number): number;",
-    "autoCompleteTemplate": "rand(${x});"
-},
-floor: {
-    "name": "floor",
-    "type": "function",
-    "text": "Rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).",
-    "signature": "floor(x: number): number;",
-    "autoCompleteTemplate": "floor(${x});"
-},
-ceil: {
-    "name": "ceil",
-    "type": "function",
-    "text": "Rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).",
-    "signature": "ceil(x: number): number;",
-    "autoCompleteTemplate": "ceil(${x});"
-},
-invsqrt: {
-    "name": "invsqrt",
-    "type": "function",
-    "text": "Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
-    "signature": "invsqrt(x: number): number;",
-    "autoCompleteTemplate": "invsqrt(${x});"
+srate: {
+    "name": "srate",
+    "type": "constant",
+    "text": "The sample rate of your project.",
+    "signature": "srate: number;",
+    "autoCompleteTemplate": "srate"
 },
 spl0: {
     "name": "spl0",
@@ -681,11 +541,151 @@ $pi: {
     "signature": "$pi: number;",
     "autoCompleteTemplate": "$pi"
 },
-srate: {
-    "name": "srate",
-    "type": "constant",
-    "text": "The sample rate of your project.",
-    "signature": "srate: number;",
-    "autoCompleteTemplate": "srate"
+sin: {
+    "name": "sin",
+    "type": "function",
+    "text": "Returns the Sine of the angle specified (specified in radians).",
+    "signature": "sin(angle: number): number;",
+    "autoCompleteTemplate": "sin(${angle});"
+},
+cos: {
+    "name": "cos",
+    "type": "function",
+    "text": "Returns the Cosine of the angle specified (specified in radians).",
+    "signature": "cos(angle: number): number;",
+    "autoCompleteTemplate": "cos(${angle});"
+},
+tan: {
+    "name": "tan",
+    "type": "function",
+    "text": "Returns the Tangent of the angle specified (specified in radians).",
+    "signature": "tan(angle: number): number;",
+    "autoCompleteTemplate": "tan(${angle});"
+},
+asin: {
+    "name": "asin",
+    "type": "function",
+    "text": "Returns the Arc Sine of the value specified (return value is in radians).",
+    "signature": "asin(x: number): number;",
+    "autoCompleteTemplate": "asin(${x});"
+},
+acos: {
+    "name": "acos",
+    "type": "function",
+    "text": "Returns the Arc Cosine of the value specified (return value is in radians).",
+    "signature": "acos(x: number): number;",
+    "autoCompleteTemplate": "acos(${x});"
+},
+atan: {
+    "name": "atan",
+    "type": "function",
+    "text": "Returns the Arc Tangent of the value specified (return value is in radians).",
+    "signature": "atan(x: number): number;",
+    "autoCompleteTemplate": "atan(${x});"
+},
+atan2: {
+    "name": "atan2",
+    "type": "function",
+    "text": "Returns the Arc Tangent of x divided by y (return value is in radians).",
+    "signature": "atan2(x: number, y: number): number;",
+    "autoCompleteTemplate": "atan2(${x}, ${y});"
+},
+sqr: {
+    "name": "sqr",
+    "type": "function",
+    "text": "Returns the square of the parameter (similar to x*x, though only evaluating x once).",
+    "signature": "sqr(x: number): number;",
+    "autoCompleteTemplate": "sqr(${x});"
+},
+sqrt: {
+    "name": "sqrt",
+    "type": "function",
+    "text": "Returns the square root of the parameter.",
+    "signature": "sqrt(x: number): number;",
+    "autoCompleteTemplate": "sqrt(${x});"
+},
+pow: {
+    "name": "pow",
+    "type": "function",
+    "text": "Returns the first parameter raised to the second parameter-th power.\nIdentical in behavior and performance to the ^ operator.",
+    "signature": "pow(x: number, y: number): number;",
+    "autoCompleteTemplate": "pow(${x}, ${y});"
+},
+exp: {
+    "name": "exp",
+    "type": "function",
+    "text": "Returns the number e (approx 2.718) raised to the parameter-th power.\nThis function is significantly faster than pow() or the ^ operator.",
+    "signature": "exp(x: number): number;",
+    "autoCompleteTemplate": "exp(${x});"
+},
+log: {
+    "name": "log",
+    "type": "function",
+    "text": "Returns the natural logarithm (base e) of the parameter.",
+    "signature": "log(x: number): number;",
+    "autoCompleteTemplate": "log(${x});"
+},
+log10: {
+    "name": "log10",
+    "type": "function",
+    "text": "Returns the logarithm (base 10) of the parameter.",
+    "signature": "log10(x: number): number;",
+    "autoCompleteTemplate": "log10(${x});"
+},
+abs: {
+    "name": "abs",
+    "type": "function",
+    "text": "Returns the absolute value of the parameter.",
+    "signature": "abs(x: number): number;",
+    "autoCompleteTemplate": "abs(${x});"
+},
+min: {
+    "name": "min",
+    "type": "function",
+    "text": "Returns the minimum value of the two parameters.",
+    "signature": "min(x: number, y: number): number;",
+    "autoCompleteTemplate": "min(${x}, ${y});"
+},
+max: {
+    "name": "max",
+    "type": "function",
+    "text": "Returns the maximum value of the two parameters.",
+    "signature": "max(x: number, y: number): number;",
+    "autoCompleteTemplate": "max(${x}, ${y});"
+},
+sign: {
+    "name": "sign",
+    "type": "function",
+    "text": "Returns the sign of the parameter (-1, 0, or 1).",
+    "signature": "sign(x: number): number;",
+    "autoCompleteTemplate": "sign(${x});"
+},
+rand: {
+    "name": "rand",
+    "type": "function",
+    "text": "Returns a pseudo-random number between 0 and the parameter.",
+    "signature": "rand(x: number): number;",
+    "autoCompleteTemplate": "rand(${x});"
+},
+floor: {
+    "name": "floor",
+    "type": "function",
+    "text": "Rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).",
+    "signature": "floor(x: number): number;",
+    "autoCompleteTemplate": "floor(${x});"
+},
+ceil: {
+    "name": "ceil",
+    "type": "function",
+    "text": "Rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).",
+    "signature": "ceil(x: number): number;",
+    "autoCompleteTemplate": "ceil(${x});"
+},
+invsqrt: {
+    "name": "invsqrt",
+    "type": "function",
+    "text": "Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.",
+    "signature": "invsqrt(x: number): number;",
+    "autoCompleteTemplate": "invsqrt(${x});"
 }
 };

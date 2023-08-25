@@ -1,5 +1,7 @@
 /// <reference no-default-lib="true"/>
 
+// CONFIGURATION
+
 /**
  * Configures the plugin.
  */
@@ -36,6 +38,8 @@ declare function selectBox(
     label: string
 ): void;
 
+// DEBUGGING
+
 /**
  * JS2EEL only supports the `.log()` method.
  * `console.log()` creates a debug variable to print the value of a variable in the JSFX dev environment.
@@ -43,6 +47,8 @@ declare function selectBox(
 declare const console: {
     log: (someVar: number | string) => void;
 };
+
+// JSFX COMPUTATION STAGES
 
 /**
  * Init variables and functions here.
@@ -63,6 +69,8 @@ declare function onSample(callback: () => void): void;
  * Iterates over each channel and provides the current sample for manipulation.
  */
 declare function eachChannel(callback: (sample: number, channel: number) => void): void;
+
+// DATA STRUCTURES
 
 /**
  * A fixed-size, multi-dimensional container for audio samples.
@@ -94,116 +102,10 @@ declare class EelArray {
     size(): number;
 }
 
-// System functions
+// AUDIO CONSTANTS
 
-/**
- * Returns the Sine of the angle specified (specified in radians).
- */
-declare function sin(angle: number): number;
-
-/**
- * Returns the Cosine of the angle specified (specified in radians).
- */
-declare function cos(angle: number): number;
-
-/**
- * Returns the Tangent of the angle specified (specified in radians).
- */
-declare function tan(angle: number): number;
-
-/**
- * Returns the Arc Sine of the value specified (return value is in radians).
- */
-declare function asin(x: number): number;
-
-/**
- * Returns the Arc Cosine of the value specified (return value is in radians).
- */
-declare function acos(x: number): number;
-
-/**
- * Returns the Arc Tangent of the value specified (return value is in radians).
- */
-declare function atan(x: number): number;
-
-/**
- * Returns the Arc Tangent of x divided by y (return value is in radians).
- */
-declare function atan2(x: number, y: number): number;
-
-/**
- * Returns the square of the parameter (similar to x*x, though only evaluating x once).
- */
-declare function sqr(x: number): number;
-
-/**
- * Returns the square root of the parameter.
- */
-declare function sqrt(x: number): number;
-
-/**
- * Returns the first parameter raised to the second parameter-th power.
- * Identical in behavior and performance to the ^ operator.
- */
-declare function pow(x: number, y: number): number;
-
-/**
- * Returns the number e (approx 2.718) raised to the parameter-th power.
- * This function is significantly faster than pow() or the ^ operator.
- */
-declare function exp(x: number): number;
-
-/**
- * Returns the natural logarithm (base e) of the parameter.
- */
-declare function log(x: number): number;
-
-/**
- * Returns the logarithm (base 10) of the parameter.
- */
-declare function log10(x: number): number;
-
-/**
- * Returns the absolute value of the parameter.
- */
-declare function abs(x: number): number;
-
-/**
- * Returns the minimum value of the two parameters.
- */
-declare function min(x: number, y: number): number;
-
-/**
- * Returns the maximum value of the two parameters.
- */
-declare function max(x: number, y: number): number;
-
-/**
- * Returns the sign of the parameter (-1, 0, or 1).
- */
-declare function sign(x: number): number;
-
-/**
- * Returns a pseudo-random number between 0 and the parameter.
- */
-declare function rand(x: number): number;
-
-/**
- * Rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).
- */
-declare function floor(x: number): number;
-
-/**
- * Rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).
- */
-declare function ceil(x: number): number;
-
-/**
- * Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.
- */
-declare function invsqrt(x: number): number;
-
-// System variables
+/** The sample rate of your project. */
+declare const srate: number;
 
 /** Channel 1 (L) sample variable */
 declare const spl0: number;
@@ -334,7 +236,116 @@ declare const spl62: number;
 /** Channel 64 sample variable */
 declare const spl63: number;
 
+// MATH CONSTANTS
+
 /** Pi */
 declare const $pi: number;
-/** The sample rate of your project. */
-declare const srate: number;
+
+// MATH FUNCTIONS
+
+/**
+ * Returns the Sine of the angle specified (specified in radians).
+ */
+declare function sin(angle: number): number;
+
+/**
+ * Returns the Cosine of the angle specified (specified in radians).
+ */
+declare function cos(angle: number): number;
+
+/**
+ * Returns the Tangent of the angle specified (specified in radians).
+ */
+declare function tan(angle: number): number;
+
+/**
+ * Returns the Arc Sine of the value specified (return value is in radians).
+ */
+declare function asin(x: number): number;
+
+/**
+ * Returns the Arc Cosine of the value specified (return value is in radians).
+ */
+declare function acos(x: number): number;
+
+/**
+ * Returns the Arc Tangent of the value specified (return value is in radians).
+ */
+declare function atan(x: number): number;
+
+/**
+ * Returns the Arc Tangent of x divided by y (return value is in radians).
+ */
+declare function atan2(x: number, y: number): number;
+
+/**
+ * Returns the square of the parameter (similar to x*x, though only evaluating x once).
+ */
+declare function sqr(x: number): number;
+
+/**
+ * Returns the square root of the parameter.
+ */
+declare function sqrt(x: number): number;
+
+/**
+ * Returns the first parameter raised to the second parameter-th power.
+ * Identical in behavior and performance to the ^ operator.
+ */
+declare function pow(x: number, y: number): number;
+
+/**
+ * Returns the number e (approx 2.718) raised to the parameter-th power.
+ * This function is significantly faster than pow() or the ^ operator.
+ */
+declare function exp(x: number): number;
+
+/**
+ * Returns the natural logarithm (base e) of the parameter.
+ */
+declare function log(x: number): number;
+
+/**
+ * Returns the logarithm (base 10) of the parameter.
+ */
+declare function log10(x: number): number;
+
+/**
+ * Returns the absolute value of the parameter.
+ */
+declare function abs(x: number): number;
+
+/**
+ * Returns the minimum value of the two parameters.
+ */
+declare function min(x: number, y: number): number;
+
+/**
+ * Returns the maximum value of the two parameters.
+ */
+declare function max(x: number, y: number): number;
+
+/**
+ * Returns the sign of the parameter (-1, 0, or 1).
+ */
+declare function sign(x: number): number;
+
+/**
+ * Returns a pseudo-random number between 0 and the parameter.
+ */
+declare function rand(x: number): number;
+
+/**
+ * Rounds the value to the lowest integer possible (floor(3.9)==3, floor(-3.1)==-4).
+ */
+declare function floor(x: number): number;
+
+/**
+ * Rounds the value to the highest integer possible (ceil(3.1)==4, ceil(-3.9)==-3).
+ */
+declare function ceil(x: number): number;
+
+/**
+ * Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.
+ */
+declare function invsqrt(x: number): number;
