@@ -1,12 +1,17 @@
 import fs from 'fs';
 import path from 'path';
 import ts from 'typescript';
+// import stringify from 'json-stringify-safe';
 
 const dtsPath = path.resolve('./js2eel.d.ts');
 const docsPath = path.resolve('./src/popupDocs.ts');
 const apiDocPath = path.resolve('../docs/api-documentation.md');
 
 const dtsFile = fs.readFileSync(dtsPath, 'utf8');
+
+// const dtsNode = ts.createSourceFile('x.ts', dtsFile, ts.ScriptTarget.Latest);
+
+// fs.writeFileSync('tstree.json', stringify(dtsNode, null, 4));
 
 let src = dtsFile;
 let srcSplit = src.split('\n');
@@ -84,7 +89,6 @@ while (src.length > 0) {
             let stringParams = [];
 
             tsParams.forEach((param) => {
-                // console.log("param", param.name.escapedText, param.type);
                 if (param.name.kind === typeMap['object']) {
                     stringParams.push('{${}}');
                 } else if (param.type.kind === typeMap['array']) {

@@ -45,6 +45,11 @@ slider(
     label: string
 ): void;
 ```
+
+Example:
+```javascript
+slider(1, volume, 0, -150, 18, 0.1, 'Volume [dB]');
+```
 ### selectBox()
 Registers a select box and its bound variable to be displayed in the plugin.
 
@@ -58,6 +63,21 @@ selectBox(
 ): void;
 ```
 
+Example:
+```javascript
+selectBox(
+3,
+algorithm,
+'sigmoid',
+[
+{ name: 'sigmoid', label: 'Sigmoid' },
+{ name: 'htan', label: 'Hyperbolic Tangent' },
+{ name: 'hclip', label: 'Hard Clip' }
+],
+'Algorithm'
+);
+```
+
 
 ## Debugging
 
@@ -69,6 +89,12 @@ JS2EEL only supports the `.log()` method.
 console: {
     log: (someVar: number | string) => void;
 };
+```
+
+Example:
+```javascript
+let myVal = 3;
+console.log(myVal);
 ```
 
 

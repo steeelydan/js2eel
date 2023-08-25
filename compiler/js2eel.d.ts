@@ -4,6 +4,7 @@
 
 /**
  * Configures the plugin.
+ *
  * @example ```javascript
  * config({ description: 'volume', inChannels: 2, outChannels: 2 });
  * ```
@@ -20,6 +21,10 @@ declare function config({
 
 /**
  * Registers a slider and its bound variable to be displayed in the plugin.
+ *
+ * @example ```javascript
+ * slider(1, volume, 0, -150, 18, 0.1, 'Volume [dB]');
+ * ```
  */
 declare function slider(
     sliderNumber: number,
@@ -33,6 +38,20 @@ declare function slider(
 
 /**
  * Registers a select box and its bound variable to be displayed in the plugin.
+ *
+ * @example ```javascript
+ * selectBox(
+ *     3,
+ *     algorithm,
+ *     'sigmoid',
+ *     [
+ *         { name: 'sigmoid', label: 'Sigmoid' },
+ *         { name: 'htan', label: 'Hyperbolic Tangent' },
+ *         { name: 'hclip', label: 'Hard Clip' }
+ *     ],
+ *     'Algorithm'
+ * );
+ * ```
  */
 declare function selectBox(
     sliderNumber: number,
@@ -47,6 +66,11 @@ declare function selectBox(
 /**
  * JS2EEL only supports the `.log()` method.
  * `console.log()` creates a debug variable to print the value of a variable in the JSFX dev environment.
+ *
+ * @example ```javascript
+ * let myVal = 3;
+ * console.log(myVal);
+ * ```
  */
 declare const console: {
     log: (someVar: number | string) => void;

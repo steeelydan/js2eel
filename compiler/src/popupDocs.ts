@@ -22,7 +22,7 @@ slider: {
     "name": "slider",
     "type": "function",
     "text": "Registers a slider and its bound variable to be displayed in the plugin.",
-    "example": null,
+    "example": "```javascript\nslider(1, volume, 0, -150, 18, 0.1, 'Volume [dB]');\n```",
     "signature": "slider(\n    sliderNumber: number,\n    variable: number,\n    initialValue: number,\n    min: number,\n    max: number,\n    step: number,\n    label: string\n): void;",
     "autoCompleteTemplate": "slider(${sliderNumber}, ${variable}, ${initialValue}, ${min}, ${max}, ${step}, ${label});"
 },
@@ -30,7 +30,7 @@ selectBox: {
     "name": "selectBox",
     "type": "function",
     "text": "Registers a select box and its bound variable to be displayed in the plugin.",
-    "example": null,
+    "example": "```javascript\nselectBox(\n3,\nalgorithm,\n'sigmoid',\n[\n{ name: 'sigmoid', label: 'Sigmoid' },\n{ name: 'htan', label: 'Hyperbolic Tangent' },\n{ name: 'hclip', label: 'Hard Clip' }\n],\n'Algorithm'\n);\n```",
     "signature": "selectBox(\n    sliderNumber: number,\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
     "autoCompleteTemplate": "selectBox(${sliderNumber}, ${variable}, ${initialValue}, [${}], ${label});"
 },
@@ -38,7 +38,7 @@ console: {
     "name": "console",
     "type": "constant",
     "text": "JS2EEL only supports the `.log()` method.\n`console.log()` creates a debug variable to print the value of a variable in the JSFX dev environment.",
-    "example": null,
+    "example": "```javascript\nlet myVal = 3;\nconsole.log(myVal);\n```",
     "signature": "console: {\n    log: (someVar: number | string) => void;\n};",
     "autoCompleteTemplate": "console"
 },
