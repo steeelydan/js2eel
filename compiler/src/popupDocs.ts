@@ -16,13 +16,6 @@ export const POPUP_DOCS: {
     "signature": "config({\n    description,\n    inChannels,\n    outChannels\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n}): void;",
     "autoCompleteTemplate": "config({${}});"
 },
-console: {
-    "name": "console",
-    "type": "constant",
-    "text": "Creates a debug var to print the value of a variable in the JSFX dev environment.",
-    "signature": "console: {\n    log: (someVar: number | string) => void;\n};",
-    "autoCompleteTemplate": "console"
-},
 slider: {
     "name": "slider",
     "type": "function",
@@ -36,6 +29,13 @@ selectBox: {
     "text": "Registers a select box and its bound variable to be displayed in the plugin.",
     "signature": "selectBox(\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
     "autoCompleteTemplate": "selectBox(${variable}, ${initialValue}, [${}], ${label});"
+},
+console: {
+    "name": "console",
+    "type": "constant",
+    "text": "JS2EEL only supports the `.log()` method.\n`console.log()` creates a debug variable to print the value of a variable in the JSFX dev environment.",
+    "signature": "console: {\n    log: (someVar: number | string) => void;\n};",
+    "autoCompleteTemplate": "console"
 },
 onInit: {
     "name": "onInit",
@@ -68,14 +68,14 @@ eachChannel: {
 EelBuffer: {
     "name": "EelBuffer",
     "type": "class",
-    "text": "A fixed-size, multi-dimensional container for audio samples.\n\nAccess: buf[dimension][position]\n\nTranslates to EEL2s memory objects. Is not inlined in the EEL source, so\nonly feasible for large data. For small data, use EelArray.",
+    "text": "A fixed-size, multi-dimensional container for audio samples.\n\nAccess: `buf[dimension][position]`\n\nTranslates to EEL2s memory objects. Is not inlined in the EEL source, so\nonly feasible for large data. For small data, use EelArray.",
     "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n}",
     "autoCompleteTemplate": "EelBuffer(${dimensions}, ${size});"
 },
 EelArray: {
     "name": "EelArray",
     "type": "class",
-    "text": "A fixed-size, multi-dimensional container for numeric data.\n\nAccess: arr[dimension][position]\n\nIs inlined in the EEL source, dimensions and size are restricted to 16 each. For large data,\nuse EelBuffer.",
+    "text": "A fixed-size, multi-dimensional container for numeric data.\n\nAccess: `arr[dimension][position]`\n\nIs inlined in the EEL source, dimensions and size are restricted to 16 each. For large data,\nuse EelBuffer.",
     "signature": "EelArray {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n}",
     "autoCompleteTemplate": "EelArray(${dimensions}, ${size});"
 },

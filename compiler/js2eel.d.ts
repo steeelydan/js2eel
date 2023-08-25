@@ -14,13 +14,6 @@ declare function config({
 }): void;
 
 /**
- * Creates a debug var to print the value of a variable in the JSFX dev environment.
- */
-declare const console: {
-    log: (someVar: number | string) => void;
-};
-
-/**
  * Registers a slider and its bound variable to be displayed in the plugin.
  */
 declare function slider(
@@ -42,6 +35,14 @@ declare function selectBox(
     values: { name: string; label: string }[],
     label: string
 ): void;
+
+/**
+ * JS2EEL only supports the `.log()` method.
+ * `console.log()` creates a debug variable to print the value of a variable in the JSFX dev environment.
+ */
+declare const console: {
+    log: (someVar: number | string) => void;
+};
 
 /**
  * Init variables and functions here.
@@ -66,7 +67,7 @@ declare function eachChannel(callback: (sample: number, channel: number) => void
 /**
  * A fixed-size, multi-dimensional container for audio samples.
  *
- * Access: buf[dimension][position]
+ * Access: `buf[dimension][position]`
  *
  * Translates to EEL2s memory objects. Is not inlined in the EEL source, so
  * only feasible for large data. For small data, use EelArray.
@@ -81,7 +82,7 @@ declare class EelBuffer {
 /**
  * A fixed-size, multi-dimensional container for numeric data.
  *
- * Access: arr[dimension][position]
+ * Access: `arr[dimension][position]`
  *
  * Is inlined in the EEL source, dimensions and size are restricted to 16 each. For large data,
  * use EelBuffer.

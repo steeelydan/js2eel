@@ -4,6 +4,7 @@ import ts from 'typescript';
 
 const dtsPath = path.resolve('./js2eel.d.ts');
 const docsPath = path.resolve('./src/popupDocs.ts');
+const apiDocPath = path.resolve('../docs/api-documentation.md');
 
 const dtsFile = fs.readFileSync(dtsPath, 'utf8');
 
@@ -81,7 +82,7 @@ while (src.length > 0) {
                 // console.log("param", param.name.escapedText, param.type);
                 if (param.name.kind === typeMap['object']) {
                     stringParams.push('{${}}');
-                } else if (param.type.kind === typeMap["array"]) {
+                } else if (param.type.kind === typeMap['array']) {
                     stringParams.push('[${}]');
                 } else if (param.type.kind === typeMap['string']) {
                     stringParams.push('${' + param.name.escapedText + '}');
@@ -154,9 +155,13 @@ while (src.length > 0) {
     }
 }
 
+// Make popupDocs.ts for codemirror hover docs
+
 let renderedParts = '';
 
 parts.forEach((part, index) => {
+    console.log('part', part);
+
     renderedParts += `${part.name}: ${JSON.stringify(part, null, 4)}${
         index < parts.length - 1 ? ',\n' : ''
     }`;
@@ -178,4 +183,62 @@ export const POPUP_DOCS: {
 `;
 
 fs.writeFileSync(docsPath, docsFile);
+
+// Make API Docs markdown file (api-documentation.md)
+
+let apiDocsMd = '';
+
+apiDocsMd += `# API Documentation
+
+## Configuration
+
+`;
+
+const markDownHeadings = [];
+
+const addMarkdownHeading = (title, text = '') => {
+    apiDocsMd += `
+
+## ${title}
+
+`;
+
+    if (text) {
+        apiDocsMd += `${text}
+
+`;
+    }
+
+    markDownHeadings.push(title);
+};
+
+parts.forEach((part) => {
+    if (part.name.includes('console')) {
+        addMarkdownHeading('Debugging');
+    } else if (part.name.includes('onInit')) {
+        addMarkdownHeading(
+            'JSFX Computation Stages',
+            `These functions correspond to JSFX's \`@sample\` etc.`
+        );
+    } else if (part.name.includes('EelBuffer')) {
+        addMarkdownHeading('Data Structures');
+    } else if (part.name === 'sin') {
+        addMarkdownHeading(
+            'Math Functions',
+            'These functions correspond exactly to their equivalents in JSFX/EEL2.'
+        );
+    }
+
+    apiDocsMd += `### ${part.name}${part.type === 'function' ? '()' : ''}
+
+${part.text}
+
+\`\`\`javascript
+${part.signature}
+\`\`\`
+`;
+});
+
+fs.writeFileSync(apiDocPath, apiDocsMd);
+
 fs.writeFileSync('debug_tsoutput.json', JSON.stringify(tsOutput, null, 4));
