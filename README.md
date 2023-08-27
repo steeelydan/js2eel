@@ -65,7 +65,7 @@ There are three ways to use the desktop app:
 
 ### a. Download an Executable
 
-Go to https://github.com/steeelydan/js2eel/releases. Ideally, an executable for your operating system is available. Please note that the Mac and Windows executables are currently unsigned. I plan to do that as soon as possible.
+Go to https://github.com/steeelydan/js2eel/releases. Ideally, an executable for your operating system is available. Please note that the Windows executable is currently unsigned. I plan to do that as soon as possible.
 
 ### b. Build an Executable From Source
 
