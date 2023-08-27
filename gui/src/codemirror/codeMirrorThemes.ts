@@ -47,5 +47,8 @@ export const codemirrorThemeBright = EditorView.theme({
         fontSize: '10pt'
     },
     '.cm-lintRange-error': { backgroundImage: underline(COLORS.error) },
-    '.cm-lintRange-warning': { backgroundImage: underline(COLORS.warning) }
+    '.cm-lintRange-warning': { backgroundImage: underline(COLORS.warning) },
+    '.cm-tooltip-section pre': {
+        fontSize: '9pt'
+    }
 });
