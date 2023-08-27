@@ -53,6 +53,10 @@ h4 {
     font-weight: bold;
 }
 
+h1:first-of-type {
+    margin-top: 12px;
+}
+
 h1:not(:first-of-type) {
     margin-top: 27px;
 }
@@ -63,7 +67,7 @@ h1 {
 
 h2 {
     margin-top: 26px;
-    margin-bottom: 12px;
+    margin-bottom: 15px;
 }
 
 h3 {
