@@ -6,3 +6,4 @@ dist/
 gui-dist/
 coverage/
 debug_tsoutput.json
+.env

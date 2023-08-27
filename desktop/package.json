@@ -16,6 +16,7 @@
         "dist": "npm run build && electron-builder"
     },
     "build": {
+        "afterSign": "scripts/apple-notarize.js",
         "appId": "js2eel",
         "productName": "js2eel",
         "files": [
@@ -53,6 +54,7 @@
         "chokidar": "3.5.3"
     },
     "devDependencies": {
+        "@electron/notarize": "1.2.4",
         "@types/electron": "1.6.10",
         "@types/node": "20.3.3",
         "@typescript-eslint/eslint-plugin": "5.60.1",
