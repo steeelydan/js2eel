@@ -1,15 +1,16 @@
 import { useEffect } from 'preact/hooks';
 import { EditorApp } from './EditorApp';
+import { useAppStore } from '../zustand/appStore';
+import { useJs2EelStore } from '../zustand/js2eelStore';
+import { loadClientSetting } from '../storage/clientSettings';
 import { Js2EelDesktopStorage } from '../storage/Js2EelDesktopStorage';
+import { DesktopHome } from './desktop/DesktopHome';
+import { DirInputScreen } from './desktop/DirInputScreen';
+import { DesktopSettings } from './desktop/DesktopSettings';
 
 import type { VNode } from 'preact';
 import type { AppScreen, WrappedCompileResult } from '../types';
 import type { CompileResult } from '@js2eel/compiler/dist/types/js2eel/types';
-import { DesktopHome } from './desktop/DesktopHome';
-import { useAppStore } from '../zustand/appStore';
-import { loadClientSetting } from '../storage/clientSettings';
-import { useJs2EelStore } from '../zustand/js2eelStore';
-import { DirInput } from './desktop/DirInput';
 
 const storage = new Js2EelDesktopStorage();
 
@@ -84,11 +85,13 @@ export const DesktopApp = (): VNode | null => {
 
     return settings ? (
         !dirsDefined ? (
-            <DirInput />
-        ) : appScreen === 'home' ? (
+            <DirInputScreen />
+        ) : appScreen === 'home' || !appScreen ? (
             <DesktopHome />
         ) : appScreen === 'js2eel' ? (
             <EditorApp environment="desktop" initialStorage={storage} onCompile={onCompile} />
+        ) : appScreen === 'settings' ? (
+            <DesktopSettings />
         ) : null
     ) : null;
 };

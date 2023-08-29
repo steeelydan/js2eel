@@ -15,7 +15,7 @@ export type AppEnvironment = 'desktop' | 'webapp';
 
 export type ListedFile = { absoluteFilePath: string };
 
-export type AppScreen = 'home' | 'dirinput' | 'js2eel';
+export type AppScreen = 'home' | 'dirinput' | 'settings' | 'js2eel';
 
 export type FileCurrentExpandedTreeNodes = Record<string, boolean> | null;
 export type CurrentExpandedTreeNodes = { [filePath in string]?: FileCurrentExpandedTreeNodes };

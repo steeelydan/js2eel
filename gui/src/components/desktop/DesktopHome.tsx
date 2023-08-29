@@ -1,13 +1,12 @@
-import { Edit3 } from 'react-feather';
-import { TileButton } from './TileButton';
-
-import type { VNode } from 'preact';
-import { useAppStore } from '../../zustand/appStore';
-
 import { useEffect } from 'preact/hooks';
+import { Edit3, Settings } from 'react-feather';
+import { useAppStore } from '../../zustand/appStore';
 import { useJs2EelStore } from '../../zustand/js2eelStore';
+import { TileButton } from './TileButton';
 import { TitleDisplay } from './TitleDisplay';
 import { Button } from '../ui/Button';
+
+import type { VNode } from 'preact';
 
 export const DesktopHome = (): VNode => {
     const setAppScreen = useAppStore((state) => state.setAppScreen);
@@ -54,11 +53,11 @@ export const DesktopHome = (): VNode => {
                         label="Editor"
                         onClick={async (): Promise<void> => await setAppScreen('js2eel')}
                     />
-                    {/* <TileButton
+                    <TileButton
                         icon={<Settings />}
                         label="Settings"
-                        onClick={(): void => undefined}
-                    /> */}
+                        onClick={async (): Promise<void> => await setAppScreen('settings')}
+                    />
                 </div>
                 {settings && (
                     <div style={{ marginTop: 20, width: '100%', maxWidth: '500px' }}>

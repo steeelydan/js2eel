@@ -1,11 +1,13 @@
-import type { VNode } from 'preact';
+import { useEffect, useState } from 'preact/hooks';
+import { useAppStore } from '../../zustand/appStore';
+import { useJs2EelStore } from '../../zustand/js2eelStore';
 import { TitleDisplay } from './TitleDisplay';
 import { Button } from '../ui/Button';
-import { useEffect, useState } from 'preact/hooks';
-import { useJs2EelStore } from '../../zustand/js2eelStore';
-import { useAppStore } from '../../zustand/appStore';
+import { DirSelector } from './DirSelector';
 
-export const DirInput = (): VNode => {
+import type { VNode } from 'preact';
+
+export const DirInputScreen = (): VNode => {
     const [inputDir, setInputDir] = useState<string | null>(null);
     const [outputDir, setOutputDir] = useState<string | null>(null);
     const storage = useJs2EelStore((state) => state.storage);
@@ -61,21 +63,13 @@ export const DirInput = (): VNode => {
                         You can put this directory under version control.
                     </p>
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <input
-                        value={inputDir || ''}
-                        style={{ width: '100%', maxWidth: 500, marginRight: 8 }}
-                        onInput={(event): void =>
-                            setInputDir((event.target as HTMLInputElement).value)
-                        }
-                    ></input>
-                    <Button
-                        label="Choose"
-                        onClick={async (): Promise<void> => {
-                            setInputDir(await window.electronAPI.openDirectory());
-                        }}
-                    />
-                </div>
+                <DirSelector
+                    dir={inputDir}
+                    setDir={setInputDir}
+                    onChoose={async (): Promise<void> => {
+                        setInputDir(await window.electronAPI.openDirectory());
+                    }}
+                />
                 <div>
                     <h2 style={{ fontSize: '13pt' }}>Output directory</h2>
                     <p>
@@ -85,21 +79,13 @@ export const DirInput = (): VNode => {
                         <code>Effects/</code> directory in REAPER&apos;s user directory.
                     </p>
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <input
-                        value={outputDir || ''}
-                        style={{ width: '100%', maxWidth: 500, marginRight: 8 }}
-                        onInput={(event): void =>
-                            setOutputDir((event.target as HTMLInputElement).value)
-                        }
-                    ></input>
-                    <Button
-                        label="Choose"
-                        onClick={async (): Promise<void> => {
-                            setOutputDir(await window.electronAPI.openDirectory());
-                        }}
-                    />
-                </div>
+                <DirSelector
+                    dir={outputDir}
+                    setDir={setOutputDir}
+                    onChoose={async (): Promise<void> => {
+                        setOutputDir(await window.electronAPI.openDirectory());
+                    }}
+                />
                 <Button
                     additionalStyles={{ marginTop: '20px' }}
                     label="Save"
