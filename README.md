@@ -26,9 +26,9 @@ Desktop App:
 
 <img src="./media/screenshot_desktop_1.png">
 
-Live Reload in REAPER:
+Compiled JSFX with live reload in REAPER:
 
-<img src="./media/screenshot_desktop_2.png">
+<img src="./media/screenshot_desktop_3.png">
 
 ## Why?
 
