@@ -123,7 +123,7 @@ export const Toolbar = ({ createNewFile }: Props): VNode => {
                         style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
                     >
                         {environment === 'webapp' && (
-                            <img style={{ width: 20, height: 20, marginRight: 8 }} src={icon} />
+                            <img style={{ width: 20, height: 20, marginRight: 8 }} src={icon} alt="JS2EEL Logo" />
                         )}
                         {environment === 'desktop' && (
                             <Button
@@ -316,8 +316,9 @@ export const Toolbar = ({ createNewFile }: Props): VNode => {
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}
+                                aria-label="Link to the JS2EEL GitHub Repository"
                             >
-                                <img style={{ width: 18, height: 18 }} src={githubMark} />
+                                <img style={{ width: 18, height: 18 }} src={githubMark} alt="Link to GitHub" />
                             </a>
                         </div>
                     </div>

@@ -17,6 +17,7 @@ export const TitleDisplay = (): VNode => {
                 <img
                     style={{ width: 40, height: 40, marginRight: 16, marginBottom: 4 }}
                     src={icon}
+                    alt="JS2EEL Logo"
                 />
                 <h1 style={{ marginBottom: 8 }}>JS2EEL</h1>
             </div>
