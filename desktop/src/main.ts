@@ -58,7 +58,9 @@ import { registerFileWatcher } from './registerFileWatcher';
         ipcMain.handle('apiSaveJsSrc', apiSaveJsSrc);
         ipcMain.handle('apiJsCompile', apiJsCompile);
         ipcMain.handle('showDirInFileBrowser', showDirInFileBrowser);
-        ipcMain.handle('dialog:openDirectory', (event) => openDirectory(event, browserWindow));
+        ipcMain.handle('dialog:openDirectory', (event, defaultPath) =>
+            openDirectory(event, browserWindow, defaultPath)
+        );
 
         createWindow();
     });

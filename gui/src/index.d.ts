@@ -10,7 +10,7 @@ export declare global {
                 filePath: string,
                 jsSrc: string
             ) => Promise<CompileResult | { success: false }>;
-            openDirectory: () => Promise<string | null>;
+            openDirectory: (defaultPath: string | null | undefined) => Promise<string | null>;
             showDirInFileBrowser: (dirPath: string) => Promise<void>;
         };
     }

@@ -67,7 +67,7 @@ export const DirInputScreen = (): VNode => {
                     dir={inputDir}
                     setDir={setInputDir}
                     onChoose={async (): Promise<void> => {
-                        const value = await window.electronAPI.openDirectory();
+                        const value = await window.electronAPI.openDirectory(settings?.inputDir);
 
                         if (value) {
                             setInputDir(value);
@@ -87,7 +87,7 @@ export const DirInputScreen = (): VNode => {
                     dir={outputDir}
                     setDir={setOutputDir}
                     onChoose={async (): Promise<void> => {
-                        const value = await window.electronAPI.openDirectory();
+                        const value = await window.electronAPI.openDirectory(settings?.outputDir);
 
                         if (value) {
                             setOutputDir(value);

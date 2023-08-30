@@ -12,6 +12,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
         ipcRenderer.invoke('apiSaveJsSrc', fileName, content),
     apiJsCompile: (filePath: string, jsSrc: string) =>
         ipcRenderer.invoke('apiJsCompile', filePath, jsSrc),
-    openDirectory: () => ipcRenderer.invoke('dialog:openDirectory'),
+    openDirectory: (defaultPath: string | null | undefined) =>
+        ipcRenderer.invoke('dialog:openDirectory', defaultPath),
     showDirInFileBrowser: (dirPath: string) => ipcRenderer.invoke('showDirInFileBrowser', dirPath)
 });

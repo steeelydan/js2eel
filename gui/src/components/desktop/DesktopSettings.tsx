@@ -98,7 +98,9 @@ export const DesktopSettings = (): VNode => {
                         dir={inputDir}
                         setDir={setInputDir}
                         onChoose={async (): Promise<void> => {
-                            const value = await window.electronAPI.openDirectory();
+                            const value = await window.electronAPI.openDirectory(
+                                settings?.inputDir
+                            );
 
                             if (value) {
                                 setInputDir(value);
@@ -118,7 +120,9 @@ export const DesktopSettings = (): VNode => {
                         dir={outputDir}
                         setDir={setOutputDir}
                         onChoose={async (): Promise<void> => {
-                            const value = await window.electronAPI.openDirectory();
+                            const value = await window.electronAPI.openDirectory(
+                                settings?.outputDir
+                            );
 
                             if (value) {
                                 setOutputDir(value);
