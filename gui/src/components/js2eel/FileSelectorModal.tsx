@@ -107,7 +107,7 @@ export const FileSelectorModal = (): VNode => {
                                             listedFile.absoluteFilePath
                                         );
 
-                                        if (fileSrc) {
+                                        if (fileSrc !== null) {
                                             await activateFile(
                                                 fileSrc,
                                                 listedFile.absoluteFilePath,

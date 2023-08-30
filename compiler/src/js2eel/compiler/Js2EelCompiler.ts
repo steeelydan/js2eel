@@ -185,6 +185,14 @@ export class Js2EelCompiler {
 
         this.src.eelSrcTemp += program(tree as unknown as Program, this);
 
+        if (!this.pluginData.description) {
+            this.error(
+                'GenericError',
+                'No plugin configuration found. Call config() at the beginning of the file.',
+                null
+            );
+        }
+
         this.src.eelSrcFinal += `/* Compiled with JS2EEL v${COMPILER_VERSION} */\n\n`;
 
         this.src.eelSrcFinal += `desc:${this.pluginData.description}\n`;

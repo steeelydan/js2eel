@@ -91,7 +91,7 @@ export const Js2Eel = (): VNode => {
             if (savedCurrentFilePath) {
                 const savedFileSrc = await storage.loadJsSrc(savedCurrentFilePath);
 
-                if (savedFileSrc) {
+                if (savedFileSrc !== null) {
                     await activateFile(
                         savedFileSrc,
                         savedCurrentFilePath,

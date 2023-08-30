@@ -86,11 +86,7 @@ export const apiLoadJsSrc = async (
             'utf-8'
         );
 
-        if (potentialFileContent) {
-            return potentialFileContent;
-        } else {
-            return null;
-        }
+        return potentialFileContent;
     } catch {
         return null;
     }

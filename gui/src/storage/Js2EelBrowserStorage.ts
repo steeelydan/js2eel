@@ -38,6 +38,7 @@ export class Js2EelBrowserStorage implements Js2EelStorage {
         const savedFileCandidate = getFromLocalStorage(JS_LOCAL_STORAGE_PREFIX + absoluteFilePath);
 
         let savedFileSrc = null;
+
         if (savedFileCandidate) {
             const parsed: LocalStorageSavedFile = JSON.parse(savedFileCandidate);
             savedFileSrc = parsed.src;
