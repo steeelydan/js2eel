@@ -146,11 +146,11 @@ export const apiJsCompile = async (
 export const openDirectory = async (
     _event: IpcMainInvokeEvent,
     mainWindow: Electron.BrowserWindow,
-    defaultPath: string
+    defaultPath: string | null | undefined
 ): Promise<string | null> => {
     const { canceled, filePaths } = await dialog.showOpenDialog(mainWindow, {
         properties: ['openDirectory', 'showHiddenFiles', 'createDirectory'],
-        defaultPath: defaultPath
+        defaultPath: defaultPath || undefined
     });
 
     if (canceled) {

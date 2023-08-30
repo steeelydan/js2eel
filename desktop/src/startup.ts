@@ -55,5 +55,19 @@ export const startup = async (): Promise<{ settings: DesktopSettings }> => {
         saveSettingsFile(settings);
     }
 
+    let someDirMissing = false;
+
+    for (const [key, dir] of Object.entries(settings)) {
+        if (dir && !fs.existsSync(dir)) {
+            console.error(`Directory ${key} does not exist: ${dir}. Set to null.`);
+            settings[key as keyof DesktopSettings] = null;
+            someDirMissing = true;
+        }
+    }
+
+    if (someDirMissing) {
+        saveSettingsFile(settings);
+    }
+
     return { settings: settings };
 };

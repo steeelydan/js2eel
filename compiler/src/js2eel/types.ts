@@ -202,7 +202,7 @@ export type ObjectValue = string | number | bigint | boolean | RegExp | null | u
 
 export type DesktopSettings = {
     appDir: string | null;
-    reaperDefaultEffectsDir: string;
+    reaperDefaultEffectsDir: string | null;
     inputDir?: string | null;
     outputDir?: string | null;
 };
