@@ -1,9 +1,9 @@
 {
     "name": "js2eel",
     "workspaces": [
-        "compiler",
-        "gui",
-        "desktop"
+        "packages/compiler",
+        "packages/gui",
+        "packages/desktop"
     ],
     "scripts": {
         "dev:compiler": "npm run dev --workspace compiler",
