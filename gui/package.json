@@ -7,7 +7,7 @@
     },
     "type": "module",
     "scripts": {
-        "dev": "npm run docs && concurrently -n web,desk -c yellow,green \"vite --config ./webapp/vite.config.webapp.ts --clearScreen false -l info\" \"vite --config ./desktop/vite.config.desktop.ts build --mode development -l info -w --clearScreen false\"",
+        "dev": "npm run docs && concurrently -n tsc,web,desk -c black,yellow,green \"tsc --watch --noEmit --preserveWatchOutput\" \"vite --config ./webapp/vite.config.webapp.ts --clearScreen false -l warn\" \"vite --config ./desktop/vite.config.desktop.ts build --mode development --emptyOutDir -l warn -w --clearScreen false\"",
         "build": "node ./scripts/createDocs.js && tsc && vite build --config ./webapp/vite.config.webapp.ts && vite build --config ./desktop/vite.config.desktop.ts",
         "dist:webapp": "node ./scripts/createDocs.js && rm -rf ../../dist/webapp/* && vite build --config ./webapp/vite.config.webapp.ts --mode production --outDir ../../dist/webapp",
         "dist:desktop": "rm -rf ../desktop/gui-dist/* && vite build --config ./desktop/vite.config.desktop.ts --mode production --outDir ../../desktop/gui-dist/",
