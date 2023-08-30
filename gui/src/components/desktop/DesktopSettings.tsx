@@ -129,13 +129,22 @@ export const DesktopSettings = (): VNode => {
                             }
                         }}
                     />
-                    <Button
-                        additionalStyles={{ marginTop: '20px' }}
-                        label="Save"
-                        onClick={async (): Promise<void> => {
-                            await onSave();
-                        }}
-                    />
+                    <div style={{ display: 'flex', marginTop: '32px' }}>
+                        <Button
+                            label="Cancel"
+                            variant="buttonSecondary"
+                            additionalStyles={{ marginRight: '12px' }}
+                            onClick={async (): Promise<void> => {
+                                await setAppScreen('home');
+                            }}
+                        />
+                        <Button
+                            label="Save"
+                            onClick={async (): Promise<void> => {
+                                await onSave();
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         </div>

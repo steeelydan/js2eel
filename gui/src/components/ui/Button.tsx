@@ -12,7 +12,7 @@ type Props = {
     additionalStyles?: CSS.Properties;
     additionalHoverStyles?: CSS.Properties;
     disabled?: boolean;
-    variant?: 'button' | 'link';
+    variant?: 'button' | 'buttonSecondary' | 'link';
     form?: string;
     type?: 'submit';
 };
@@ -34,7 +34,7 @@ export const Button = ({
     const disabledStyles: CSS.Properties = useMemo(
         () =>
             disabled
-                ? variant === 'button'
+                ? variant === 'button' || variant === 'buttonSecondary'
                     ? icon
                         ? { cursor: 'default' }
                         : {
@@ -51,15 +51,21 @@ export const Button = ({
 
     const isHoveredStyles: CSS.Properties = useMemo(() => {
         return !disabled && isHovered
-            ? variant === 'button'
+            ? variant === 'button' || variant === 'buttonSecondary'
                 ? icon
                     ? {
-                          backgroundColor: COLORS.iconButtonBgHover,
+                          backgroundColor:
+                              variant === 'buttonSecondary'
+                                  ? COLORS.iconButtonBgSecondaryHover
+                                  : COLORS.iconButtonBgHover,
                           borderRadius: '3px',
                           ...additionalHoverStyles
                       }
                     : {
-                          backgroundColor: COLORS.buttonBgHover,
+                          backgroundColor:
+                              variant === 'buttonSecondary'
+                                  ? COLORS.buttonBgHoverSecondary
+                                  : COLORS.buttonBgHover,
                           borderRadius: '3px',
                           ...additionalHoverStyles
                       }
@@ -71,7 +77,7 @@ export const Button = ({
     }, [additionalHoverStyles, disabled, icon, isHovered, variant]);
 
     const buttonStyles: CSS.Properties = useMemo(() => {
-        return variant === 'button'
+        return variant === 'button' || variant === 'buttonSecondary'
             ? icon
                 ? {
                       display: 'flex',
@@ -92,7 +98,10 @@ export const Button = ({
                       justifyContent: 'center',
                       alignItems: 'center',
                       height: '24px',
-                      backgroundColor: COLORS.buttonBg,
+                      backgroundColor:
+                          variant === 'buttonSecondary'
+                              ? COLORS.buttonBgSecondary
+                              : COLORS.buttonBg,
                       color: COLORS.buttonColor,
                       border: 'none',
                       padding: '3px 5px',
