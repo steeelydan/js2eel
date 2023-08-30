@@ -10,9 +10,7 @@
 
 ## Setup
 
--   Install dependencies for all packages:
-    -   `cd scripts`
-    -   `./install.sh`
+-   Install dependencies for all packages: `npm ci`
 -   Open a different terminal session for each of the following steps
     -   Go to `compiler` and do `npm run dev`
     -   Go to `gui` and do `npm run dev`

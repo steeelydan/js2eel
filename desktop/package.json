@@ -13,7 +13,7 @@
         "build": "rm -rf ./build/* && tsc",
         "test": "echo \"No tests yet.\"",
         "check": "eslint ./src && tsc --noEmit",
-        "dist": "npm run build && electron-builder"
+        "dist": "mkdir -p node_modules && npm run build && electron-builder"
     },
     "build": {
         "afterSign": "scripts/apple-notarize.js",
@@ -48,5 +48,9 @@
         "mac": {}
     },
     "author": "steeelydan",
-    "license": "GPL-3.0"
+    "license": "GPL-3.0",
+    "devDependencies": {
+        "electron": "26.1.0",
+        "electron-builder": "24.6.3"
+    }
 }

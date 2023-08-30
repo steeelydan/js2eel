@@ -22,6 +22,7 @@ module.exports = {
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/ban-ts-comment': 1,
+        '@typescript-eslint/no-explicit-any': 'warn',
         '@typescript-eslint/no-unused-vars': [
             'warn',
             {

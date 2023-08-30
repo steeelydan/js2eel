@@ -6,7 +6,12 @@
         "desktop"
     ],
     "scripts": {
-        "test": "npm test --workspace compiler"
+        "dev:compiler": "npm run dev --workspace compiler",
+        "dev:gui": "npm run dev --workspace gui",
+        "dev:desktop": "npm run dev --workspace desktop",
+        "check": "npm run check --workspace compiler --workspace gui --workspace desktop",
+        "test": "npm test --workspace compiler",
+        "dist": "npm run dist --workspace compiler --workspace gui --workspace desktop"
     },
     "dependencies": {
         "@codemirror/lang-javascript": "6.2.1",
@@ -35,8 +40,6 @@
         "chai": "4.3.8",
         "concurrently": "8.2.1",
         "csstype": "3.1.2",
-        "electron": "26.1.0",
-        "electron-builder": "24.6.3",
         "eslint": "8.48.0",
         "eslint-plugin-react": "7.33.2",
         "eslint-plugin-react-hooks": "4.6.0",
