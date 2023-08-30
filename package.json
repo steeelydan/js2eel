@@ -6,12 +6,12 @@
         "packages/desktop"
     ],
     "scripts": {
-        "dev:compiler": "npm run dev --workspace compiler",
-        "dev:gui": "npm run dev --workspace gui",
-        "dev:desktop": "npm run dev --workspace desktop",
-        "check": "npm run check --workspace compiler --workspace gui --workspace desktop",
-        "test": "npm test --workspace compiler",
-        "dist": "npm run dist --workspace compiler --workspace gui --workspace desktop"
+        "dev:compiler": "npm run dev -w packages/compiler",
+        "dev:gui": "npm run dev -w packages/gui",
+        "dev:desktop": "npm run dev -w packages/desktop",
+        "check": "npm run check -w packages/compiler -w packages/gui -w packages/desktop",
+        "test": "npm test -w packages/compiler",
+        "dist": "npm run dist -w packages/compiler -w packages/gui -w packages/desktop"
     },
     "dependencies": {
         "@codemirror/lang-javascript": "6.2.1",

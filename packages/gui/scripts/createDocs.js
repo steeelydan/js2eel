@@ -5,7 +5,7 @@ import { Marked } from 'marked';
 import { markedHighlight } from 'marked-highlight';
 import hljs from 'highlight.js';
 
-const DOCS_MD_PATH = path.resolve('../docs');
+const DOCS_MD_PATH = path.resolve('../../docs');
 const OUTPUT_DIR = path.resolve('src/docs');
 
 const marked = new Marked(

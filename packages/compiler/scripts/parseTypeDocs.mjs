@@ -5,7 +5,7 @@ import ts from 'typescript';
 
 const dtsPath = path.resolve('./js2eel.d.ts');
 const docsPath = path.resolve('./src/popupDocs.ts');
-const apiDocPath = path.resolve('../docs/api-documentation.md');
+const apiDocPath = path.resolve('../../docs/api-documentation.md');
 
 const dtsFile = fs.readFileSync(dtsPath, 'utf8');
 
