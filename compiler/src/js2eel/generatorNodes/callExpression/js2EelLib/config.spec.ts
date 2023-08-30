@@ -28,9 +28,10 @@ out_pin:In 1
 
 `)
         );
-        expect(result.errors.length).to.equal(2);
+        expect(result.errors.length).to.equal(3);
         expect(result.errors[0].type).to.equal('GenericError');
         expect(result.errors[1].type).to.equal('ScopeError');
+        expect(result.errors[2].type).to.equal('GenericError');
     });
 
     it('Error if called more than once', () => {
@@ -74,7 +75,8 @@ out_pin:In 1
 `)
         );
 
-        expect(result.errors.length).to.equal(1);
+        expect(result.errors.length).to.equal(2);
         expect(result.errors[0].type).to.equal('ValidationError');
+        expect(result.errors[1].type).to.equal('GenericError');
     });
 });

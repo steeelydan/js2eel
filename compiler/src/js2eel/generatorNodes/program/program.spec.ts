@@ -55,8 +55,9 @@ myVar = 1;
 
 `)
         );
-        expect(result.errors.length).to.equal(1);
+        expect(result.errors.length).to.equal(2);
         expect(result.errors[0].type).to.equal('GenericError');
+        expect(result.errors[1].type).to.equal('GenericError');
     });
 
     it('produces error if forbidden function called in root scope', () => {
