@@ -1,6 +1,6 @@
 {
     "name": "js2eel-desktop",
-    "version": "0.6.1",
+    "version": "0.6.2",
     "homepage": "https://js2eel.org",
     "description": "JS2EEL",
     "engines": {
@@ -55,7 +55,6 @@
     },
     "devDependencies": {
         "@electron/notarize": "1.2.4",
-        "@types/electron": "1.6.10",
         "@types/node": "20.3.3",
         "@typescript-eslint/eslint-plugin": "5.60.1",
         "@typescript-eslint/parser": "5.60.1",

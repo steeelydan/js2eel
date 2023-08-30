@@ -13,7 +13,7 @@ import type { VNode } from 'preact';
 import { ButtonLink } from '../ui/ButtonLink';
 
 import icon from '../../../public/favicon.png';
-import githubMark from '../../../public/github-mark.png';
+import githubMark from '../../../images/github-mark.png';
 
 type Props = {
     createNewFile: (absoluteFilePath: string, description: string, src?: string) => Promise<void>;

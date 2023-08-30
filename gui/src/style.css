@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Open Sans';
-    src: url('../public/OpenSans-Regular.ttf') format('truetype');
+    src: url('../fonts/OpenSans-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
     font-display: swap;
@@ -8,7 +8,7 @@
 
 @font-face {
     font-family: 'Open Sans';
-    src: url('../public/OpenSans-SemiBold.ttf') format('truetype');
+    src: url('../fonts/OpenSans-SemiBold.ttf') format('truetype');
     font-style: bold;
     font-weight: bold;
     font-display: swap;
@@ -16,7 +16,7 @@
 
 @font-face {
     font-family: 'Hack';
-    src: url('../public/Hack-Regular.ttf') format('truetype');
+    src: url('../fonts/Hack-Regular.ttf') format('truetype');
     font-style: normal;
     font-weight: normal;
     font-display: swap;
