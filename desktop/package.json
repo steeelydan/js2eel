@@ -50,7 +50,6 @@
     "author": "steeelydan",
     "license": "GPL-3.0",
     "dependencies": {
-        "@js2eel/compiler": "file:../compiler",
         "chokidar": "3.5.3"
     },
     "devDependencies": {
@@ -61,9 +60,6 @@
         "@typescript-eslint/parser": "5.60.1",
         "concurrently": "8.2.0",
         "electron": "25.3.2",
-        "electron-builder": "24.6.3",
-        "eslint": "8.44.0",
-        "nodemon": "3.0.1",
-        "typescript": "5.1.6"
+        "electron-builder": "24.6.3"
     }
 }

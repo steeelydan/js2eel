@@ -19,7 +19,6 @@
     "dependencies": {
         "@codemirror/lang-javascript": "6.1.9",
         "@codemirror/lang-json": "6.0.1",
-        "@js2eel/compiler": "file:../compiler",
         "codemirror": "6.0.1",
         "eslint-linter-browserify": "8.44.0",
         "preact": "10.15.1",
@@ -36,14 +35,11 @@
         "@typescript-eslint/parser": "5.60.1",
         "concurrently": "8.2.0",
         "csstype": "3.1.2",
-        "eslint": "8.44.0",
         "eslint-plugin-react": "7.32.2",
         "eslint-plugin-react-hooks": "4.6.0",
         "highlight.js": "11.8.0",
         "marked": "5.1.2",
         "marked-highlight": "2.0.1",
-        "nodemon": "2.0.22",
-        "typescript": "5.1.6",
         "vite": "4.3.9"
     }
 }

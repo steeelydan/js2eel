@@ -43,15 +43,6 @@ const formatJsDoc = (jsDoc) => {
     return { description: description, example: example };
 };
 
-const typeMap = {
-    function: 183,
-    number: 150,
-    string: 154,
-    array: 187,
-    object: 205,
-    constructor: 175
-};
-
 const tsOutput = [];
 
 while (src.length > 0) {
@@ -89,15 +80,15 @@ while (src.length > 0) {
             let stringParams = [];
 
             tsParams.forEach((param) => {
-                if (param.name.kind === typeMap['object']) {
+                if (param.name.kind === ts.SyntaxKind.ObjectBindingPattern) {
                     stringParams.push('{${}}');
-                } else if (param.type.kind === typeMap['array']) {
+                } else if (param.type.kind === ts.SyntaxKind.ArrayType) {
                     stringParams.push('[${}]');
-                } else if (param.type.kind === typeMap['string']) {
+                } else if (param.type.kind === ts.SyntaxKind.StringKeyword) {
                     stringParams.push('${' + param.name.escapedText + '}');
-                } else if (param.type.kind === typeMap['number']) {
+                } else if (param.type.kind === ts.SyntaxKind.NumberKeyword) {
                     stringParams.push('${' + param.name.escapedText + '}');
-                } else if (param.type.kind === typeMap['function']) {
+                } else if (param.type.kind === ts.SyntaxKind.FunctionType) {
                     const functionParams = param.type.parameters;
 
                     stringParams.push(`(${functionParams
@@ -119,7 +110,7 @@ while (src.length > 0) {
             name = classDefinition.name.escapedText;
 
             const constructor = classDefinition.members.find((member) => {
-                return member.kind === typeMap['constructor'];
+                return member.kind === ts.SyntaxKind.Constructor;
             });
 
             const tsParams = constructor.parameters;
@@ -127,13 +118,13 @@ while (src.length > 0) {
             let stringParams = [];
 
             tsParams.forEach((param) => {
-                if (param.name.kind === typeMap['object']) {
+                if (param.name.kind === ts.SyntaxKind.ObjectBindingPattern) {
                     stringParams.push('{${}}');
-                } else if (param.type.kind === typeMap['string']) {
+                } else if (param.type.kind === ts.SyntaxKind.StringKeyword) {
                     stringParams.push('${' + param.name.escapedText + '}');
-                } else if (param.type.kind === typeMap['number']) {
+                } else if (param.type.kind === ts.SyntaxKind.NumberKeyword) {
                     stringParams.push('${' + param.name.escapedText + '}');
-                } else if (param.type.kind === typeMap['function']) {
+                } else if (param.type.kind === ts.SyntaxKind.FunctionType) {
                     const functionParams = param.type.parameters;
 
                     stringParams.push(`(${functionParams

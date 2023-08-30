@@ -1,0 +1,16 @@
+{
+    "name": "js2eel",
+    "workspaces": [
+        "compiler",
+        "gui",
+        "desktop"
+    ],
+    "scripts": {
+        "test": "npm test --workspace compiler"
+    },
+    "devDependencies": {
+        "eslint": "8.48.0",
+        "nodemon": "3.0.1",
+        "typescript": "5.2.2"
+    }
+}
