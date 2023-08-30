@@ -41,22 +41,5 @@
         ]
     },
     "author": "steeelydan",
-    "license": "GPL-3.0",
-    "dependencies": {
-        "acorn": "8.9.0",
-        "joi": "17.9.2"
-    },
-    "devDependencies": {
-        "@types/chai": "4.3.5",
-        "@types/estree": "1.0.1",
-        "@types/mocha": "10.0.1",
-        "@types/node": "20.3.3",
-        "@typescript-eslint/eslint-plugin": "5.60.1",
-        "@typescript-eslint/parser": "5.60.1",
-        "c8": "8.0.0",
-        "chai": "4.3.7",
-        "concurrently": "8.2.0",
-        "mocha": "10.2.0",
-        "tsc-watch": "6.0.4"
-    }
+    "license": "GPL-3.0"
 }

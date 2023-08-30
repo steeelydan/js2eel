@@ -15,31 +15,5 @@
         "test": "echo \"No tests yet.\"",
         "check": "tsc --noEmit && eslint ./src",
         "docs": "node scripts/createDocs.js"
-    },
-    "dependencies": {
-        "@codemirror/lang-javascript": "6.1.9",
-        "@codemirror/lang-json": "6.0.1",
-        "codemirror": "6.0.1",
-        "eslint-linter-browserify": "8.44.0",
-        "preact": "10.15.1",
-        "prettier": "3.0.0",
-        "react-feather": "2.0.10",
-        "zustand": "4.3.9"
-    },
-    "devDependencies": {
-        "@preact/preset-vite": "2.5.0",
-        "@types/audioworklet": "0.0.48",
-        "@types/electron": "1.6.10",
-        "@types/estree": "1.0.1",
-        "@typescript-eslint/eslint-plugin": "5.60.1",
-        "@typescript-eslint/parser": "5.60.1",
-        "concurrently": "8.2.0",
-        "csstype": "3.1.2",
-        "eslint-plugin-react": "7.32.2",
-        "eslint-plugin-react-hooks": "4.6.0",
-        "highlight.js": "11.8.0",
-        "marked": "5.1.2",
-        "marked-highlight": "2.0.1",
-        "vite": "4.3.9"
     }
 }

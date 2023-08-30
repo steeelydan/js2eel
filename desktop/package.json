@@ -48,18 +48,5 @@
         "mac": {}
     },
     "author": "steeelydan",
-    "license": "GPL-3.0",
-    "dependencies": {
-        "chokidar": "3.5.3"
-    },
-    "devDependencies": {
-        "@electron/notarize": "1.2.4",
-        "@types/electron": "1.6.10",
-        "@types/node": "20.3.3",
-        "@typescript-eslint/eslint-plugin": "5.60.1",
-        "@typescript-eslint/parser": "5.60.1",
-        "concurrently": "8.2.0",
-        "electron": "25.3.2",
-        "electron-builder": "24.6.3"
-    }
+    "license": "GPL-3.0"
 }
