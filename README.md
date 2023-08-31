@@ -40,7 +40,7 @@ However, there are some drawbacks to EEL2 as a programming environment.
 
 -   The inbuilt data structures are rather peculiar. For example, memory mapping is manual, involving the manual specification of offsets.
 -   Invoking functions on objects that are not connected to that object is, in my current view, an arcane pattern. This is really hard to grasp and somewhat divergent compared to other modern programming languages.
--   Performance-wise, you get punished for using the inbuilt data structures. Buffer accesses and function calls take a toll on your CPU. If you want to write the fastest code possible, you need to write everything inline.
+-   Performance-wise, you get punished for using the inbuilt data structures. Buffer accesses and function calls take a toll on your CPU. If you want to write the fastest code possible, you need to inline everything. Take a look at this channel strip in JSFX: https://github.com/steeelydan/sd-jsfx/blob/main/src/channelstrips/sd_channelstrip.jsfx. Rather cumbersome and error-prone to inline the RBJ algorithms. But it's fast. This one, using JSFX functions, is way slower: https://github.com/steeelydan/sd-jsfx/blob/main/src/eq/sd_4band_eq_tidy_but_slow.jsfx.
 -   All variables are global (except those explicitly declared as local within functions).
 
 JS2EEL seeks to provide an alternative while retaining the immense advantages of EEL2/JSFX. It treats EEL as the compilation target. You write your FX code in a subset of JavaScript, which gets compiled into EEL2. When using the desktop app, the resulting JSFX is automatically reloaded in REAPER.
