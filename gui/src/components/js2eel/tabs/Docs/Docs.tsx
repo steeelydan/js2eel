@@ -166,7 +166,6 @@ export const Docs = (): VNode | null => {
                                     'contents/feature-comparison',
                                     'contents/development',
                                     'contents/changelog',
-                                    'contents/roadmap',
                                     'contents/useful-resources'
                                 ]}
                             />

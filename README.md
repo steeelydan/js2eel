@@ -17,7 +17,6 @@ This is a very early version. The code is rough, and there might be bugs. And, a
 -   [Useful Resources](./docs/useful-resources.md)
 -   [Releases](https://github.com/steeelydan/js2eel/releases)
 -   [Changelog](./docs/changelog.md)
--   [Roadmap](./docs/roadmap.md)
 -   [License](./LICENSE)
 
 ## Screenshots
@@ -90,6 +89,21 @@ Go to https://github.com/steeelydan/js2eel/releases. Ideally, an executable for 
     -   Go to `compiler` and do `npm run dev`
     -   Go to `gui` and do `npm run dev`
     -   Go to `desktop` and do `npm run dev`. Now, the Electron build should open.
+
+## Roadmap
+
+It would be nice to have a full-fledged DSP environment with audio playback in the end, maybe a bit like [FAUST](https://github.com/grame-cncm/faust).
+
+TBI:
+
+-   Midi support
+-   Function hoisting
+-   File imports
+-   E2E tests, especially for filehandling on desktop
+-   Dark theme / custom themes
+-   JSFX gfx, maybe with React/JSX
+-   EEL parser & compiler
+-   WebAssembly audio processing
 
 ## Copyrights etc.
 

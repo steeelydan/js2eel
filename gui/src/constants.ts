@@ -70,6 +70,5 @@ export const HELP_PAGE_TITLES = {
     'contents/feature-comparison': 'Implemented JSFX Features',
     'contents/development': 'Development',
     'contents/changelog': 'Changelog',
-    'contents/roadmap': 'Roadmap',
     'contents/useful-resources': 'Useful Resources'
 };
