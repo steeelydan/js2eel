@@ -30,16 +30,24 @@ const generateSnippets = (type: 'function' | 'class' | 'constant'): Completion[]
         if (value?.type == type) {
             let boost = 0;
 
+            if (
+                value.name === 'config' ||
+                value.name === 'EelBuffer' ||
+                value.name === 'selectBox' ||
+                value.name === 'slider' ||
+                value.name === 'console' ||
+                value.name.startsWith('on') ||
+                value.name === 'eachChannel'
+            ) {
+                boost += 10;
+            }
+
             if (value.type === 'class') {
                 boost += 5;
             }
 
             if (value.type === 'function') {
                 boost += 5;
-            }
-
-            if (value.name === 'EelBuffer') {
-                boost += 10;
             }
 
             if (value.name.startsWith('spl')) {
@@ -131,9 +139,7 @@ const classSnippets: readonly Completion[] = [
     ...generateSnippets('class')
 ];
 
-const functionSnippets: readonly Completion[] = [
-    ...generateSnippets('function')
-];
+const functionSnippets: readonly Completion[] = [...generateSnippets('function')];
 const constantSnippets: readonly Completion[] = [...generateSnippets('constant')];
 
 const defaultCompletions: readonly Completion[] = [...functionSnippets, ...constantSnippets];
@@ -153,7 +159,7 @@ export const js2EelCompletionSource: CompletionSource = (
         if (wordMatch?.from == wordMatch?.to && !context.explicit) return null;
 
         return {
-            from: wordMatch?.from || 1,
+            from: wordMatch?.from || 0,
             options: [...defaultCompletions]
         };
     } else {

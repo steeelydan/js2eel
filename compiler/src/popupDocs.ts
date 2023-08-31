@@ -16,7 +16,7 @@ export const POPUP_DOCS: {
     "text": "Configures the plugin.",
     "example": "```javascript\nconfig({ description: 'volume', inChannels: 2, outChannels: 2 });\n```",
     "signature": "config({\n    description,\n    inChannels,\n    outChannels\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n}): void;",
-    "autoCompleteTemplate": "config({${}});"
+    "autoCompleteTemplate": "config({description: '${}', inChannels: , outChannels: });"
 },
 slider: {
     "name": "slider",
