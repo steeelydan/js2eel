@@ -99,6 +99,8 @@ TBI:
 -   Midi support
 -   Function hoisting
 -   File imports
+-   CLI-only version with VSCode support, maybe as VSCode extension
+-   How to distribute? ReaPack? Include JS code as comment?
 -   E2E tests, especially for filehandling on desktop
 -   Dark theme / custom themes
 -   JSFX gfx, maybe with React/JSX
