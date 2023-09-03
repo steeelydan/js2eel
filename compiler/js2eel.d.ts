@@ -132,8 +132,32 @@ declare class EelArray {
 
 // AUDIO CONSTANTS
 
-/** The sample rate of your project. */
+/** The sample rate of your project */
 declare const srate: number;
+
+/** Number of channels available */
+declare const num_ch: number;
+
+/** How many samples will come before the next `onBlock()` call */
+declare const samplesblock: number;
+
+/** The tempo of your project */
+declare const tempo: number;
+
+/** The current playback state of REAPER (0=stopped, <0=error, 1=playing, 2=paused, 5=recording, 6=record paused) */
+declare const play_state: number;
+
+/** The current playback position in REAPER (as of last @block), in seconds */
+declare const play_position: number;
+
+/** Read-only. The current playback position (as of last @block) in REAPER, in beats (beats = quarternotes in /4 time signatures).  */
+declare const beat_position: number;
+
+/** Read-only. The current time signature numerator, i.e. 3.0 if using 3/4 time.  */
+declare const ts_num: number;
+
+/** Read-only. The current time signature denominator, i.e. 4.0 if using 3/4 time. */
+declare const ts_denom: number;
 
 /** Channel 1 (L) sample variable */
 declare const spl0: number;

@@ -77,7 +77,7 @@ const EEL_FILE_FUNCTIONS = [
     'file_string'
 ];
 
-const EEL_MEMORY_FUNCTIONS = [
+const EEL_MEMORY_FFT_MDCT_FUNCTIONS = [
     'mdct',
     'imdct',
     'fft',
@@ -134,7 +134,8 @@ const EEL_STRING_FUNCTIONS = [
     'str_setchar',
     'strcpy_fromslider',
     'sprintf',
-    'match'
+    'match',
+    'matchi'
 ];
 
 const EEL_GRAPHICS_FUNCTIONS = [
@@ -178,7 +179,7 @@ export const EEL_LIBRARY_FUNCTION_NAMES = new Set([
     ...EEL_TIME_FUNCTIONS,
     ...EEL_MIDI_FUNCTIONS,
     ...EEL_FILE_FUNCTIONS,
-    ...EEL_MEMORY_FUNCTIONS,
+    ...EEL_MEMORY_FFT_MDCT_FUNCTIONS,
     ...EEL_HOST_INTERACTION_FUNCTIONS,
     ...EEL_STRING_FUNCTIONS,
     ...EEL_GRAPHICS_FUNCTIONS
@@ -447,7 +448,7 @@ const EEL_GRAPHICS_VARS = [
     'mouse_hwheel'
 ];
 
-const EEL_MIDI_VARS = ['pdc_midi', 'ext_midi_bus', 'midi_bus'];
+const EEL_MIDI_VARS = ['ext_midi_bus', 'midi_bus'];
 
 const EEL_AUDIO_TRANSPORT_VARS = [
     'srate',
@@ -461,7 +462,15 @@ const EEL_AUDIO_TRANSPORT_VARS = [
     'ts_denom'
 ];
 
-const EEL_PDC_VARS = ['pdc_delay', 'pdc_bot_ch', 'pdc_top_ch'];
+const EEL_SPECIAL_VARS = [
+    'trigger',
+    'ext_noinit',
+    'ext_nodenorm',
+    'ext_tail_size',
+    ...EEL_REG_VARS
+];
+
+const EEL_PDC_VARS = ['pdc_delay', 'pdc_bot_ch', 'pdc_top_ch', 'pdc_midi'];
 
 export const EEL_LIBRARY_VARS = new Set([
     ...EEL_SAMPLE_VARS,
@@ -470,12 +479,8 @@ export const EEL_LIBRARY_VARS = new Set([
     ...EEL_GRAPHICS_VARS,
     ...EEL_MIDI_VARS,
     ...EEL_AUDIO_TRANSPORT_VARS,
-    ...EEL_REG_VARS,
     ...EEL_PDC_VARS,
-    'trigger',
-    'ext_noinit',
-    'ext_nodenorm',
-    'ext_tail_size'
+    ...EEL_SPECIAL_VARS
 ]);
 
 export const ALL_RESERVED_SYMBOL_NAMES = new Set([
@@ -499,7 +504,7 @@ export const ALLOWED_BINARY_OPERATORS = new Set([
     '>',
     '<=',
     '>=',
-    '**' /* Not in EEL, replaces ^ */
+    '**' /* ^ in EEL */
 ]);
 // Differences to JSFX docs: https://www.reaper.fm/sdk/js/basiccode.php#js_ops
 // Not yet supported EEL binary operators: <<, >>, |, &, ~

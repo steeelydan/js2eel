@@ -167,10 +167,58 @@ EelArray {
 ## Audio Constants
 
 ### srate
-The sample rate of your project.
+The sample rate of your project
 
 ```typescript
 srate: number;
+```
+### num_ch
+Number of channels available
+
+```typescript
+num_ch: number;
+```
+### samplesblock
+How many samples will come before the next `onBlock()` call
+
+```typescript
+samplesblock: number;
+```
+### tempo
+The tempo of your project
+
+```typescript
+tempo: number;
+```
+### play_state
+The current playback state of REAPER (0=stopped, <0=error, 1=playing, 2=paused, 5=recording, 6=record paused)
+
+```typescript
+play_state: number;
+```
+### play_position
+The current playback position in REAPER (as of last @block), in seconds
+
+```typescript
+play_position: number;
+```
+### beat_position
+Read-only. The current playback position (as of last @block) in REAPER, in beats (beats = quarternotes in /4 time signatures).
+
+```typescript
+beat_position: number;
+```
+### ts_num
+Read-only. The current time signature numerator, i.e. 3.0 if using 3/4 time.
+
+```typescript
+ts_num: number;
+```
+### ts_denom
+Read-only. The current time signature denominator, i.e. 4.0 if using 3/4 time.
+
+```typescript
+ts_denom: number;
 ```
 ### spl<1-64>
 Channel 1 (L) sample variable

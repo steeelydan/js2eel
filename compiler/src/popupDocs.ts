@@ -93,10 +93,74 @@ EelArray: {
 srate: {
     "name": "srate",
     "type": "constant",
-    "text": "The sample rate of your project.",
+    "text": "The sample rate of your project",
     "example": null,
     "signature": "srate: number;",
     "autoCompleteTemplate": "srate"
+},
+num_ch: {
+    "name": "num_ch",
+    "type": "constant",
+    "text": "Number of channels available",
+    "example": null,
+    "signature": "num_ch: number;",
+    "autoCompleteTemplate": "num_ch"
+},
+samplesblock: {
+    "name": "samplesblock",
+    "type": "constant",
+    "text": "How many samples will come before the next `onBlock()` call",
+    "example": null,
+    "signature": "samplesblock: number;",
+    "autoCompleteTemplate": "samplesblock"
+},
+tempo: {
+    "name": "tempo",
+    "type": "constant",
+    "text": "The tempo of your project",
+    "example": null,
+    "signature": "tempo: number;",
+    "autoCompleteTemplate": "tempo"
+},
+play_state: {
+    "name": "play_state",
+    "type": "constant",
+    "text": "The current playback state of REAPER (0=stopped, <0=error, 1=playing, 2=paused, 5=recording, 6=record paused)",
+    "example": null,
+    "signature": "play_state: number;",
+    "autoCompleteTemplate": "play_state"
+},
+play_position: {
+    "name": "play_position",
+    "type": "constant",
+    "text": "The current playback position in REAPER (as of last @block), in seconds",
+    "example": null,
+    "signature": "play_position: number;",
+    "autoCompleteTemplate": "play_position"
+},
+beat_position: {
+    "name": "beat_position",
+    "type": "constant",
+    "text": "Read-only. The current playback position (as of last @block) in REAPER, in beats (beats = quarternotes in /4 time signatures).",
+    "example": null,
+    "signature": "beat_position: number;",
+    "autoCompleteTemplate": "beat_position"
+},
+ts_num: {
+    "name": "ts_num",
+    "type": "constant",
+    "text": "Read-only. The current time signature numerator, i.e. 3.0 if using 3/4 time.",
+    "example": null,
+    "signature": "ts_num: number;",
+    "autoCompleteTemplate": "ts_num"
+},
+ts_denom: {
+    "name": "ts_denom",
+    "type": "constant",
+    "text": "Read-only. The current time signature denominator, i.e. 4.0 if using 3/4 time.",
+    "example": null,
+    "signature": "ts_denom: number;",
+    "autoCompleteTemplate": "ts_denom"
 },
 spl0: {
     "name": "spl0",
