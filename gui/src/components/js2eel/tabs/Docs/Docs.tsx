@@ -162,8 +162,8 @@ export const Docs = (): VNode | null => {
                                     'contents/getting-started',
                                     'contents/shortcuts',
                                     'contents/api-documentation',
-                                    'contents/limitations',
                                     'contents/feature-comparison',
+                                    'contents/limitations',
                                     'contents/development',
                                     'contents/changelog',
                                     'contents/useful-resources'

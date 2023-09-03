@@ -67,7 +67,7 @@ export const HELP_PAGE_TITLES = {
     'contents/shortcuts': 'Keyboard Shortcuts',
     'contents/api-documentation': 'API Documentation',
     'contents/limitations': 'Limitations',
-    'contents/feature-comparison': 'Implemented JSFX Features',
+    'contents/feature-comparison': 'Feature Comparison with JSFX',
     'contents/development': 'Development',
     'contents/changelog': 'Changelog',
     'contents/useful-resources': 'Useful Resources'

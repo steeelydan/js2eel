@@ -1,6 +1,8 @@
-# JSFX Features Implemented
+# Feature Comparison with JSFX
 
 JSFX Reference: https://www.reaper.fm/sdk/js/js.php
+
+Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/blob/main/compiler/js2eel.d.ts). The [API Docs](https://github.com/steeelydan/js2eel/blob/main/docs/api-documentation.md) are created from that file, as well as the code completion.
 
 ✅: Implemented
 
