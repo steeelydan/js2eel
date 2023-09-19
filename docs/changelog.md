@@ -1,5 +1,9 @@
 # Changelog
 
+-   v0.7.0:
+    -   Allow plain objects
+    -   Allow function declaration in block statement
+    -   Allow member expression returns
 -   v0.5.0:
     -   MacOS App is signed now 🖋️
     -   More documentation
