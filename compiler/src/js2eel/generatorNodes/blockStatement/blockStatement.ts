@@ -1,4 +1,5 @@
 import { variableDeclaration } from '../variableDeclaration/variableDeclaration.js';
+import { functionDeclaration } from '../functionDeclaration/functionDeclaration.js';
 import { expressionStatement } from '../expressionStatement/expressionStatement.js';
 import { returnStatement } from '../returnStatement/returnStatement.js';
 import { ifStatement } from '../ifStatement/ifStatement.js';
@@ -36,6 +37,10 @@ export const blockStatement = (
             }
             case 'ReturnStatement': {
                 returnStatement(blockBody, parentScope, instance);
+                break;
+            }
+            case 'FunctionDeclaration': {
+                functionDeclaration(blockBody, instance);
                 break;
             }
             default: {

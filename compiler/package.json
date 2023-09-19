@@ -22,7 +22,7 @@
         "dist:cjs": "tsc -p tsconfig.cjs.json",
         "dist": "npm run parseTypeDocs && rm -rf ./dist/* && npm run dist:esm && npm run dist:cjs && node ./scripts/setVersionConstant.mjs",
         "test": "c8 mocha './dist/cjs/**/*.spec.js'",
-        "test:single": "mocha './dist/cjs/**/*.spec.js' --grep",
+        "test:single": "mocha './dist/cjs/**/*.spec.js' --reporter-option maxDiffSize=0 --grep",
         "check": "eslint ./src && tsc --noEmit",
         "parseTypeDocs": "node ./scripts/parseTypeDocs.mjs"
     },

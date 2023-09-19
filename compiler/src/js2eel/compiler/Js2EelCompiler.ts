@@ -349,7 +349,11 @@ export class Js2EelCompiler {
             errors: sortErrorsOrWarnings(this.meta.errors),
             parserError: parserError,
             warnings: sortErrorsOrWarnings(this.meta.warnings),
-            pluginData: this.pluginData
+            pluginData: {
+                ...this.pluginData,
+                environment: JSON.parse(JSON.stringify(this.pluginData.environment)) // Fix Electron IPC problem with JOI validator function serialization at environment.<scope>.symbols.<symbol>.argDefinition... etc.
+                // https://stackoverflow.com/questions/70839472/electron-reply-error-an-object-could-not-be-cloned
+            }
         };
     }
 

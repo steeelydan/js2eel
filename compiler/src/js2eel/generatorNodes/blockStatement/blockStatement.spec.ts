@@ -7,9 +7,7 @@ describe('blockStatement()', () => {
         const JS_SRC = `config({description: "teststuff", inChannels: 2, outChannels: 2});
 
 onInit(() => {
-  function myFunc() {
-    return 3;
-  }
+  () => null;
 });`;
 
         const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.1 */
