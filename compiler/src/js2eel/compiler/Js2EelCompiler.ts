@@ -640,11 +640,9 @@ export class Js2EelCompiler {
     }
 
     addToCurrentInlineData(src: string): void {
-        /* c8 ignore start */
         if (!this.pluginData.currentInlineData) {
             throw new Error('No currrent inline data');
         }
-        /* c8 ignore stop */
 
         this.pluginData.currentInlineData.srcs.push(src + '\n');
         this.pluginData.currentInlineData.counter++;
@@ -661,11 +659,9 @@ export class Js2EelCompiler {
     }
 
     getInlineCounter(): number {
-        /* c8 ignore start */
         if (!this.pluginData.currentInlineData) {
-            throw new Error('getInlineCounter(): No currrent inline data');
+            throw new Error('getInlineCounter(): No current inline data');
         }
-        /* c8 ignore stop */
 
         return this.pluginData.currentInlineData.counter;
     }

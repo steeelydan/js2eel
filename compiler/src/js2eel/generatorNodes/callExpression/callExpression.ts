@@ -65,6 +65,8 @@ export const callExpression = (
                 } else {
                     // User functions
 
+                    instance.startCurrentInlineData();
+
                     const declaredUserFunction = instance.getDeclaredSymbolUpInScope(callee.name);
 
                     if (declaredUserFunction) {
