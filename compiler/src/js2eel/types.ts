@@ -34,6 +34,14 @@ export type EelGeneratorWarning = {
     node: Node | undefined | null;
 };
 
+// Fixes Electron IPC problem with JOI validator function serialization. Offending: environment.<scope>.symbols.<symbol>.argDefinition...
+// Not serializing the whole environment increases compile time about 30%
+// https://stackoverflow.com/questions/70839472/electron-reply-error-an-object-could-not-be-cloned
+// FIXME Think about hiding the humongous pluginData behind a debug flag anyway.
+export type ResultPluginData = PluginData & {
+    environment: ResultEnvironment;
+};
+
 export type CompileResult = {
     success: boolean;
     src: string;
@@ -42,7 +50,7 @@ export type CompileResult = {
     parserError: any; // FIXME
     tree: acorn.Node | null;
     name: string;
-    pluginData: PluginData;
+    pluginData: ResultPluginData;
 };
 
 export type JSFXStage = 'onInit' | 'onSlider' | 'onBlock' | 'onSample' | 'onGfx';
@@ -84,8 +92,17 @@ export type ScopedEnvironment = {
         [symbolName in string]?: DeclaredSymbol;
     };
 };
+export type ResultScopedEnvironment = ScopedEnvironment & {
+    symbols: {
+        [symbolName in string]?: ResultDeclaredSymbol;
+    };
+};
+
 export type Environment = {
     [scopePath in string]?: ScopedEnvironment;
+};
+export type ResultEnvironment = {
+    [scopePath in string]?: ResultScopedEnvironment;
 };
 
 export type Returns = {
@@ -120,7 +137,23 @@ export type FunctionSymbol = {
     node: Node | null | undefined;
 };
 
-export type DeclaredSymbol = VariableSymbol | FunctionSymbol;
+export type ResultFunctionSymbol = FunctionSymbol & {
+    argDefinition: null;
+};
+
+export type ObjectSymbol = {
+    type: 'object';
+    declarationType: AllowedDeclarationType;
+    inScopePath: string;
+    inScopeSuffix: number;
+    eelSrc: string;
+    used: boolean;
+    value: Record<string, unknown>;
+    node: Node | null | undefined;
+};
+
+export type DeclaredSymbol = VariableSymbol | FunctionSymbol | ObjectSymbol;
+export type ResultDeclaredSymbol = VariableSymbol | ResultFunctionSymbol | ObjectSymbol;
 
 export type Slider = {
     sliderNumber: number;

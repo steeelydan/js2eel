@@ -27,6 +27,7 @@ import type {
 } from '../types.js';
 import { inScope } from '../environment/inScope.js';
 import { getLastScopePathSeparator } from '../../shared/shared.js';
+import { createResultPluginData } from '../utils/createResultPluginData.js';
 import { sortErrorsOrWarnings } from '../utils/sortErrorsOrWarnings.js';
 import { suffixScopeByScopeSuffix } from '../suffixersAndPrefixers/suffixScope.js';
 
@@ -179,7 +180,7 @@ export class Js2EelCompiler {
                 src: this.src.eelSrcFinal,
                 tree: null,
                 warnings: sortErrorsOrWarnings(this.meta.warnings),
-                pluginData: this.pluginData
+                pluginData: createResultPluginData(this.pluginData)
             };
         }
 
@@ -349,11 +350,7 @@ export class Js2EelCompiler {
             errors: sortErrorsOrWarnings(this.meta.errors),
             parserError: parserError,
             warnings: sortErrorsOrWarnings(this.meta.warnings),
-            pluginData: {
-                ...this.pluginData,
-                environment: JSON.parse(JSON.stringify(this.pluginData.environment)) // Fix Electron IPC problem with JOI validator function serialization at environment.<scope>.symbols.<symbol>.argDefinition... etc.
-                // https://stackoverflow.com/questions/70839472/electron-reply-error-an-object-could-not-be-cloned
-            }
+            pluginData: createResultPluginData(this.pluginData)
         };
     }
 
