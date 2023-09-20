@@ -1,16 +1,17 @@
 import { literal } from '../literal/literal.js';
-import { identifier } from '../identifier/identifier.js';
 import { operator } from '../operator/operator.js';
+import { identifier } from '../identifier/identifier.js';
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { conditionalExpression } from '../conditionalExpression/conditionalExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
 import { memberExpression } from '../memberExpression/memberExpression.js';
 
-import type { AssignmentExpression } from 'estree';
-import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { conditionalExpression } from '../conditionalExpression/conditionalExpression.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 import { getSymbolInNextUpScope } from '../../environment/getSymbolInNextUpScope.js';
 import { ALLOWED_ASSIGNMENT_OPERATORS } from '../../constants.js';
+
+import type { AssignmentExpression } from 'estree';
+import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 
 export const assignmentExpression = (
     expression: AssignmentExpression,

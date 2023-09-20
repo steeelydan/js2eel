@@ -1,13 +1,13 @@
-import { identifier } from '../identifier/identifier.js';
 import { literal } from '../literal/literal.js';
 import { operator } from '../operator/operator.js';
+import { identifier } from '../identifier/identifier.js';
 import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
 import { memberExpression } from '../memberExpression/memberExpression.js';
+import { ALLOWED_BINARY_OPERATORS } from '../../constants.js';
 
 import type { BinaryExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { ALLOWED_BINARY_OPERATORS } from '../../constants.js';
 
 export const binaryExpression = (
     expression: BinaryExpression,

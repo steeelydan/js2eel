@@ -1,5 +1,6 @@
-import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 import { functionExpression } from '../../functionExpression/functionExpression.js';
+
+import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 
 import type { ArrowFunctionExpression, CallExpression, FunctionExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';

@@ -1,9 +1,10 @@
+import { literal } from '../literal/literal';
+import { identifier } from '../identifier/identifier';
+import { unaryExpression } from '../unaryExpression/unaryExpression';
+import { binaryExpression } from '../binaryExpression/binaryExpression';
+
 import type { ConditionalExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { binaryExpression } from '../binaryExpression/binaryExpression';
-import { identifier } from '../identifier/identifier';
-import { literal } from '../literal/literal';
-import { unaryExpression } from '../unaryExpression/unaryExpression';
 
 export const conditionalExpression = (
     conditionalExpressionNode: ConditionalExpression,

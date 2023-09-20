@@ -1,8 +1,9 @@
+import Joi from 'joi';
+
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type { CallExpression } from 'estree';
-import Joi from 'joi';
 
 export const config = (callExpression: CallExpression, instance: Js2EelCompiler): void => {
     if (instance.getCurrentScopePath() !== 'root') {

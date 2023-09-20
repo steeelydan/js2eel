@@ -1,6 +1,5 @@
-import { describe, it } from 'mocha';
-import { prefixDebugMessage } from './prefixDebugMessage.js';
 import { expect } from 'chai';
+import { prefixDebugMessage } from './prefixDebugMessage.js';
 
 describe('prefixDebugMessage()', () => {
     it('Prefixes message correctly', () => {

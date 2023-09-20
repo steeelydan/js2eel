@@ -1,7 +1,6 @@
 import fs from 'fs';
 import path from 'path';
 import { expect } from 'chai';
-import { describe, it } from 'mocha';
 import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import { testEelSrc } from '../helpers.js';
 

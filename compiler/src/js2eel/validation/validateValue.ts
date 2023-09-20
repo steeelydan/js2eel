@@ -1,4 +1,5 @@
 import type Joi from 'joi';
+
 import type { Node } from 'estree';
 import type { EelGeneratorError } from '../types.js';
 

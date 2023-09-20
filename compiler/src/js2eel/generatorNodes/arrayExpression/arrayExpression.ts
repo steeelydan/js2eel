@@ -1,5 +1,5 @@
-import type { Js2EelCompiler } from '../../index.js';
 import type { ArrayExpression, Identifier } from 'estree';
+import type { Js2EelCompiler } from '../../index.js';
 import type { ObjectValue } from '../../types.js';
 
 export const arrayExpression = (

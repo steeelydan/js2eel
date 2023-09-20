@@ -1,12 +1,12 @@
+import Joi from 'joi';
+
 import { blockStatement } from '../blockStatement/blockStatement.js';
+
+import { registerDeclarationParam } from '../../declarationParams/registerDeclarationParam.js';
 
 import type { ArrowFunctionExpression, Identifier, VariableDeclaration } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { ArgDefinition, FunctionSymbol } from '../../types.js';
-import { validateSymbolName } from '../../validation/validateSymbolName.js';
-import Joi from 'joi';
-import { getLowerCasedDeclaredSymbol } from '../../environment/getLowerCaseDeclaredSymbol.js';
-import { registerDeclarationParam } from '../../declarationParams/registerDeclarationParam.js';
 
 export const arrowFunctionDeclaration = (
     variableDeclaration: VariableDeclaration,

@@ -1,5 +1,5 @@
-import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { Literal } from 'estree';
+import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 
 export const literal = (literal: Literal, instance: Js2EelCompiler): string => {
     switch (typeof literal.value) {

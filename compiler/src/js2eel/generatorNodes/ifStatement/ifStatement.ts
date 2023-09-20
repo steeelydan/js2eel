@@ -1,9 +1,10 @@
-import { binaryExpression } from '../binaryExpression/binaryExpression.js';
 import { blockStatement } from '../blockStatement/blockStatement.js';
+import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+
+import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 
 import type { IfStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 
 export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompiler): string => {
     let ifSrc = ``;

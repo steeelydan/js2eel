@@ -1,8 +1,8 @@
+import { getLowerCasedDeclaredSymbol } from '../environment/getLowerCaseDeclaredSymbol';
 import { ALL_RESERVED_SYMBOL_NAMES } from '../constants';
 
 import type { Identifier } from 'estree';
 import type { Js2EelCompiler } from '../compiler/Js2EelCompiler';
-import { getLowerCasedDeclaredSymbol } from '../environment/getLowerCaseDeclaredSymbol';
 
 export const registerDeclarationParam = (
     identifier: Identifier,

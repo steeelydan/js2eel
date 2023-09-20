@@ -1,8 +1,10 @@
+import { blockStatement } from '../blockStatement/blockStatement.js';
+
+import { registerDeclarationParam } from '../../declarationParams/registerDeclarationParam.js';
+
 import type { ArrowFunctionExpression, FunctionExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { ParamDefinition, ParsedFunctionParameter } from '../../types.js';
-import { registerDeclarationParam } from '../../declarationParams/registerDeclarationParam.js';
-import { blockStatement } from '../blockStatement/blockStatement.js';
 
 type ValidatedParams<ParamName extends string> = {
     [paramName in ParamName]: ParsedFunctionParameter;

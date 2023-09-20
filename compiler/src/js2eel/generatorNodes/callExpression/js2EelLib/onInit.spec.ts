@@ -1,6 +1,5 @@
-import { describe } from 'mocha';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
 import { expect } from 'chai';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
 
 describe('onInit()', () => {
     it('Error if called elsewhere than root scope', () => {

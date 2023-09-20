@@ -1,8 +1,10 @@
-import { validateValue } from '../../../validation/validateValue.js';
-import { suffixScopeByScopeSuffix } from '../../../suffixersAndPrefixers/suffixScope.js';
 import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 
+import { validateValue } from '../../../validation/validateValue.js';
+import { suffixScopeByScopeSuffix } from '../../../suffixersAndPrefixers/suffixScope.js';
+
+import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type {
     ArgDefinition,
@@ -11,7 +13,6 @@ import type {
     ParsedFunctionArgument,
     ValidatableFunctionCallAllowedValue
 } from '../../../types.js';
-import type { CallExpression } from 'estree';
 
 type ValidatedArgs<ArgName extends string> = {
     [argName in ArgName]: ParsedFunctionArgument;

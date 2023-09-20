@@ -1,12 +1,13 @@
 import Joi from 'joi';
+
 import { literal } from '../../literal/literal.js';
 import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 
-import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type { CallExpression } from 'estree';
+import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type { EelGeneratorError, FunctionCallAllowedValues } from '../../../types.js';
 
 const defaultNumericArgAllowedValues: FunctionCallAllowedValues = [

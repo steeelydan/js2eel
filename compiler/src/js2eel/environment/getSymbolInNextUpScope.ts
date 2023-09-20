@@ -1,4 +1,5 @@
 import { getLastScopePathSeparator } from '../../shared/shared.js';
+
 import type { Js2EelCompiler } from '../compiler/Js2EelCompiler.js';
 import type { DeclaredSymbol, ScopedEnvironment } from '../types.js';
 

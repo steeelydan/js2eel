@@ -1,20 +1,22 @@
 import { literal } from '../literal/literal.js';
+import { identifier } from '../identifier/identifier.js';
+import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
 import { newExpression } from '../newExpression/newExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
-import { suffixScopeBySymbol } from '../../suffixersAndPrefixers/suffixScope.js';
-import { EEL_LIBRARY_VARS } from '../../constants.js';
 import { memberExpression } from '../memberExpression/memberExpression.js';
+import { objectExpression } from '../objectExpression/objectExpression.js';
+import { arrowFunctionDeclaration } from '../functionDeclaration/arrowFunctionDeclaration.js';
+
+import { suffixScopeBySymbol } from '../../suffixersAndPrefixers/suffixScope.js';
+import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 import { validateSymbolName } from '../../validation/validateSymbolName.js';
+import { getLowerCasedDeclaredSymbol } from '../../environment/getLowerCaseDeclaredSymbol.js';
+import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier, VariableDeclaration } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { AllowedDeclarationType, DeclaredSymbol } from '../../types.js';
-import { getLowerCasedDeclaredSymbol } from '../../environment/getLowerCaseDeclaredSymbol.js';
-import { unaryExpression } from '../unaryExpression/unaryExpression.js';
-import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
-import { identifier } from '../identifier/identifier.js';
-import { arrowFunctionDeclaration } from '../functionDeclaration/arrowFunctionDeclaration.js';
 
 export const variableDeclaration = (
     declaration: VariableDeclaration,
@@ -199,6 +201,20 @@ export const variableDeclaration = (
             }
             case 'MemberExpression': {
                 rightSideSrc += memberExpression(onlyDeclaration, onlyDeclaration.init, instance);
+                break;
+            }
+            case 'ObjectExpression': {
+                if (instance.getCurrentScopePath() === 'root') {
+                    putInInit = true;
+                    // doNotPrint = true;
+                }
+
+                const { stringValue, objectValue } = objectExpression(
+                    onlyDeclaration.init,
+                    instance
+                );
+
+                rightSideSrc += stringValue;
                 break;
             }
             default: {

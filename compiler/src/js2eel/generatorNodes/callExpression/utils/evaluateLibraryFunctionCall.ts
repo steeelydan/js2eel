@@ -1,10 +1,11 @@
 import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
-import { callExpression } from '../callExpression.js';
-import { memberExpression } from '../../memberExpression/memberExpression.js';
+import { arrayExpression } from '../../arrayExpression/arrayExpression.js';
+
 import { validateValue } from '../../../validation/validateValue.js';
 
+import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type {
     ArgDefinition,
@@ -12,8 +13,6 @@ import type {
     ParsedFunctionArgument,
     ValidatableFunctionCallAllowedValue
 } from '../../../types.js';
-import type { CallExpression } from 'estree';
-import { arrayExpression } from '../../arrayExpression/arrayExpression.js';
 
 type ValidatedArgs<ArgName extends string> = {
     [argName in ArgName]: ParsedFunctionArgument;

@@ -1,13 +1,14 @@
 import { literal } from '../literal/literal.js';
+import { identifier } from '../identifier/identifier.js';
+import { memberExpression as compileMemberExpression } from './memberExpression.js';
+
+import { inScope } from '../../environment/inScope.js';
 import { suffixEelBuffer } from '../../suffixersAndPrefixers/suffixEelBuffer.js';
 import { suffixEelArray } from '../../suffixersAndPrefixers/suffixEelArray.js';
 
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { MemberExpression } from 'estree';
 import type { EelArray, EelBuffer } from '../../types.js';
-import { identifier } from '../identifier/identifier.js';
-import { inScope } from '../../environment/inScope.js';
-import { memberExpression as compileMemberExpression } from './memberExpression.js';
 
 export const accessorMemberExpression = (
     memberExpression: MemberExpression,

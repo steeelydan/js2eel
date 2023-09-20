@@ -1,10 +1,10 @@
+import { inScope } from '../../environment/inScope.js';
 import { getSymbolInNextUpScope } from '../../environment/getSymbolInNextUpScope.js';
 import { suffixScopeBySymbol } from '../../suffixersAndPrefixers/suffixScope.js';
 import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { inScope } from '../../environment/inScope.js';
 
 export const identifier = (identifier: Identifier, instance: Js2EelCompiler): string => {
     if (EEL_LIBRARY_VARS.has(identifier.name.toLowerCase())) {

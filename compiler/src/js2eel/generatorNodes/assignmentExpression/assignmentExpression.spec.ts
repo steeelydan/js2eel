@@ -1,6 +1,7 @@
 import { expect } from 'chai';
 import { Js2EelCompiler } from '../../index.js';
 import { testEelSrc } from '../../test/helpers.js';
+
 describe('assignmentExpression()', () => {
     it('User defined function: Assigns value to a var via a user function call', () => {
         const compiler = new Js2EelCompiler();

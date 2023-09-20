@@ -1,9 +1,15 @@
-import { ALL_RESERVED_SYMBOL_NAMES, COMPILER_VERSION } from '../constants.js';
+import { program } from '../generatorNodes/program/program.js';
+
 import { JsParser } from '../parser/JsParser.js';
+import { inScope } from '../environment/inScope.js';
 import { getSymbolInNextUpScope } from '../environment/getSymbolInNextUpScope.js';
 import { suffixEelBuffer } from '../suffixersAndPrefixers/suffixEelBuffer.js';
 import { suffixBufferSize } from '../suffixersAndPrefixers/suffixBufferSize.js';
-import { program } from '../generatorNodes/program/program.js';
+import { suffixScopeByScopeSuffix } from '../suffixersAndPrefixers/suffixScope.js';
+import { getLastScopePathSeparator } from '../../shared/shared.js';
+import { createResultPluginData } from '../utils/createResultPluginData.js';
+import { sortErrorsOrWarnings } from '../utils/sortErrorsOrWarnings.js';
+import { ALL_RESERVED_SYMBOL_NAMES, COMPILER_VERSION } from '../constants.js';
 
 import type { Node, Program } from 'estree';
 import type {
@@ -25,11 +31,6 @@ import type {
     ReturnSrc,
     InlineData
 } from '../types.js';
-import { inScope } from '../environment/inScope.js';
-import { getLastScopePathSeparator } from '../../shared/shared.js';
-import { createResultPluginData } from '../utils/createResultPluginData.js';
-import { sortErrorsOrWarnings } from '../utils/sortErrorsOrWarnings.js';
-import { suffixScopeByScopeSuffix } from '../suffixersAndPrefixers/suffixScope.js';
 
 export class Js2EelCompiler {
     private meta: {

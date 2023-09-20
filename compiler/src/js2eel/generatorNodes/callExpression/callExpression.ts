@@ -1,19 +1,20 @@
 import { objectMemberExpression } from '../memberExpression/objectMemberExpression.js';
 import { config } from './js2EelLib/config.js';
+import { slider } from './js2EelLib/slider.js';
+import { selectBox } from './js2EelLib/selectBox.js';
 import { onInit } from './js2EelLib/onInit.js';
 import { onSlider } from './js2EelLib/onSlider.js';
 import { onSample } from './js2EelLib/onSample.js';
 import { eachChannel } from './js2EelLib/eachChannel.js';
-import { slider } from './js2EelLib/slider.js';
-import { selectBox } from './js2EelLib/selectBox.js';
-import { evaluateUserFunctionCall } from './utils/evaluateUserFunctionCall.js';
-import { eelLibraryFunctionCall as eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
-import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
+import { eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
 
-import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import type { CallExpression } from 'estree';
+import { evaluateUserFunctionCall } from './utils/evaluateUserFunctionCall.js';
 import { suffixInlineReturn } from '../../suffixersAndPrefixers/suffixInlineReturn.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
+import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
+
+import type { CallExpression } from 'estree';
+import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 
 export const callExpression = (
     callExpression: CallExpression,

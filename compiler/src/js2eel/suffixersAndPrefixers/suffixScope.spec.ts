@@ -1,6 +1,5 @@
-import { describe } from 'mocha';
-import { suffixScopeByScopeSuffix } from './suffixScope';
 import { expect } from 'chai';
+import { suffixScopeByScopeSuffix } from './suffixScope';
 
 describe('suffixScope()', () => {
     it("doesn't suffix if scope is 0", () => {

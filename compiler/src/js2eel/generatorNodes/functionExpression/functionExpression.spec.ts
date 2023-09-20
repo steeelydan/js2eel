@@ -1,5 +1,4 @@
 import { expect } from 'chai';
-import { describe } from 'mocha';
 import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
 import { testEelSrc } from '../../test/helpers';
 

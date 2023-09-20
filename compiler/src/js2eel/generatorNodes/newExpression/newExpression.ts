@@ -1,7 +1,8 @@
-import type { NewExpression } from 'estree';
-import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import { newEelBuffer } from './js2EelLib/newEelBuffer.js';
 import { newEelArray } from './js2EelLib/newEelArray.js';
+
+import type { NewExpression } from 'estree';
+import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 
 export const newExpression = (
     newExpression: NewExpression,

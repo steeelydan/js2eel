@@ -1,10 +1,10 @@
-import { prefixDebugMessage } from '../../../suffixersAndPrefixers/prefixDebugMessage.js';
 import { evaluateLibraryFunctionCall } from '../../callExpression/utils/evaluateLibraryFunctionCall.js';
 import { suffixScopeBySymbol } from '../../../suffixersAndPrefixers/suffixScope.js';
-
-import type { Js2EelCompiler } from '../../../index.js';
-import type { CallExpression, Identifier, PrivateIdentifier } from 'estree';
+import { prefixDebugMessage } from '../../../suffixersAndPrefixers/prefixDebugMessage.js';
 import { addSemicolonIfNone } from '../../../suffixersAndPrefixers/addSemicolonIfNone.js';
+
+import type { CallExpression, Identifier, PrivateIdentifier } from 'estree';
+import type { Js2EelCompiler } from '../../../index.js';
 
 export const consoleMemberCall = (
     parentCallExpression: CallExpression,

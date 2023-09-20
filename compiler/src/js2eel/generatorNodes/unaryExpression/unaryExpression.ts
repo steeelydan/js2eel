@@ -1,4 +1,5 @@
 import { identifier } from '../identifier/identifier.js';
+
 import { ALLOWED_Unary_OPERATORS } from '../../constants.js';
 
 import type { UnaryExpression } from 'estree';

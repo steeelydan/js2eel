@@ -1,13 +1,14 @@
 import { variableDeclaration } from '../variableDeclaration/variableDeclaration.js';
 import { functionDeclaration } from '../functionDeclaration/functionDeclaration.js';
+import { ifStatement } from '../ifStatement/ifStatement.js';
+import { assignmentExpression } from '../assignmentExpression/assignmentExpression.js';
+import { callExpression } from '../callExpression/callExpression.js';
+import { memberExpression } from '../memberExpression/memberExpression.js';
+
+import { JS2EEL_LIBRARY_FUNCTION_NAMES, JS2EEL_LIBRARY_OBJECT_NAMES } from '../../constants.js';
 
 import type { Program } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { JS2EEL_LIBRARY_FUNCTION_NAMES, JS2EEL_LIBRARY_OBJECT_NAMES } from '../../constants.js';
-import { callExpression } from '../callExpression/callExpression.js';
-import { memberExpression } from '../memberExpression/memberExpression.js';
-import { assignmentExpression } from '../assignmentExpression/assignmentExpression.js';
-import { ifStatement } from '../ifStatement/ifStatement.js';
 
 export const program = (programNode: Program, instance: Js2EelCompiler): string => {
     let programSrc = '';

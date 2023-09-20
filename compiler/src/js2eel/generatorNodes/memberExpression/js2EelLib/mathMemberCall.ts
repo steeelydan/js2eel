@@ -1,7 +1,9 @@
+import Joi from 'joi';
+
 import { evaluateLibraryFunctionCall } from '../../callExpression/utils/evaluateLibraryFunctionCall.js';
+
 import type { CallExpression, Identifier, PrivateIdentifier } from 'estree';
 import type { Js2EelCompiler } from '../../../index.js';
-import Joi from 'joi';
 
 export const mathMemberCall = (
     parentCallExpression: CallExpression,
