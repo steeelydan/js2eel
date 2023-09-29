@@ -6,7 +6,7 @@ import { eelArrayMemberCall } from './js2EelLib/eelArrayMemberCall.js';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { CallExpression } from 'estree';
 
-export const objectMemberExpression = (
+export const memberExpressionCall = (
     parentCallExpression: CallExpression,
     instance: Js2EelCompiler
 ): string | null => {

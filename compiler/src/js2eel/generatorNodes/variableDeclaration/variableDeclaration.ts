@@ -16,7 +16,7 @@ import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier, VariableDeclaration } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import type { AllowedDeclarationType, DeclaredSymbol } from '../../types.js';
+import type { AllowedDeclarationType, DeclaredSymbol, ObjectRepresentation } from '../../types.js';
 
 export const variableDeclaration = (
     declaration: VariableDeclaration,
@@ -26,6 +26,7 @@ export const variableDeclaration = (
 
     let putInInit = false;
     let doNotPrint = false;
+    let objectData: { objectRepresentation: ObjectRepresentation; eelSrc: string } | null = null;
 
     let isArrowFunctionDeclaration = false;
 
@@ -206,15 +207,19 @@ export const variableDeclaration = (
             case 'ObjectExpression': {
                 if (instance.getCurrentScopePath() === 'root') {
                     putInInit = true;
-                    // doNotPrint = true;
+                    doNotPrint = true;
                 }
 
-                const { stringValue, objectValue } = objectExpression(
-                    onlyDeclaration.init,
-                    instance
-                );
+                const object = objectExpression(onlyDeclaration.id, onlyDeclaration.init, instance);
 
-                rightSideSrc += stringValue;
+                if (!object) {
+                    return '';
+                }
+
+                objectData = object;
+
+                declarationSrc += object.eelSrc;
+
                 break;
             }
             default: {
@@ -229,6 +234,30 @@ export const variableDeclaration = (
 
     if (isArrowFunctionDeclaration) {
         return '';
+    }
+
+    if (objectData) {
+        const newDeclaredSymbol: DeclaredSymbol = {
+            type: 'object',
+            value: objectData.objectRepresentation,
+            declarationType: declaration.kind as AllowedDeclarationType,
+            eelSrc: objectData.eelSrc,
+            inScopePath: instance.getCurrentScopePath(),
+            inScopeSuffix: instance.getCurrentScopeSuffix(),
+            used: false,
+            node: onlyDeclaration
+        };
+
+        instance.setDeclaredSymbol((onlyDeclaration.id as Identifier).name, newDeclaredSymbol);
+
+        if (putInInit) {
+            instance.setInitVariableName((onlyDeclaration.id as Identifier).name);
+
+            // We don't print the object because we do it in init
+            return '';
+        } else {
+            return declarationSrc;
+        }
     }
 
     const newDeclaredSymbol: DeclaredSymbol = {

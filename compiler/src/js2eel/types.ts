@@ -111,6 +111,8 @@ export type Returns = {
 
 export type EachChannelParamMap = { sampleIdentifier?: string; channelIdentifier?: string };
 
+export type ObjectRepresentation = Record<string, number>;
+
 export type AllowedDeclarationType = 'const' | 'let' | 'param';
 
 export type VariableSymbol = {
@@ -148,7 +150,7 @@ export type ObjectSymbol = {
     inScopeSuffix: number;
     eelSrc: string;
     used: boolean;
-    value: Record<string, unknown>;
+    value: ObjectRepresentation;
     node: Node | null | undefined;
 };
 

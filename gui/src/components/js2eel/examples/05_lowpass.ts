@@ -2,61 +2,77 @@ export const EXAMPLE_LOWPASS_JS = {
     path: 'example://lowpass.js',
     src: `config({ description: 'lowpass', inChannels: 2, outChannels: 2 });
 
-let freq;
-let q;
+let lpFreq;
+let lpQ;
 
-let omega;
-let sinOmega;
-let cosOmega;
-let alpha;
+const lpCoefs = {
+    a1x: 0,
+    a2x: 0,
+    b0x: 0,
+    b1x: 0,
+    b2x: 0
+};
 
-const XArray = new EelArray(2, 3);
-const YArray = new EelArray(2, 3);
+const lpXStore = new EelArray(2, 3);
+const lpYStore = new EelArray(2, 3);
 
-let b0;
-let b1;
-let b2;
-let a0;
-let a1;
-let a2;
+let outputGainDb;
+let outputGain;
 
-slider(1, freq, 300, 20, 20000, 1, 'Freq [Hz]');
-slider(2, q, 1, 0.1, 7, 0.01, 'Q');
+slider(1, lpFreq, 22000, 5, 22000, 1, 'LP Freq');
+slider(2, lpQ, 0.5, 0.1, 7, 0.01, 'Q');
+slider(50, outputGainDb, 0, -15, 15, 0.01, 'Output Gain (dB)');
 
-function calcCoeffs() {
-    // https://www.w3.org/TR/audio-eq-cookbook/
+function setLpCoefs() {
+    const omega = (2 * $pi * lpFreq) / srate;
+    const sinOmega = sin(omega);
+    const cosOmega = cos(omega);
+    const alpha = sinOmega / (2 * lpQ);
 
-    omega = (2 * $pi) * (freq / srate);
-    sinOmega = sin(omega);
-    cosOmega = cos(omega);
-    alpha = sinOmega / (2 * q);
+    const a0 = 1 + alpha;
+    const a1 = -2 * cosOmega;
+    const a2 = 1 - alpha;
+    const b0 = (1 - cosOmega) / 2;
+    const b1 = 1 - cosOmega;
+    const b2 = (1 - cosOmega) / 2;
 
-    b0 = (1 - cosOmega) / 2;
-    b1 = 1 - cosOmega;
-    b2 = (1 - cosOmega) / 2;
-    a0 = 1 + alpha;
-    a1 = -2 * cosOmega;
-    a2 = 1 - alpha;
+    lpCoefs.a1x = a1 / a0;
+    lpCoefs.a2x = a2 / a0;
+    lpCoefs.b0x = b0 / a0;
+    lpCoefs.b1x = b1 / a0;
+    lpCoefs.b2x = b2 / a0;
 }
 
 onSlider(() => {
-    calcCoeffs();
+    setLpCoefs();
+
+    outputGain = 10 ** (outputGainDb / 20);
 });
 
 onSample(() => {
-    eachChannel((sample, ch) => {
-        YArray[ch][2] = YArray[ch][1];
-        YArray[ch][1] = YArray[ch][0];
-        YArray[ch][0] =
-            (b0 / a0) * XArray[ch][0] +
-            (b1 / a0) * XArray[ch][1] +
-            (b2 / a0) * XArray[ch][2] -
-            (a1 / a0) * YArray[ch][1] -
-            (a2 / a0) * YArray[ch][2];
-        XArray[ch][2] = XArray[ch][1];
-        XArray[ch][1] = XArray[ch][0];
-        XArray[ch][0] = sample;
-        sample = YArray[ch][0];
+    eachChannel((sample, channel) => {
+        function processSample(value) {
+            lpYStore[channel][0] =
+                lpCoefs.b0x * lpXStore[channel][0] +
+                lpCoefs.b1x * lpXStore[channel][1] +
+                lpCoefs.b2x * lpXStore[channel][2] -
+                lpCoefs.a1x * lpYStore[channel][1] -
+                lpCoefs.a2x * lpYStore[channel][2];
+
+            lpYStore[channel][2] = lpYStore[channel][1];
+            lpYStore[channel][1] = lpYStore[channel][0];
+            lpXStore[channel][2] = lpXStore[channel][1];
+            lpXStore[channel][1] = lpXStore[channel][0];
+            lpXStore[channel][0] = value;
+
+            return lpYStore[channel][0];
+        }
+
+        if (lpFreq < 22000) {
+            sample = processSample(sample);
+        }
+
+        sample = sample * outputGain;
     });
 });
 `

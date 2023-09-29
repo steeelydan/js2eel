@@ -10,11 +10,11 @@ import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { MemberExpression } from 'estree';
 import type { EelArray, EelBuffer } from '../../types.js';
 
-export const accessorMemberExpression = (
+export const memberExpressionComputed = (
     memberExpression: MemberExpression,
     instance: Js2EelCompiler
 ): string | null => {
-    let accessorMemberExpressionSrc = '';
+    let computedMemberExpressionSrc = '';
 
     const object = memberExpression.object;
     const property = memberExpression.property;
@@ -48,7 +48,7 @@ export const accessorMemberExpression = (
                     object
                 );
 
-                return accessorMemberExpressionSrc;
+                return computedMemberExpressionSrc;
             }
 
             if (potentialBuffer || potentialArray) {
@@ -111,19 +111,6 @@ export const accessorMemberExpression = (
 
                         break;
                     }
-                    // case 'CallExpression': {
-                    //     positionText += callExpression(dimensionPart.property, instance);
-                    //     break;
-                    // }
-                    // case 'MemberExpression': {
-                    //     positionText += compileMemberExpression(
-                    //         memberExpression,
-                    //         dimensionPart.property,
-                    //         instance
-                    //     );
-
-                    //     break;
-                    // }
                     default: {
                         instance.error(
                             'TypeError',
@@ -131,7 +118,7 @@ export const accessorMemberExpression = (
                             property
                         );
 
-                        return accessorMemberExpressionSrc;
+                        return computedMemberExpressionSrc;
                     }
                 }
             }
@@ -227,10 +214,6 @@ export const accessorMemberExpression = (
 
             break;
         }
-        // case 'CallExpression': {
-        //     positionText += callExpression(property, instance);
-        //     break;
-        // }
         case 'MemberExpression': {
             // property is member expression -> we're 2-dimensional, e.g. myArr[1] -> [2] <-  (??)
             positionText += compileMemberExpression(memberExpression, property, instance);
@@ -245,23 +228,23 @@ export const accessorMemberExpression = (
                 memberExpression
             );
 
-            return accessorMemberExpressionSrc;
+            return computedMemberExpressionSrc;
         }
     }
 
     if (potentialBuffer) {
-        accessorMemberExpressionSrc += suffixEelBuffer(
+        computedMemberExpressionSrc += suffixEelBuffer(
             potentialBuffer.name,
             dimensionText,
             positionText
         );
     } else if (potentialArray) {
-        accessorMemberExpressionSrc += suffixEelArray(
+        computedMemberExpressionSrc += suffixEelArray(
             potentialArray.name,
             dimensionText,
             positionText
         );
     }
 
-    return accessorMemberExpressionSrc;
+    return computedMemberExpressionSrc;
 };

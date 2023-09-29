@@ -4,15 +4,18 @@ import { testEelSrc } from '../../test/helpers.js';
 
 describe('blockStatement()', () => {
     it('Generates error if wrong node type in block statement', () => {
-        const JS_SRC = `config({description: "teststuff", inChannels: 2, outChannels: 2});
+        const JS_SRC = `config({ description: 'blockStatement', inChannels: 2, outChannels: 2 });
 
-onInit(() => {
-  () => null;
-});`;
+onSample(() => {
+    {
+        hey: 1;
+    }
+});
+`;
 
         const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.1 */
 
-desc:teststuff
+desc:blockStatement
 
 in_pin:In 0
 in_pin:In 1

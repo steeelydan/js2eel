@@ -2,12 +2,12 @@ import { expect } from 'chai';
 import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
 import { testEelSrc } from '../../test/helpers';
 
-describe('accessorMemberExpression', () => {
+describe('memberExpressionComputed', () => {
     it('1-dimensional: error if property access on wrong type', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myVar = 'somestring';
 
@@ -20,7 +20,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -48,7 +48,7 @@ myVar2__S2 = ;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 onSample(() => {
     const myVar = "someString"[2];
@@ -59,7 +59,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -83,7 +83,7 @@ myVar__S2 = ;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 onSample(() => {
     const myVar2 = "somestring"[3][1];
@@ -94,7 +94,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -117,7 +117,7 @@ myVar2__S2 = ;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -130,7 +130,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -153,7 +153,7 @@ myVar__S2 = ;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -166,7 +166,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -189,7 +189,7 @@ myVar__S2 = ;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -202,7 +202,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -225,7 +225,7 @@ myVar__S2 = myArr__D__;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -238,7 +238,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -261,7 +261,7 @@ myVar__S2 = myArr__D1__;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -274,7 +274,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -297,7 +297,7 @@ myVar__S2 = myArr__D__1;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -312,7 +312,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -340,7 +340,7 @@ myVar2__S2 = myArr__D__0;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const myArr = new EelArray(2, 3);
 
@@ -355,7 +355,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -383,7 +383,7 @@ myVar2__S2 = myArr__D0__;
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const buf = new EelBuffer(2, 2);
 
@@ -396,7 +396,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -425,7 +425,7 @@ myVar2__S2 = buf__B1[1];
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const buf = new EelBuffer(2, 2);
 
@@ -438,7 +438,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
@@ -468,7 +468,7 @@ myVar2__S2 = buf__B[1];
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'accessors', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
 
 const arr = new EelArray(2, 2);
 
@@ -481,7 +481,7 @@ onSample(() => {
         expect(testEelSrc(result.src)).to.equal(
             testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
 
-desc:accessors
+desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1

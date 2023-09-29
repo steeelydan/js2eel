@@ -1,7 +1,7 @@
 # Changelog
 
 -   v0.7.0:
-    -   Allow plain objects
+    -   Allow simple plain objects
     -   Allow function declaration in block statement
     -   Allow member expression returns
 -   v0.5.0:

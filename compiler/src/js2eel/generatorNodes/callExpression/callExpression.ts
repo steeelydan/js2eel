@@ -1,4 +1,3 @@
-import { objectMemberExpression } from '../memberExpression/objectMemberExpression.js';
 import { config } from './js2EelLib/config.js';
 import { slider } from './js2EelLib/slider.js';
 import { selectBox } from './js2EelLib/selectBox.js';
@@ -8,6 +7,7 @@ import { onSample } from './js2EelLib/onSample.js';
 import { eachChannel } from './js2EelLib/eachChannel.js';
 import { eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
 
+import { memberExpressionCall } from '../memberExpression/memberExpressionCall.js';
 import { evaluateUserFunctionCall } from './utils/evaluateUserFunctionCall.js';
 import { suffixInlineReturn } from '../../suffixersAndPrefixers/suffixInlineReturn.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
@@ -141,7 +141,7 @@ export const callExpression = (
     } else {
         switch (callee.type) {
             case 'MemberExpression': {
-                callExpressionSrc += objectMemberExpression(callExpression, instance);
+                callExpressionSrc += memberExpressionCall(callExpression, instance);
                 break;
             }
             /* c8 ignore start */

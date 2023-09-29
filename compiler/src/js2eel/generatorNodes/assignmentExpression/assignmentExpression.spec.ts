@@ -62,7 +62,7 @@ function myFunc() {
 }
 
 onSample(() => {
-    someStuff.hello = myFunc();
+    "string".length = myFunc();
 });
 `);
 
@@ -337,7 +337,7 @@ let someLeftVar = 10;
 let someVar = 20;
 
 onSample(() => {
-    Math.calc = someVar;
+    "someString".length = someVar;
 });
 `);
 

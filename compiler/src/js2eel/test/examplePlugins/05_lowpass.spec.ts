@@ -6,12 +6,13 @@ import { testEelSrc } from '../helpers.js';
 
 const JS_LOWPASS_SRC = fs.readFileSync(path.resolve('../examples/05_lowpass.js'), 'utf-8');
 
-const EEL_LOWPASS_SRC_EXPECTED = `/* Compiled with JS2EEL v0.0.15 */
+const EEL_LOWPASS_SRC_EXPECTED = `/* Compiled with JS2EEL v0.7.0 */
 
 desc:lowpass
 
-slider1:freq=300 < 20, 20000, 1 >Freq [Hz]
-slider2:q=1 < 0.1, 7, 0.01 >Q
+slider1:lpFreq=22000 < 5, 22000, 1 >LP Freq
+slider2:lpQ=0.5 < 0.1, 7, 0.01 >Q
+slider50:outputGainDb=0 < -15, 15, 0.01 >Output Gain (dB)
 
 in_pin:In 0
 in_pin:In 1
@@ -19,19 +20,34 @@ out_pin:In 0
 out_pin:In 1
 
 
+@init
+
+lpCoefs__a1x = 0;
+lpCoefs__a2x = 0;
+lpCoefs__b0x = 0;
+lpCoefs__b1x = 0;
+lpCoefs__b2x = 0;
+
+
 @slider
 
-omega = 2 * $pi * freq / (srate);
-sinOmega = sin(omega);
-cosOmega = cos(omega);
-alpha = sinOmega / (2 * q);
-b0 = (1 - cosOmega) / (2);
-b1 = (1 - cosOmega);
-b2 = (1 - cosOmega) / (2);
-a0 = (1 + alpha);
-a1 = -2 * cosOmega;
-a2 = (1 - alpha);
+omega__S1 = 2 * $pi * lpFreq / (srate);
+sinOmega__S1 = sin(omega__S1);
+cosOmega__S1 = cos(omega__S1);
+alpha__S1 = sinOmega__S1 / (2 * lpQ);
+a0__S1 = (1 + alpha__S1);
+a1__S1 = -2 * cosOmega__S1;
+a2__S1 = (1 - alpha__S1);
+b0__S1 = (1 - cosOmega__S1) / (2);
+b1__S1 = (1 - cosOmega__S1);
+b2__S1 = (1 - cosOmega__S1) / (2);
+lpCoefs__a1x = a1__S1 / (a0__S1);
+lpCoefs__a2x = a2__S1 / (a0__S1);
+lpCoefs__b0x = b0__S1 / (a0__S1);
+lpCoefs__b1x = b1__S1 / (a0__S1);
+lpCoefs__b2x = b2__S1 / (a0__S1);
 
+outputGain = (10 ^ (outputGainDb / (20)));
 
 
 @sample
@@ -39,23 +55,33 @@ a2 = (1 - alpha);
 
 /* Channel 0 */
 
-YArray__D0__2 = YArray__D0__1;
-YArray__D0__1 = YArray__D0__0;
-YArray__D0__0 = ((((b0 / (a0) * XArray__D0__0 + b1 / (a0) * XArray__D0__1) + b2 / (a0) * XArray__D0__2) - a1 / (a0) * YArray__D0__1) - a2 / (a0) * YArray__D0__2);
-XArray__D0__2 = XArray__D0__1;
-XArray__D0__1 = XArray__D0__0;
-XArray__D0__0 = spl0;
-spl0 = YArray__D0__0;
+lpFreq < 22000 ? (
+value__S8 = spl0;
+lpYStore__D0__0 = ((((lpCoefs__b0x * lpXStore__D0__0 + lpCoefs__b1x * lpXStore__D0__1) + lpCoefs__b2x * lpXStore__D0__2) - lpCoefs__a1x * lpYStore__D0__1) - lpCoefs__a2x * lpYStore__D0__2);
+lpYStore__D0__2 = lpYStore__D0__1;
+lpYStore__D0__1 = lpYStore__D0__0;
+lpXStore__D0__2 = lpXStore__D0__1;
+lpXStore__D0__1 = lpXStore__D0__0;
+lpXStore__D0__0 = value__S8;
+R__S8__0 = lpYStore__D0__0;
+spl0 = R__S8__0;
+);
+spl0 = spl0 * outputGain;
 
 /* Channel 1 */
 
-YArray__D1__2 = YArray__D1__1;
-YArray__D1__1 = YArray__D1__0;
-YArray__D1__0 = ((((b0 / (a0) * XArray__D1__0 + b1 / (a0) * XArray__D1__1) + b2 / (a0) * XArray__D1__2) - a1 / (a0) * YArray__D1__1) - a2 / (a0) * YArray__D1__2);
-XArray__D1__2 = XArray__D1__1;
-XArray__D1__1 = XArray__D1__0;
-XArray__D1__0 = spl1;
-spl1 = YArray__D1__0;
+lpFreq < 22000 ? (
+value__S11 = spl1;
+lpYStore__D1__0 = ((((lpCoefs__b0x * lpXStore__D1__0 + lpCoefs__b1x * lpXStore__D1__1) + lpCoefs__b2x * lpXStore__D1__2) - lpCoefs__a1x * lpYStore__D1__1) - lpCoefs__a2x * lpYStore__D1__2);
+lpYStore__D1__2 = lpYStore__D1__1;
+lpYStore__D1__1 = lpYStore__D1__0;
+lpXStore__D1__2 = lpXStore__D1__1;
+lpXStore__D1__1 = lpXStore__D1__0;
+lpXStore__D1__0 = value__S11;
+R__S11__0 = lpYStore__D1__0;
+spl1 = R__S11__0;
+);
+spl1 = spl1 * outputGain;
 
 
 
