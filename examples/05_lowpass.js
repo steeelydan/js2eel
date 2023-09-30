@@ -41,12 +41,6 @@ function setLpCoefs() {
     lpCoefs.b2x = b2 / a0;
 }
 
-onSlider(() => {
-    setLpCoefs();
-
-    outputGain = 10 ** (outputGainDb / 20);
-});
-
 function processSample(value, ch, coefs, xStore, yStore) {
     yStore[ch][0] =
         coefs.b0x * xStore[ch][0] +
@@ -63,6 +57,12 @@ function processSample(value, ch, coefs, xStore, yStore) {
 
     return yStore[ch][0];
 }
+
+onSlider(() => {
+    setLpCoefs();
+
+    outputGain = 10 ** (outputGainDb / 20);
+});
 
 onSample(() => {
     eachChannel((sample, ch) => {
