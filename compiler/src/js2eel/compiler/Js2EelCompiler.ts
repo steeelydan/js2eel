@@ -252,14 +252,20 @@ export class Js2EelCompiler {
             if (!this.pluginData.sliders[initVariableName]) {
                 const declaredSymbol = this.getDeclaredSymbolUpInScope(initVariableName);
 
-                /* c8 ignore next 5 */
+                /* c8 ignore start */
                 if (!declaredSymbol) {
                     throw new Error(
                         "Couldn't find declared symbol for init var " + initVariableName
                     );
                 }
+                if (!declaredSymbol.symbol.currentAssignment) {
+                    throw new Error(
+                        "No value assigned: " + initVariableName
+                    );
+                }
+                /* c8 ignore stop */
 
-                initStageText += declaredSymbol.symbol.eelSrc;
+                initStageText += declaredSymbol.symbol.currentAssignment.eelSrc;
             }
         });
 

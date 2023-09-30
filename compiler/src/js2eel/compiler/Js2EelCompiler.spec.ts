@@ -123,12 +123,10 @@ __debug__someVar = someVar;
         );
 
         compiler.setDeclaredSymbolByScopePath('root/1', 'someOtherVar', {
-            type: 'variable',
+            used: false,
             declarationType: 'const',
-            eelSrc: 'someVar = 3;',
             inScopePath: 'root/1',
             inScopeSuffix: 0,
-            used: false,
             node: {
                 type: 'VariableDeclarator',
                 loc: {
@@ -170,6 +168,10 @@ __debug__someVar = someVar;
                     value: 3,
                     raw: '3'
                 }
+            },
+            currentAssignment: {
+                type: 'variable',
+                eelSrc: 'someVar = 3;'
             }
         });
 
@@ -179,12 +181,10 @@ __debug__someVar = someVar;
         compiler.moveUpInScope();
 
         compiler.setDeclaredSymbol('someThirdVar', {
-            type: 'variable',
+            used: false,
             declarationType: 'const',
-            eelSrc: 'someVar = 3;',
             inScopePath: 'root/1',
             inScopeSuffix: 0,
-            used: false,
             node: {
                 type: 'VariableDeclarator',
                 loc: {
@@ -226,6 +226,10 @@ __debug__someVar = someVar;
                     value: 3,
                     raw: '3'
                 }
+            },
+            currentAssignment: {
+                type: 'variable',
+                eelSrc: 'someVar = 3;'
             }
         });
 

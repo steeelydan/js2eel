@@ -113,49 +113,43 @@ export type EachChannelParamMap = { sampleIdentifier?: string; channelIdentifier
 
 export type ObjectRepresentation = Record<string, number>;
 
-export type AllowedDeclarationType = 'const' | 'let' | 'param';
+export type AllowedDeclarationType = 'const' | 'let' | 'param' | 'noIdentifier';
 
-export type VariableSymbol = {
+export type VariableAssignment = {
     type: 'variable';
-    declarationType: AllowedDeclarationType;
-    inScopePath: string;
-    inScopeSuffix: number;
     eelSrc: string;
-    used: boolean;
-    node: Node | null | undefined;
 };
 
-export type FunctionSymbol = {
+export type FunctionAssignment = {
     type: 'function';
-    declarationType?: AllowedDeclarationType;
     anonymous: boolean;
-    inScopePath: string;
     ownScopePath: string;
-    inScopeSuffix: number;
     ownScopeSuffix: number;
     eelSrc: string;
-    used: boolean;
     argDefinition: ArgDefinition<string>[];
-    node: Node | null | undefined;
 };
 
-export type ResultFunctionSymbol = FunctionSymbol & {
+export type ResultFunctionAssignment = FunctionAssignment & {
     argDefinition: null;
 };
 
-export type ObjectSymbol = {
+export type ObjectAssignment = {
     type: 'object';
+    eelSrc: string;
+    value: ObjectRepresentation;
+};
+
+export type DeclaredSymbol = {
+    used: boolean;
     declarationType: AllowedDeclarationType;
     inScopePath: string;
     inScopeSuffix: number;
-    eelSrc: string;
-    used: boolean;
-    value: ObjectRepresentation;
     node: Node | null | undefined;
+    currentAssignment: null | VariableAssignment | FunctionAssignment | ObjectAssignment;
 };
-
-export type DeclaredSymbol = VariableSymbol | FunctionSymbol | ObjectSymbol;
-export type ResultDeclaredSymbol = VariableSymbol | ResultFunctionSymbol | ObjectSymbol;
+export type ResultDeclaredSymbol = DeclaredSymbol & {
+    currentAssignment: VariableAssignment | ResultFunctionAssignment | ObjectAssignment;
+};
 
 export type Slider = {
     sliderNumber: number;

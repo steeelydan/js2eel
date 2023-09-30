@@ -9,7 +9,7 @@ import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 import type {
     ArgDefinition,
     EelGeneratorError,
-    FunctionSymbol,
+    FunctionAssignment,
     ParsedFunctionArgument,
     ValidatableFunctionCallAllowedValue
 } from '../../../types.js';
@@ -165,7 +165,7 @@ export const evaluateUserFunctionCall = <ArgName extends string>(
             name: 'name' in givenArg ? givenArg.name : definedArg.name,
             scopedName: suffixScopeByScopeSuffix(
                 definedArg.name,
-                (declaredSymbolEntry.symbol as FunctionSymbol).ownScopeSuffix
+                (declaredSymbolEntry.symbol.currentAssignment as FunctionAssignment).ownScopeSuffix
             ),
             value: value,
             node: givenArg

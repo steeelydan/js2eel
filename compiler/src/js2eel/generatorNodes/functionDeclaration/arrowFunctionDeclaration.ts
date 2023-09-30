@@ -6,7 +6,7 @@ import { registerDeclarationParam } from '../../declarationParams/registerDeclar
 
 import type { ArrowFunctionExpression, Identifier, VariableDeclaration } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import type { ArgDefinition, FunctionSymbol } from '../../types.js';
+import type { ArgDefinition, DeclaredSymbol } from '../../types.js';
 
 export const arrowFunctionDeclaration = (
     variableDeclaration: VariableDeclaration,
@@ -95,18 +95,21 @@ export const arrowFunctionDeclaration = (
 
     instance.moveUpInScope();
 
-    const newFunc: FunctionSymbol = {
-        type: 'function',
-        inScopePath: instance.getCurrentScopePath(),
-        ownScopePath: ownScopePath,
-        inScopeSuffix: instance.getCurrentScopeSuffix(),
-        ownScopeSuffix: ownScopeSuffix,
-        anonymous: false,
-        eelSrc: eelSrc,
+    const newFuncDeclaredSymbol: DeclaredSymbol = {
         used: false,
-        argDefinition: argDefinitions,
-        node: arrowFunctionExpression
+        declarationType: 'noIdentifier',
+        inScopePath: instance.getCurrentScopePath(),
+        inScopeSuffix: instance.getCurrentScopeSuffix(),
+        node: arrowFunctionExpression,
+        currentAssignment: {
+            type: 'function',
+            ownScopePath: ownScopePath,
+            ownScopeSuffix: ownScopeSuffix,
+            anonymous: false,
+            eelSrc: eelSrc,
+            argDefinition: argDefinitions
+        }
     };
 
-    instance.setDeclaredSymbol(declarationIdentifier.name, newFunc);
+    instance.setDeclaredSymbol(declarationIdentifier.name, newFuncDeclaredSymbol);
 };

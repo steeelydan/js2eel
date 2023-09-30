@@ -8,7 +8,7 @@ import { validateSymbolName } from '../../validation/validateSymbolName.js';
 
 import type { FunctionDeclaration, Identifier } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import type { ArgDefinition, FunctionSymbol } from '../../types.js';
+import type { ArgDefinition, DeclaredSymbol } from '../../types.js';
 
 export const functionDeclaration = (
     functionDeclaration: FunctionDeclaration,
@@ -101,18 +101,21 @@ export const functionDeclaration = (
 
     instance.moveUpInScope();
 
-    const newFunc: FunctionSymbol = {
-        type: 'function',
-        inScopePath: instance.getCurrentScopePath(),
-        ownScopePath: ownScopePath,
-        inScopeSuffix: instance.getCurrentScopeSuffix(),
-        ownScopeSuffix: ownScopeSuffix,
-        anonymous: anonymous,
-        eelSrc: eelSrc,
+    const newFuncDeclaredSymbol: DeclaredSymbol = {
         used: false,
-        argDefinition: argDefinitions,
-        node: functionDeclaration
+        declarationType: 'noIdentifier',
+        inScopePath: instance.getCurrentScopePath(),
+        inScopeSuffix: instance.getCurrentScopeSuffix(),
+        node: functionDeclaration,
+        currentAssignment: {
+            type: 'function',
+            ownScopePath: ownScopePath,
+            ownScopeSuffix: ownScopeSuffix,
+            anonymous: anonymous,
+            eelSrc: eelSrc,
+            argDefinition: argDefinitions
+        }
     };
 
-    instance.setDeclaredSymbol(declarationIdentifier.name, newFunc);
+    instance.setDeclaredSymbol(declarationIdentifier.name, newFuncDeclaredSymbol);
 };

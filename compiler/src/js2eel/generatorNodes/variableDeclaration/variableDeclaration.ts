@@ -238,14 +238,16 @@ export const variableDeclaration = (
 
     if (objectData) {
         const newDeclaredSymbol: DeclaredSymbol = {
-            type: 'object',
-            value: objectData.objectRepresentation,
+            used: false,
             declarationType: declaration.kind as AllowedDeclarationType,
-            eelSrc: objectData.eelSrc,
             inScopePath: instance.getCurrentScopePath(),
             inScopeSuffix: instance.getCurrentScopeSuffix(),
-            used: false,
-            node: onlyDeclaration
+            node: onlyDeclaration,
+            currentAssignment: {
+                type: 'object',
+                value: objectData.objectRepresentation,
+                eelSrc: objectData.eelSrc
+            }
         };
 
         instance.setDeclaredSymbol((onlyDeclaration.id as Identifier).name, newDeclaredSymbol);
@@ -261,13 +263,12 @@ export const variableDeclaration = (
     }
 
     const newDeclaredSymbol: DeclaredSymbol = {
-        type: 'variable',
+        used: false,
         declarationType: declaration.kind as AllowedDeclarationType,
-        eelSrc: '',
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
-        used: false,
-        node: onlyDeclaration
+        node: onlyDeclaration,
+        currentAssignment: null
     };
 
     leftSideSrc += suffixScopeBySymbol(onlyDeclaration.id.name, newDeclaredSymbol);
@@ -283,7 +284,14 @@ export const variableDeclaration = (
     // Add semi if on root because it's no block statement
     declarationSrc = addSemicolonIfNone(declarationSrc);
 
-    newDeclaredSymbol.eelSrc = declarationSrc;
+    if (onlyDeclaration.init) {
+        newDeclaredSymbol.currentAssignment = {
+            type: 'variable',
+            eelSrc: ''
+        };
+
+        newDeclaredSymbol.currentAssignment.eelSrc = declarationSrc;
+    }
 
     instance.setDeclaredSymbol((onlyDeclaration.id as Identifier).name, newDeclaredSymbol);
 

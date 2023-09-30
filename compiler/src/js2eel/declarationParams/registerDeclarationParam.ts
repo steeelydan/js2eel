@@ -32,12 +32,14 @@ export const registerDeclarationParam = (
     }
 
     instance.setDeclaredSymbol(identifier.name, {
-        type: 'variable',
+        used: false,
         declarationType: 'param',
-        eelSrc: identifier.name,
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
-        used: false,
-        node: identifier
+        node: identifier,
+        currentAssignment: {
+            type: 'variable',
+            eelSrc: identifier.name
+        }
     });
 };

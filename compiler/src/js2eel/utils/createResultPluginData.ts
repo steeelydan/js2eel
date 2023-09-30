@@ -1,7 +1,8 @@
 import type {
+    DeclaredSymbol,
     PluginData,
     ResultDeclaredSymbol,
-    ResultFunctionSymbol,
+    ResultFunctionAssignment,
     ResultPluginData,
     ResultScopedEnvironment
 } from '../types';
@@ -18,9 +19,15 @@ export const createResultPluginData = (pluginData: PluginData): ResultPluginData
             for (const [symbolName, declaredSymbol] of Object.entries(scopedEnvironment.symbols)) {
                 if (symbolName && declaredSymbol) {
                     resultSymbols[symbolName] =
-                        declaredSymbol.type === 'function'
-                            ? ({ ...declaredSymbol, argDefinition: null } as ResultFunctionSymbol)
-                            : declaredSymbol;
+                        declaredSymbol.currentAssignment?.type === 'function'
+                            ? {
+                                  ...(declaredSymbol as DeclaredSymbol),
+                                  currentAssignment: {
+                                      ...declaredSymbol.currentAssignment,
+                                      argDefinition: null
+                                  } as ResultFunctionAssignment
+                              }
+                            : (declaredSymbol as ResultDeclaredSymbol);
                 }
             }
 

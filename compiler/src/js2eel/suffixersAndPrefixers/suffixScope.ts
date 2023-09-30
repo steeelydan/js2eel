@@ -14,4 +14,4 @@ export const suffixScopeByScopeSuffix = (symbolName: string, scopeSuffix: number
     } else {
         return symbolName;
     }
-}
+};

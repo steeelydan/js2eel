@@ -34,17 +34,17 @@ export const memberExpressionStatic = (
         return '';
     }
 
-    if (potentialDeclaredSymbol.symbol.type !== 'object') {
+    if (potentialDeclaredSymbol.symbol.currentAssignment?.type !== 'object') {
         instance.error(
             'TypeError',
-            `Accessed symbol is no object but ${potentialDeclaredSymbol.symbol.type}`,
+            `Accessed symbol is no object but ${potentialDeclaredSymbol.symbol.currentAssignment?.type}`,
             memberExpression.object
         );
 
         return '';
     }
 
-    const object = potentialDeclaredSymbol.symbol.value;
+    const object = potentialDeclaredSymbol.symbol.currentAssignment.value;
 
     const key = memberExpression.property.name;
 

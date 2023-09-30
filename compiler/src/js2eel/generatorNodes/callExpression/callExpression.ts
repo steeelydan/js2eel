@@ -71,7 +71,7 @@ export const callExpression = (
                     const declaredUserFunction = instance.getDeclaredSymbolUpInScope(callee.name);
 
                     if (declaredUserFunction) {
-                        if (declaredUserFunction.symbol.type !== 'function') {
+                        if (declaredUserFunction.symbol.currentAssignment?.type !== 'function') {
                             instance.error('TypeError', `${callee.name} is not a function`, callee);
 
                             return ''; // SHOULD NOT HAPPEN
@@ -79,7 +79,7 @@ export const callExpression = (
 
                         const { args, errors } = evaluateUserFunctionCall(
                             callExpression,
-                            declaredUserFunction.symbol.argDefinition,
+                            declaredUserFunction.symbol.currentAssignment.argDefinition,
                             declaredUserFunction.scopeSuffix,
                             instance
                         );
@@ -96,10 +96,10 @@ export const callExpression = (
                             inlineBody += `${arg.scopedName} = ${arg.value};\n`;
                         }
 
-                        inlineBody += declaredUserFunction.symbol.eelSrc;
+                        inlineBody += declaredUserFunction.symbol.currentAssignment.eelSrc;
 
                         const returnSrc = instance.getReturn(
-                            declaredUserFunction.symbol.ownScopePath
+                            declaredUserFunction.symbol.currentAssignment.ownScopePath
                         );
 
                         const currentInlineCounter = instance.getInlineCounter();
