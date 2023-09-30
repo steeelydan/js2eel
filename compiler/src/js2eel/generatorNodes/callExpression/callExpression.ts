@@ -90,17 +90,23 @@ export const callExpression = (
                             break;
                         }
 
-                        let inlineBody = ``;
-
-                        for (const [_key, arg] of Object.entries(args)) {
-                            inlineBody += `${arg.scopedName} = ${arg.value};\n`;
-                        }
-
-                        inlineBody += declaredUserFunction.symbol.currentAssignment.eelSrc;
+                        let bodySrc = declaredUserFunction.symbol.currentAssignment.eelSrc;
 
                         const returnSrc = instance.getReturn(
                             declaredUserFunction.symbol.currentAssignment.ownScopePath
                         );
+
+                        for (const [_key, arg] of Object.entries(args)) {
+                            // FIXME this might hurt performance if functions get large
+                            bodySrc = bodySrc.replaceAll(`P__${arg.scopedName}`, arg.value);
+
+                            if (returnSrc) {
+                                returnSrc.src = returnSrc.src.replaceAll(
+                                    `P__${arg.scopedName}`,
+                                    arg.value
+                                );
+                            }
+                        }
 
                         const currentInlineCounter = instance.getInlineCounter();
 
@@ -112,7 +118,7 @@ export const callExpression = (
                         }
 
                         instance.addToCurrentInlineData(
-                            `${inlineBody}${
+                            `${bodySrc}${
                                 returnSrc
                                     ? addSemicolonIfNone(
                                           `${suffixInlineReturn(

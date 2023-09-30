@@ -49,13 +49,13 @@ onSlider(() => {
 
 onSample(() => {
     eachChannel((sample, channel) => {
-        function processSample(value) {
+        function processSample(value, coefs) {
             lpYStore[channel][0] =
-                lpCoefs.b0x * lpXStore[channel][0] +
-                lpCoefs.b1x * lpXStore[channel][1] +
-                lpCoefs.b2x * lpXStore[channel][2] -
-                lpCoefs.a1x * lpYStore[channel][1] -
-                lpCoefs.a2x * lpYStore[channel][2];
+                coefs.b0x * lpXStore[channel][0] +
+                coefs.b1x * lpXStore[channel][1] +
+                coefs.b2x * lpXStore[channel][2] -
+                coefs.a1x * lpYStore[channel][1] -
+                coefs.a2x * lpYStore[channel][2];
 
             lpYStore[channel][2] = lpYStore[channel][1];
             lpYStore[channel][1] = lpYStore[channel][0];
@@ -67,7 +67,7 @@ onSample(() => {
         }
 
         if (lpFreq < 22000) {
-            sample = processSample(sample);
+            sample = processSample(sample, lpCoefs);
         }
 
         sample = sample * outputGain;

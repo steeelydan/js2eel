@@ -250,10 +250,10 @@ export const variableDeclaration = (
             }
         };
 
-        instance.setDeclaredSymbol((onlyDeclaration.id as Identifier).name, newDeclaredSymbol);
+        instance.setDeclaredSymbol(onlyDeclaration.id.name, newDeclaredSymbol);
 
         if (putInInit) {
-            instance.setInitVariableName((onlyDeclaration.id as Identifier).name);
+            instance.setInitVariableName(onlyDeclaration.id.name);
 
             // We don't print the object because we do it in init
             return '';
@@ -267,7 +267,7 @@ export const variableDeclaration = (
         declarationType: declaration.kind as AllowedDeclarationType,
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
-        node: onlyDeclaration,
+        node: onlyDeclaration.id,
         currentAssignment: null
     };
 

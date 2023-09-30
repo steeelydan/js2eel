@@ -77,7 +77,7 @@ const myVar = myFunction(3);`);
         expect(result.success).to.equal(true);
         expect(result.errors.length).to.equal(0);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
 
 desc:arrowFunction
 
@@ -87,8 +87,7 @@ out_pin:In 0
 out_pin:In 1
 
 
-someNum__S1 = 3;
-R__S1__0 = someNum__S1;
+R__S1__0 = 3;
 myVar = R__S1__0;
 `)
         );

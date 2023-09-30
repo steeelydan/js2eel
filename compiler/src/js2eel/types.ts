@@ -187,7 +187,7 @@ export type ArgDefinition<ArgName> = {
     allowedValues: FunctionCallAllowedValues;
 };
 
-export type ParsedFunctionArgument /*<T>*/ = {
+export type ParsedFunctionArgument = {
     name: string;
     scopedName: any;
     value: any;

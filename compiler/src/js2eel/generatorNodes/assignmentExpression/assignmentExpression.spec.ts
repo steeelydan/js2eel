@@ -405,6 +405,86 @@ someConst = 2;
         expect(result.errors[0].node?.type).to.equal('Identifier');
     });
 
+    it('Normal assignment: Produces error if identifier assigned to is a param (except "sample"): eachChannel', () => {
+        const compiler = new Js2EelCompiler();
+
+        const result =
+            compiler.compile(`config({ description: 'assignmentExpression', inChannels: 2, outChannels: 2 });
+
+onSample(() => {
+    eachChannel((sample, channel) => {
+        sample = 4;
+        channel = 3;
+    });
+});
+`);
+
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
+
+desc:assignmentExpression
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@sample
+
+
+/* Channel 0 */
+
+spl0 = 4;
+ = 3;
+
+/* Channel 1 */
+
+spl1 = 4;
+ = 3;
+
+
+
+`)
+        );
+
+        expect(result.errors.length).to.equal(1);
+        expect(result.errors[0].type).to.equal('GenericError');
+        expect(result.errors[0].node?.type).to.equal('Identifier');
+    });
+
+    it('Normal assignment: Produces error if identifier assigned to is a param (except "sample"): user function', () => {
+        const compiler = new Js2EelCompiler();
+
+        const result =
+            compiler.compile(`config({ description: 'assignmentExpression', inChannels: 2, outChannels: 2 });
+
+const func = (someParam) => {
+    someParam = someParam + 1;
+
+    return someParam * 2;
+};
+`);
+
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
+
+desc:assignmentExpression
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+`)
+        );
+
+        expect(result.errors.length).to.equal(1);
+        expect(result.errors[0].type).to.equal('GenericError');
+        expect(result.errors[0].node?.type).to.equal('Identifier');
+    });
+
     it('Normal assignment: Produces error if right node is of wrong type', () => {
         const compiler = new Js2EelCompiler();
 

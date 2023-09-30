@@ -1,6 +1,9 @@
 import { inScope } from '../../environment/inScope.js';
 import { getSymbolInNextUpScope } from '../../environment/getSymbolInNextUpScope.js';
-import { suffixScopeBySymbol } from '../../suffixersAndPrefixers/suffixScope.js';
+import {
+    suffixScopeByScopeSuffix,
+    suffixScopeBySymbol
+} from '../../suffixersAndPrefixers/suffixScope.js';
 import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier } from 'estree';
@@ -19,7 +22,7 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
     const sampleParamsMap = instance.getEachChannelParams();
     const inSampleParamsMap = Object.values(sampleParamsMap).includes(identifier.name);
 
-    if (!declaredSymbol && !inSampleParamsMap) {
+    if (!declaredSymbol) {
         instance.error(
             'UnknownSymbolError',
             'Variable not declared: ' + identifier.name,
@@ -29,15 +32,21 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
         return '';
     }
 
-    if (inScope('onSample', instance) && inSampleParamsMap) {
-        // eachChannel params
+    if (declaredSymbol.symbol.declarationType === 'param') {
+        if (inScope('onSample', instance) && inSampleParamsMap) {
+            // eachChannel params
+            const currentChannel = instance.getCurrentChannel();
 
-        const currentChannel = instance.getCurrentChannel();
-
-        if (sampleParamsMap.channelIdentifier === identifier.name) {
-            identifierSrc = currentChannel.toString();
+            if (sampleParamsMap.channelIdentifier === identifier.name) {
+                identifierSrc = currentChannel.toString();
+            } else {
+                identifierSrc = `spl${currentChannel}`;
+            }
         } else {
-            identifierSrc = `spl${currentChannel}`;
+            identifierSrc += `P__${suffixScopeByScopeSuffix(
+                identifier.name,
+                instance.getCurrentScopeSuffix()
+            )}`;
         }
     } else {
         if (declaredSymbol && declaredSymbol.symbol.inScopePath !== 'root') {

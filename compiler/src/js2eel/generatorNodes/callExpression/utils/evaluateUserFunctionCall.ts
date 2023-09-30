@@ -14,7 +14,7 @@ import type {
     ValidatableFunctionCallAllowedValue
 } from '../../../types.js';
 
-type ValidatedArgs<ArgName extends string> = {
+type ValidatedUserFunctionArgs<ArgName extends string> = {
     [argName in ArgName]: ParsedFunctionArgument;
 };
 
@@ -24,10 +24,10 @@ export const evaluateUserFunctionCall = <ArgName extends string>(
     scopeSuffix: number,
     instance: Js2EelCompiler
 ): {
-    args: ValidatedArgs<ArgName>;
+    args: ValidatedUserFunctionArgs<ArgName>;
     errors: EelGeneratorError[] | null;
 } => {
-    const parsedArgs: ValidatedArgs<ArgName> = {} as ValidatedArgs<ArgName>; // FIXME better solution
+    const parsedArgs: ValidatedUserFunctionArgs<ArgName> = {} as ValidatedUserFunctionArgs<ArgName>;
     const errors: EelGeneratorError[] = [];
 
     const callee = functionCallExpression.callee;

@@ -56,13 +56,12 @@ outputGain = (10 ^ (outputGainDb / (20)));
 /* Channel 0 */
 
 lpFreq < 22000 ? (
-value__S8 = spl0;
 lpYStore__D0__0 = ((((lpCoefs__b0x * lpXStore__D0__0 + lpCoefs__b1x * lpXStore__D0__1) + lpCoefs__b2x * lpXStore__D0__2) - lpCoefs__a1x * lpYStore__D0__1) - lpCoefs__a2x * lpYStore__D0__2);
 lpYStore__D0__2 = lpYStore__D0__1;
 lpYStore__D0__1 = lpYStore__D0__0;
 lpXStore__D0__2 = lpXStore__D0__1;
 lpXStore__D0__1 = lpXStore__D0__0;
-lpXStore__D0__0 = value__S8;
+lpXStore__D0__0 = spl0;
 R__S8__0 = lpYStore__D0__0;
 spl0 = R__S8__0;
 );
@@ -71,13 +70,12 @@ spl0 = spl0 * outputGain;
 /* Channel 1 */
 
 lpFreq < 22000 ? (
-value__S11 = spl1;
 lpYStore__D1__0 = ((((lpCoefs__b0x * lpXStore__D1__0 + lpCoefs__b1x * lpXStore__D1__1) + lpCoefs__b2x * lpXStore__D1__2) - lpCoefs__a1x * lpYStore__D1__1) - lpCoefs__a2x * lpYStore__D1__2);
 lpYStore__D1__2 = lpYStore__D1__1;
 lpYStore__D1__1 = lpYStore__D1__0;
 lpXStore__D1__2 = lpXStore__D1__1;
 lpXStore__D1__1 = lpXStore__D1__0;
-lpXStore__D1__0 = value__S11;
+lpXStore__D1__0 = spl1;
 R__S11__0 = lpYStore__D1__0;
 spl1 = R__S11__0;
 );

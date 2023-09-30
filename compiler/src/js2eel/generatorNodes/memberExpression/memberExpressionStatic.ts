@@ -34,41 +34,51 @@ export const memberExpressionStatic = (
         return '';
     }
 
-    if (potentialDeclaredSymbol.symbol.currentAssignment?.type !== 'object') {
-        instance.error(
-            'TypeError',
-            `Accessed symbol is no object but ${potentialDeclaredSymbol.symbol.currentAssignment?.type}`,
-            memberExpression.object
-        );
-
-        return '';
-    }
-
-    const object = potentialDeclaredSymbol.symbol.currentAssignment.value;
-
     const key = memberExpression.property.name;
 
-    if (!(key in object)) {
-        instance.error(
-            'UnknownSymbolError',
-            `Key ${key} not in object ${memberExpression.object.name}`,
-            memberExpression.property
-        );
+    if (potentialDeclaredSymbol.symbol.declarationType === 'param') {
+        // FIXME: Can we ever check if even is object?
 
-        return '';
+        // Scope will never be root if the symbol is a function param
+        memberExpressionStaticSrc += `P__${suffixScopeByScopeSuffix(
+            objectIdentifierName,
+            instance.getCurrentScopeSuffix()
+        )}__${key}`;
+    } else {
+        if (potentialDeclaredSymbol.symbol.currentAssignment?.type !== 'object') {
+            instance.error(
+                'TypeError',
+                `Accessed symbol is no object but ${potentialDeclaredSymbol.symbol.currentAssignment?.type}`,
+                memberExpression.object
+            );
+
+            return '';
+        }
+
+        const object = potentialDeclaredSymbol.symbol.currentAssignment.value;
+
+        if (!(key in object)) {
+            instance.error(
+                'UnknownSymbolError',
+                `Key ${key} not in object ${memberExpression.object.name}`,
+                memberExpression.property
+            );
+
+            return '';
+        }
+
+        let scoped = false;
+
+        if (potentialDeclaredSymbol.scopeSuffix !== 0) {
+            scoped = true;
+        }
+
+        const identifier = `${memberExpression.object.name}__${
+            scoped ? suffixScopeByScopeSuffix(key, potentialDeclaredSymbol.scopeSuffix) : key
+        }`;
+
+        memberExpressionStaticSrc += identifier;
     }
-
-    let scoped = false;
-
-    if (potentialDeclaredSymbol.scopeSuffix !== 0) {
-        scoped = true;
-    }
-
-    const identifier = `${memberExpression.object.name}__${
-        scoped ? suffixScopeByScopeSuffix(key, potentialDeclaredSymbol.scopeSuffix) : key
-    }`;
-
-    memberExpressionStaticSrc += identifier;
 
     instance.setSymbolUsed(memberExpression.object.name);
 

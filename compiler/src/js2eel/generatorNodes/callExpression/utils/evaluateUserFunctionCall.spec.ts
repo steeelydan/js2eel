@@ -174,7 +174,7 @@ onSample(() => {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.0 */
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
 
 desc:functions
 
@@ -186,8 +186,7 @@ out_pin:In 1
 
 @sample
 
-someArg__S1 = 3;
-R__S1__0 = someArg__S1;
+R__S1__0 = 3;
 myVar__S3 = R__S1__0;
 
 
@@ -212,9 +211,8 @@ onSample(() => {
 });
 `);
         expect(result.success).to.equal(true);
-        // FIXME this result is wrong
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.0 */
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
 
 desc:functions
 
@@ -226,8 +224,7 @@ out_pin:In 1
 
 @sample
 
-someArg__S1 = -3;
-R__S1__0 = someArg__S1;
+R__S1__0 = -3;
 myVar__S3 = R__S1__0;
 
 
@@ -255,7 +252,7 @@ onSample(() => {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.0 */
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
 
 desc:functions
 
@@ -272,14 +269,12 @@ someVar = 3;
 
 @sample
 
-someArg__S1 = someVar;
-R__S1__0 = someArg__S1;
+R__S1__0 = someVar;
 myVar__S3 = R__S1__0;
 
 
 `)
         );
-        // FIXME someVar doesn't make sense
         expect(result.errors.length).to.equal(0);
         expect(result.warnings.length).to.equal(1);
         expect(result.warnings[0].type).to.equal('SymbolUnusedWarning');

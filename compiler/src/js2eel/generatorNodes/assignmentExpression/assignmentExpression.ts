@@ -93,6 +93,21 @@ export const assignmentExpression = (
         case 'Identifier': {
             const declaredSymbol = getSymbolInNextUpScope(expressionLeft.name, instance);
 
+            const eachChannelParams = instance.getEachChannelParams();
+
+            // We disallow assignment to user function params, except sample.
+            if (
+                declaredSymbol?.symbol.declarationType === 'param' &&
+                eachChannelParams.sampleIdentifier !== expressionLeft.name
+            ) {
+                instance.error(
+                    'GenericError',
+                    "Reassignment to function parameter other than 'sample' not allowed",
+                    expressionLeft
+                );
+                break;
+            }
+
             if (
                 declaredSymbol &&
                 declaredSymbol.symbol.declarationType &&
