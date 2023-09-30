@@ -144,6 +144,7 @@ export type DeclaredSymbol = {
     declarationType: AllowedDeclarationType;
     inScopePath: string;
     inScopeSuffix: number;
+    name: string;
     node: Node | null | undefined;
     currentAssignment: null | VariableAssignment | FunctionAssignment | ObjectAssignment;
 };

@@ -47,27 +47,27 @@ onSlider(() => {
     outputGain = 10 ** (outputGainDb / 20);
 });
 
+function processSample(value, ch, coefs, xStore, yStore) {
+    yStore[ch][0] =
+        coefs.b0x * xStore[ch][0] +
+        coefs.b1x * xStore[ch][1] +
+        coefs.b2x * xStore[ch][2] -
+        coefs.a1x * yStore[ch][1] -
+        coefs.a2x * yStore[ch][2];
+
+    yStore[ch][2] = yStore[ch][1];
+    yStore[ch][1] = yStore[ch][0];
+    xStore[ch][2] = xStore[ch][1];
+    xStore[ch][1] = xStore[ch][0];
+    xStore[ch][0] = value;
+
+    return yStore[ch][0];
+}
+
 onSample(() => {
-    eachChannel((sample, channel) => {
-        function processSample(value, coefs) {
-            lpYStore[channel][0] =
-                coefs.b0x * lpXStore[channel][0] +
-                coefs.b1x * lpXStore[channel][1] +
-                coefs.b2x * lpXStore[channel][2] -
-                coefs.a1x * lpYStore[channel][1] -
-                coefs.a2x * lpYStore[channel][2];
-
-            lpYStore[channel][2] = lpYStore[channel][1];
-            lpYStore[channel][1] = lpYStore[channel][0];
-            lpXStore[channel][2] = lpXStore[channel][1];
-            lpXStore[channel][1] = lpXStore[channel][0];
-            lpXStore[channel][0] = value;
-
-            return lpYStore[channel][0];
-        }
-
+    eachChannel((sample, ch) => {
         if (lpFreq < 22000) {
-            sample = processSample(sample, lpCoefs);
+            sample = processSample(sample, ch, lpCoefs, lpXStore, lpYStore);
         }
 
         sample = sample * outputGain;

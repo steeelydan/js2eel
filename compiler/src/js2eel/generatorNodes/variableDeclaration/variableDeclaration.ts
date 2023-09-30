@@ -242,6 +242,7 @@ export const variableDeclaration = (
             declarationType: declaration.kind as AllowedDeclarationType,
             inScopePath: instance.getCurrentScopePath(),
             inScopeSuffix: instance.getCurrentScopeSuffix(),
+            name: onlyDeclaration.id.name,
             node: onlyDeclaration,
             currentAssignment: {
                 type: 'object',
@@ -267,6 +268,7 @@ export const variableDeclaration = (
         declarationType: declaration.kind as AllowedDeclarationType,
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
+        name: onlyDeclaration.id.name,
         node: onlyDeclaration.id,
         currentAssignment: null
     };
@@ -293,11 +295,11 @@ export const variableDeclaration = (
         newDeclaredSymbol.currentAssignment.eelSrc = declarationSrc;
     }
 
-    instance.setDeclaredSymbol((onlyDeclaration.id as Identifier).name, newDeclaredSymbol);
+    instance.setDeclaredSymbol(onlyDeclaration.id.name, newDeclaredSymbol);
 
     if (putInInit) {
         // We collect let & const declared vars in init stage; later slider identifiers are filtered out.
-        instance.setInitVariableName((onlyDeclaration.id as Identifier).name);
+        instance.setInitVariableName(onlyDeclaration.id.name);
     }
 
     if (doNotPrint) {

@@ -10,6 +10,7 @@ import { eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
 import { memberExpressionCall } from '../memberExpression/memberExpressionCall.js';
 import { evaluateUserFunctionCall } from './utils/evaluateUserFunctionCall.js';
 import { suffixInlineReturn } from '../../suffixersAndPrefixers/suffixInlineReturn.js';
+import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
 
@@ -80,7 +81,6 @@ export const callExpression = (
                         const { args, errors } = evaluateUserFunctionCall(
                             callExpression,
                             declaredUserFunction.symbol.currentAssignment.argDefinition,
-                            declaredUserFunction.scopeSuffix,
                             instance
                         );
 
@@ -98,11 +98,14 @@ export const callExpression = (
 
                         for (const [_key, arg] of Object.entries(args)) {
                             // FIXME this might hurt performance if functions get large
-                            bodySrc = bodySrc.replaceAll(`P__${arg.scopedName}`, arg.value);
+                            bodySrc = bodySrc.replaceAll(
+                                `${prefixParam(arg.scopedName)}`,
+                                arg.value
+                            );
 
                             if (returnSrc) {
                                 returnSrc.src = returnSrc.src.replaceAll(
-                                    `P__${arg.scopedName}`,
+                                    `${prefixParam(arg.scopedName)}`,
                                     arg.value
                                 );
                             }

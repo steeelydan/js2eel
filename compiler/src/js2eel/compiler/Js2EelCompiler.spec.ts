@@ -127,6 +127,7 @@ __debug__someVar = someVar;
             declarationType: 'const',
             inScopePath: 'root/1',
             inScopeSuffix: 0,
+            name: 'someOtherVar',
             node: {
                 type: 'VariableDeclarator',
                 loc: {
@@ -185,6 +186,7 @@ __debug__someVar = someVar;
             declarationType: 'const',
             inScopePath: 'root/1',
             inScopeSuffix: 0,
+            name: 'someThirdVar',
             node: {
                 type: 'VariableDeclarator',
                 loc: {

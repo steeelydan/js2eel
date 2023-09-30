@@ -36,6 +36,7 @@ export const registerDeclarationParam = (
         declarationType: 'param',
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
+        name: identifier.name,
         node: identifier,
         currentAssignment: null
     });

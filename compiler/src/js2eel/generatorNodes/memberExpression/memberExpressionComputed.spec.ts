@@ -35,7 +35,7 @@ myVar = somestring;
 
 @sample
 
-myVar2__S2 = ;
+myVar2__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -69,7 +69,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = ;
+myVar__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -104,7 +104,7 @@ out_pin:In 1
 
 @sample
 
-myVar2__S2 = ;
+myVar2__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -140,7 +140,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = ;
+myVar__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -176,7 +176,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = ;
+myVar__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -212,7 +212,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = myArr__D__;
+myVar__S2 = myArr__D?ä__DENY_COMPILATION__;
 
 
 `)
@@ -284,7 +284,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = myArr__D__1;
+myVar__S2 = myArr__D?ä__DENY_COMPILATION__1;
 
 
 `)
@@ -327,7 +327,7 @@ myVar = spl0;
 
 @sample
 
-myVar2__S2 = myArr__D__0;
+myVar2__S2 = myArr__D?ä__DENY_COMPILATION__0;
 
 
 `)
@@ -455,7 +455,7 @@ buf__size = 2;
 
 @sample
 
-myVar2__S2 = buf__B[1];
+myVar2__S2 = buf__B?ä__DENY_COMPILATION[1];
 
 
 `)

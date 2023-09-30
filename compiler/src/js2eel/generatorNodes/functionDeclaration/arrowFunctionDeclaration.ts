@@ -101,6 +101,7 @@ export const arrowFunctionDeclaration = (
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
         node: arrowFunctionExpression,
+        name: declarationIdentifier.name,
         currentAssignment: {
             type: 'function',
             ownScopePath: ownScopePath,

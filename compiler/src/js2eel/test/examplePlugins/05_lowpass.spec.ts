@@ -62,8 +62,8 @@ lpYStore__D0__1 = lpYStore__D0__0;
 lpXStore__D0__2 = lpXStore__D0__1;
 lpXStore__D0__1 = lpXStore__D0__0;
 lpXStore__D0__0 = spl0;
-R__S8__0 = lpYStore__D0__0;
-spl0 = R__S8__0;
+R__S4__0 = lpYStore__D0__0;
+spl0 = R__S4__0;
 );
 spl0 = spl0 * outputGain;
 
@@ -76,8 +76,8 @@ lpYStore__D1__1 = lpYStore__D1__0;
 lpXStore__D1__2 = lpXStore__D1__1;
 lpXStore__D1__1 = lpXStore__D1__0;
 lpXStore__D1__0 = spl1;
-R__S11__0 = lpYStore__D1__0;
-spl1 = R__S11__0;
+R__S4__0 = lpYStore__D0__0;
+spl1 = R__S4__0;
 );
 spl1 = spl1 * outputGain;
 

@@ -1,4 +1,5 @@
 import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope';
+import { prefixParam } from '../../suffixersAndPrefixers/prefixParam';
 
 import type { Identifier, MemberExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
@@ -40,9 +41,8 @@ export const memberExpressionStatic = (
         // FIXME: Can we ever check if even is object?
 
         // Scope will never be root if the symbol is a function param
-        memberExpressionStaticSrc += `P__${suffixScopeByScopeSuffix(
-            objectIdentifierName,
-            instance.getCurrentScopeSuffix()
+        memberExpressionStaticSrc += `${prefixParam(
+            suffixScopeByScopeSuffix(objectIdentifierName, instance.getCurrentScopeSuffix())
         )}__${key}`;
     } else {
         if (potentialDeclaredSymbol.symbol.currentAssignment?.type !== 'object') {

@@ -21,7 +21,6 @@ type ValidatedUserFunctionArgs<ArgName extends string> = {
 export const evaluateUserFunctionCall = <ArgName extends string>(
     functionCallExpression: CallExpression,
     argDefinition: ArgDefinition<ArgName>[],
-    scopeSuffix: number,
     instance: Js2EelCompiler
 ): {
     args: ValidatedUserFunctionArgs<ArgName>;

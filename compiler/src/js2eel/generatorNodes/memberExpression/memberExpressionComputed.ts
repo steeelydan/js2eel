@@ -5,6 +5,9 @@ import { memberExpression as compileMemberExpression } from './memberExpression.
 import { inScope } from '../../environment/inScope.js';
 import { suffixEelBuffer } from '../../suffixersAndPrefixers/suffixEelBuffer.js';
 import { suffixEelArray } from '../../suffixersAndPrefixers/suffixEelArray.js';
+import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
+import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
+import { jsfxDenyCompilation } from '../../utils/jsfxNonCompilable.js';
 
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { MemberExpression } from 'estree';
@@ -22,8 +25,11 @@ export const memberExpressionComputed = (
     let potentialBuffer: EelBuffer | undefined;
     let potentialArray: EelArray | undefined;
 
-    let dimensionText = '';
+    let dimensionText = jsfxDenyCompilation();
     let positionText = '';
+
+    let isParam = false;
+    let declaredSymbol;
 
     // FIXME: Make sure that arrays & buffers are always accessed in 2 dimensions
 
@@ -33,93 +39,94 @@ export const memberExpressionComputed = (
             const dimensionPart = object;
 
             if (dimensionPart.object.type === 'Identifier') {
-                const potentialArrayOrBufferName = dimensionPart.object.name;
+                declaredSymbol = instance.getDeclaredSymbolUpInScope(dimensionPart.object.name);
+                if (declaredSymbol?.symbol.declarationType === 'param') {
+                    isParam = true;
 
-                potentialBuffer = instance.getEelBuffer(potentialArrayOrBufferName);
-                potentialArray = instance.getEelArray(potentialArrayOrBufferName);
+                    // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
+                    identifier(dimensionPart.object, instance);
+                } else {
+                    const potentialArrayOrBufferName = dimensionPart.object.name;
 
-                // Will mark the symbol as used
-                identifier(dimensionPart.object, instance);
+                    potentialBuffer = instance.getEelBuffer(potentialArrayOrBufferName);
+                    potentialArray = instance.getEelArray(potentialArrayOrBufferName);
+
+                    // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
+                    identifier(dimensionPart.object, instance);
+                }
             } else {
-                // E.g. "someString"[1][2]
                 instance.error(
                     'TypeError',
                     `Property access can only be performed on an array or buffer.`,
                     object
                 );
 
-                return computedMemberExpressionSrc;
+                return jsfxDenyCompilation();
             }
 
-            if (potentialBuffer || potentialArray) {
-                switch (dimensionPart.property.type) {
-                    case 'Literal': {
-                        if (typeof dimensionPart.property.value !== 'number') {
+            switch (dimensionPart.property.type) {
+                case 'Literal': {
+                    if (typeof dimensionPart.property.value !== 'number') {
+                        instance.error(
+                            'TypeError',
+                            'Array/Buffer accessor must be number.',
+                            dimensionPart.property
+                        );
+
+                        break;
+                    }
+
+                    let dimensions: number | undefined;
+
+                    if (potentialBuffer) {
+                        dimensions = potentialBuffer.dimensions;
+                    } else if (potentialArray) {
+                        dimensions = potentialArray.dimensions;
+                    }
+
+                    if (
+                        dimensions !== undefined &&
+                        dimensionPart.property.value !== undefined &&
+                        dimensionPart.property.value < dimensions
+                    ) {
+                        dimensionText = literal(dimensionPart.property, instance);
+                    } else {
+                        instance.error(
+                            'BoundaryError',
+                            `Array/buffer dimension out of bounds. Array/buffer dimensions are ${dimensions} and you tried to access ${dimensionPart.property.value}`,
+                            dimensionPart.property
+                        );
+                    }
+
+                    break;
+                }
+                case 'Identifier': {
+                    if (isParam) {
+                        dimensionText = identifier(dimensionPart.property, instance);
+                    } else {
+                        if (potentialBuffer) {
+                            dimensionText = identifier(dimensionPart.property, instance);
+                        } else {
                             instance.error(
-                                'TypeError',
-                                'Array/Buffer accessor must be number.',
+                                'ScopeError',
+                                `Other than by literal values, arrays can only be accessed by the "channel" param in eachChannel()`,
                                 dimensionPart.property
                             );
 
                             break;
                         }
-
-                        let dimensions: number | undefined;
-
-                        if (potentialBuffer) {
-                            dimensions = potentialBuffer.dimensions;
-                        } else if (potentialArray) {
-                            dimensions = potentialArray.dimensions;
-                        }
-
-                        if (
-                            dimensions !== undefined &&
-                            dimensionPart.property.value !== undefined &&
-                            dimensionPart.property.value < dimensions
-                        ) {
-                            dimensionText += literal(dimensionPart.property, instance);
-                        } else {
-                            instance.error(
-                                'BoundaryError',
-                                `Array/buffer dimension out of bounds. Array/buffer dimensions are ${dimensions} and you tried to access ${dimensionPart.property.value}`,
-                                dimensionPart.property
-                            );
-                        }
-
-                        break;
                     }
-                    case 'Identifier': {
-                        if (potentialBuffer) {
-                            dimensionText += identifier(dimensionPart.property, instance);
-                        } else {
-                            if (
-                                inScope('onSample', instance) &&
-                                dimensionPart.property.name ===
-                                    instance.getEachChannelParams().channelIdentifier
-                            ) {
-                                dimensionText += identifier(dimensionPart.property, instance);
-                            } else {
-                                instance.error(
-                                    'ScopeError',
-                                    `Other than by literal values, arrays can only be accessed by the "channel" param in eachChannel()`,
-                                    dimensionPart.property
-                                );
 
-                                break;
-                            }
-                        }
+                    break;
+                }
+                default: {
+                    instance.error(
+                        'TypeError',
+                        `Property access is not allowed with this type: ${property.type}`,
+                        property
+                    );
 
-                        break;
-                    }
-                    default: {
-                        instance.error(
-                            'TypeError',
-                            `Property access is not allowed with this type: ${property.type}`,
-                            property
-                        );
-
-                        return computedMemberExpressionSrc;
-                    }
+                    return jsfxDenyCompilation();
                 }
             }
 
@@ -132,7 +139,9 @@ export const memberExpressionComputed = (
             potentialBuffer = instance.getEelBuffer(potentialArrayOrBufferName);
             potentialArray = instance.getEelArray(potentialArrayOrBufferName);
 
-            // Will mark the symbol as used
+            declaredSymbol = instance.getDeclaredSymbolUpInScope(object.name);
+
+            // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
             identifier(object, instance);
 
             break;
@@ -147,14 +156,14 @@ export const memberExpressionComputed = (
         }
     }
 
-    if (!potentialBuffer && !potentialArray) {
+    if (!potentialBuffer && !potentialArray && declaredSymbol?.symbol.declarationType !== 'param') {
         instance.error(
             'TypeError',
             `Property access can only be performed on an array or buffer.`,
             memberExpression
         );
 
-        return '';
+        return jsfxDenyCompilation();
     }
 
     // Position part
@@ -228,22 +237,32 @@ export const memberExpressionComputed = (
                 memberExpression
             );
 
-            return computedMemberExpressionSrc;
+            return jsfxDenyCompilation();
         }
     }
 
-    if (potentialBuffer) {
-        computedMemberExpressionSrc += suffixEelBuffer(
-            potentialBuffer.name,
-            dimensionText,
-            positionText
+    if (isParam && declaredSymbol) {
+        // we suffix the param name to catch it in the callExpression() replacements...
+        computedMemberExpressionSrc += prefixParam(
+            `${suffixScopeByScopeSuffix(
+                declaredSymbol.symbol.name,
+                instance.getCurrentScopeSuffix()
+            )}__D${dimensionText}__${positionText}`
         );
-    } else if (potentialArray) {
-        computedMemberExpressionSrc += suffixEelArray(
-            potentialArray.name,
-            dimensionText,
-            positionText
-        );
+    } else {
+        if (potentialBuffer) {
+            computedMemberExpressionSrc += suffixEelBuffer(
+                potentialBuffer.name,
+                dimensionText,
+                positionText
+            );
+        } else if (potentialArray) {
+            computedMemberExpressionSrc += suffixEelArray(
+                potentialArray.name,
+                dimensionText,
+                positionText
+            );
+        }
     }
 
     return computedMemberExpressionSrc;

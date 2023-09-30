@@ -4,6 +4,7 @@ import {
     suffixScopeByScopeSuffix,
     suffixScopeBySymbol
 } from '../../suffixersAndPrefixers/suffixScope.js';
+import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier } from 'estree';
@@ -43,9 +44,8 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
                 identifierSrc = `spl${currentChannel}`;
             }
         } else {
-            identifierSrc += `P__${suffixScopeByScopeSuffix(
-                identifier.name,
-                instance.getCurrentScopeSuffix()
+            identifierSrc += `${prefixParam(
+                suffixScopeByScopeSuffix(identifier.name, instance.getCurrentScopeSuffix())
             )}`;
         }
     } else {

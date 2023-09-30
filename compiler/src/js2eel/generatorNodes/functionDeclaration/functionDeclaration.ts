@@ -106,6 +106,7 @@ export const functionDeclaration = (
         declarationType: 'noIdentifier',
         inScopePath: instance.getCurrentScopePath(),
         inScopeSuffix: instance.getCurrentScopeSuffix(),
+        name: declarationIdentifier.name,
         node: functionDeclaration,
         currentAssignment: {
             type: 'function',
