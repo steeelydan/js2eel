@@ -4,6 +4,8 @@ export const EXAMPLE_LOWPASS_JS = {
 
 let lpFreq;
 let lpQ;
+let outputGainDb;
+let outputGain;
 
 const lpCoefs = {
     a1x: 0,
@@ -15,9 +17,6 @@ const lpCoefs = {
 
 const lpXStore = new EelArray(2, 3);
 const lpYStore = new EelArray(2, 3);
-
-let outputGainDb;
-let outputGain;
 
 slider(1, lpFreq, 22000, 5, 22000, 1, 'LP Freq');
 slider(2, lpQ, 0.5, 0.1, 7, 0.01, 'Q');
