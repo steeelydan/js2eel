@@ -6,7 +6,7 @@ import { testEelSrc } from '../helpers.js';
 
 const JS_SATURATION_SRC = fs.readFileSync(path.resolve('../examples/06_saturation.js'), 'utf-8');
 
-const EEL_SATURATION_SRC_EXPECTED = `/* Compiled with JS2EEL v0.0.15 */
+const EEL_SATURATION_SRC_EXPECTED = `/* Compiled with JS2EEL v0.8.0 */
 
 desc:saturation
 
@@ -34,11 +34,13 @@ volume = 10 ^ (volumeDb / (20));
 
 algorithm == 0 ? (
 spl0 = (2 * 1 / ((1 + exp(-gainIn * spl0))) - 1);
-) : algorithm == 1 ? (
+) : (algorithm == 1 ? (
 spl0 = (exp(2 * spl0 * gainIn) - 1) / ((exp(2 * spl0 * gainIn) + 1)) / ((exp(2 * gainIn) - 1) / ((exp(2 * gainIn) + 1)));
-) : algorithm == 2 ? (
+) : (algorithm == 2 ? (
 spl0 *= gainIn;
 spl0 = abs(spl0) > 0.5 ? 0.5 * sign(spl0) : spl0;
+);
+);
 );
 spl0 *= volume;
 
@@ -46,11 +48,13 @@ spl0 *= volume;
 
 algorithm == 0 ? (
 spl1 = (2 * 1 / ((1 + exp(-gainIn * spl1))) - 1);
-) : algorithm == 1 ? (
+) : (algorithm == 1 ? (
 spl1 = (exp(2 * spl1 * gainIn) - 1) / ((exp(2 * spl1 * gainIn) + 1)) / ((exp(2 * gainIn) - 1) / ((exp(2 * gainIn) + 1)));
-) : algorithm == 2 ? (
+) : (algorithm == 2 ? (
 spl1 *= gainIn;
 spl1 = abs(spl1) > 0.5 ? 0.5 * sign(spl1) : spl1;
+);
+);
 );
 spl1 *= volume;
 

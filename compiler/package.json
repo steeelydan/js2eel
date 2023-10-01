@@ -1,6 +1,6 @@
 {
     "name": "@js2eel/compiler",
-    "version": "0.8.1",
+    "version": "0.9.0",
     "description": "Write REAPER JSFX/EEL2 plugins in JavaScript",
     "engines": {
         "node": ">=18.0.0"

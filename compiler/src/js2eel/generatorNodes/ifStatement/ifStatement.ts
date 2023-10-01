@@ -67,7 +67,7 @@ export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompil
 
     if (alternateSrc) {
         ifSrc += ' : ';
-        ifSrc += `${alternateSrc}`;
+        ifSrc += `(${alternateSrc})`;
     }
 
     return addSemicolonIfNone(ifSrc);

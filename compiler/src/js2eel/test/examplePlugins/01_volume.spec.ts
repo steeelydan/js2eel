@@ -27,7 +27,8 @@ target = 0;
 
 volume > -149.9 ? (
 target = 10 ^ (volume / (20));
-) : target = 0;
+) : (target = 0;
+);
 
 
 @sample
