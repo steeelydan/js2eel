@@ -11,7 +11,7 @@ import { createResultPluginData } from '../utils/createResultPluginData.js';
 import { sortErrorsOrWarnings } from '../utils/sortErrorsOrWarnings.js';
 import { ALL_RESERVED_SYMBOL_NAMES, COMPILER_VERSION } from '../constants.js';
 
-import type { Node, Program } from 'estree';
+import type { FunctionDeclaration, Node, Program } from 'estree';
 import type {
     EelBuffer,
     EelGeneratorError,
@@ -259,9 +259,7 @@ export class Js2EelCompiler {
                     );
                 }
                 if (!declaredSymbol.symbol.currentAssignment) {
-                    throw new Error(
-                        "No value assigned: " + initVariableName
-                    );
+                    throw new Error('No value assigned: ' + initVariableName);
                 }
                 /* c8 ignore stop */
 
@@ -337,11 +335,20 @@ export class Js2EelCompiler {
                         !declaredVariable.used &&
                         !variableName.startsWith('_')
                     ) {
-                        this.warning(
-                            'SymbolUnusedWarning',
-                            `Variable unused: ${variableName}`,
-                            declaredVariable.node
-                        );
+                        if (declaredVariable.currentAssignment?.type === 'function') {
+                            this.warning(
+                                'SymbolUnusedWarning',
+                                `Function unused: ${variableName}`,
+                                (declaredVariable.node as FunctionDeclaration).id ||
+                                    declaredVariable.node
+                            );
+                        } else {
+                            this.warning(
+                                'SymbolUnusedWarning',
+                                `Variable unused: ${variableName}`,
+                                declaredVariable.node
+                            );
+                        }
                     }
                 }
             }
