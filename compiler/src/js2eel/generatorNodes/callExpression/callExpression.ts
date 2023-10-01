@@ -90,21 +90,23 @@ export const callExpression = (
                             break;
                         }
 
-                        let bodySrc = declaredUserFunction.symbol.currentAssignment.eelSrc;
+                        let replacedBodySrc = declaredUserFunction.symbol.currentAssignment.eelSrc;
 
                         const returnSrc = instance.getReturn(
                             declaredUserFunction.symbol.currentAssignment.ownScopePath
                         );
 
+                        let replacedReturnSource = returnSrc?.src;
+
                         for (const [_key, arg] of Object.entries(args)) {
                             // FIXME this might hurt performance if functions get large
-                            bodySrc = bodySrc.replaceAll(
+                            replacedBodySrc = replacedBodySrc.replaceAll(
                                 `${prefixParam(arg.scopedName)}`,
                                 arg.value
                             );
 
-                            if (returnSrc) {
-                                returnSrc.src = returnSrc.src.replaceAll(
+                            if (replacedReturnSource) {
+                                replacedReturnSource = replacedReturnSource.replaceAll(
                                     `${prefixParam(arg.scopedName)}`,
                                     arg.value
                                 );
@@ -121,13 +123,13 @@ export const callExpression = (
                         }
 
                         instance.addToCurrentInlineData(
-                            `${bodySrc}${
-                                returnSrc
+                            `${replacedBodySrc}${
+                                returnSrc && replacedReturnSource
                                     ? addSemicolonIfNone(
                                           `${suffixInlineReturn(
                                               returnSrc.symbolSrc,
                                               currentInlineCounter
-                                          )} = ${returnSrc.src}`,
+                                          )} = ${replacedReturnSource}`,
                                           false
                                       )
                                     : ''

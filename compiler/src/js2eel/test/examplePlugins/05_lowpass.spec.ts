@@ -76,7 +76,7 @@ lpYStore__D1__1 = lpYStore__D1__0;
 lpXStore__D1__2 = lpXStore__D1__1;
 lpXStore__D1__1 = lpXStore__D1__0;
 lpXStore__D1__0 = spl1;
-R__S2__0 = lpYStore__D0__0;
+R__S2__0 = lpYStore__D1__0;
 spl1 = R__S2__0;
 );
 spl1 = spl1 * outputGain;
