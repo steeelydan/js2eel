@@ -4,6 +4,7 @@ import { EXAMPLE_MONO_DELAY_JS } from './components/js2eel/examples/03_mono_dela
 import { EXAMPLE_STEREO_DELAY_JS } from './components/js2eel/examples/04_stereo_delay';
 import { EXAMPLE_LOWPASS_JS } from './components/js2eel/examples/05_lowpass';
 import { EXAMPLE_SATURATION_JS } from './components/js2eel/examples/06_saturation';
+import { EXAMPLE_4BAND_EQ_JS } from './components/js2eel/examples/07_4band_eq';
 
 import type { Js2EelLeftTab, Js2EelRightTab } from './types';
 
@@ -32,7 +33,8 @@ export const examples = [
     EXAMPLE_MONO_DELAY_JS,
     EXAMPLE_STEREO_DELAY_JS,
     EXAMPLE_LOWPASS_JS,
-    EXAMPLE_SATURATION_JS
+    EXAMPLE_SATURATION_JS,
+    EXAMPLE_4BAND_EQ_JS
 ];
 
 export const COLORS = {
