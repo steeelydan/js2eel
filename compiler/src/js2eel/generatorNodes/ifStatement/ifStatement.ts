@@ -6,6 +6,7 @@ import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNo
 
 import type { IfStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { logicalExpression } from '../logicalExpression/logicalExpression.js';
 
 export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompiler): string => {
     let ifSrc = ``;
@@ -21,6 +22,10 @@ export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompil
         }
         case 'BinaryExpression': {
             testSrc += binaryExpression(ifStatementNode.test, instance);
+            break;
+        }
+        case 'LogicalExpression': {
+            testSrc += logicalExpression(ifStatementNode.test, instance);
             break;
         }
         default: {

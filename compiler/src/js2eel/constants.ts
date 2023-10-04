@@ -512,7 +512,7 @@ export const ALLOWED_BINARY_OPERATORS = new Set([
 // Don't allow == (equal if diff. less than 0.00001) and != (not equal if diff. less than 0.00001)
 // ? and ? : are handled by ConditionalExpression
 // ^= not allowed because it's different in EEL (exp)
-// || and && are logical expression
+// || and && are logical operators. Eel supports the same logical operators as JS, "&&" and "||"
 // Not yet supported EEL binary assignment operators: |=, &=, ~=
 
 export const ALLOWED_ASSIGNMENT_OPERATORS = new Set(['=', '*=', '%=', '+=', '-=']);
