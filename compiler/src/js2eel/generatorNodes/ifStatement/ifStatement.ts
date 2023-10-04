@@ -1,4 +1,5 @@
 import { blockStatement } from '../blockStatement/blockStatement.js';
+import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
 
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
@@ -14,6 +15,10 @@ export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompil
     let alternateSrc = '';
 
     switch (ifStatementNode.test.type) {
+        case 'UnaryExpression': {
+            testSrc += unaryExpression(ifStatementNode.test, instance);
+            break;
+        }
         case 'BinaryExpression': {
             testSrc += binaryExpression(ifStatementNode.test, instance);
             break;

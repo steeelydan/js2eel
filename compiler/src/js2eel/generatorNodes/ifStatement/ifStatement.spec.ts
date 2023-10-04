@@ -87,4 +87,54 @@ out_pin:In 1
         expect(result.errors.length).to.equal(1);
         expect(result.errors[0].type).to.equal('TypeError');
     });
+
+    it('allow unary expression in if statement', () => {
+        const compiler = new Js2EelCompiler();
+        const result = compiler.compile(
+            `config({ description: 'ifStatement', inChannels: 2, outChannels: 2 });
+
+let bool = false;
+let result = true;
+
+onSample(() => {
+    if (!bool) {
+        result = false;
+    } else {
+        result = true;
+    }
+});
+`
+        );
+
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:ifStatement
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@init
+
+bool = 0;
+result = 1;
+
+
+@sample
+
+!bool ? (
+result = 0;
+) : (result = 1;
+);
+
+
+`)
+        );
+
+        expect(result.errors.length).to.equal(0);
+    });
 });
