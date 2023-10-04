@@ -72,7 +72,5 @@ export const logicalExpression = (
         }
     }
 
-    console.log('logicalExpression', logicalExpressionNode);
-
     return `(${logicalExprSrc})`;
 };
