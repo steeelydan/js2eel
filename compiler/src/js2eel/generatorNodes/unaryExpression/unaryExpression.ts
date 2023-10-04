@@ -1,6 +1,7 @@
 import { identifier } from '../identifier/identifier.js';
 
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { memberExpression } from '../memberExpression/memberExpression.js';
 import { ALLOWED_Unary_OPERATORS } from '../../constants.js';
 
 import type { UnaryExpression } from 'estree';
@@ -35,6 +36,13 @@ export const unaryExpression = (expression: UnaryExpression, instance: Js2EelCom
             unarySrc += unaryOperator;
 
             unarySrc += binaryExpression(expression.argument, instance);
+
+            break;
+        }
+        case 'MemberExpression': {
+            unarySrc += unaryOperator;
+
+            unarySrc += memberExpression(expression, expression.argument, instance);
 
             break;
         }

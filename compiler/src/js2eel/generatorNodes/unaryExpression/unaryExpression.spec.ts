@@ -67,4 +67,53 @@ someVar = ;
         expect(result.errors.length).to.equal(1);
         expect(result.errors[0].type).to.equal('OperatorError');
     });
+
+    it('allow member expression as unary', () => {
+        const compiler = new Js2EelCompiler();
+        const result = compiler.compile(
+            `config({ description: 'unaryExpression', inChannels: 2, outChannels: 2 });
+
+let bools = new EelArray(2, 1);
+let result = true;
+
+onSample(() => {
+    if (!bools[0][0]) {
+        result = false;
+    } else {
+        result = true;
+    }
+});
+`
+        );
+
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:unaryExpression
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@init
+
+result = 1;
+
+
+@sample
+
+!bools__D0__0 ? (
+result = 0;
+) : (result = 1;
+);
+
+
+`)
+        );
+
+        expect(result.errors.length).to.equal(0);
+    });
 });
