@@ -208,8 +208,9 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
         if (
             givenArg.type === 'Literal' ||
             givenArg.type === 'ObjectExpression' ||
-            givenArg.type === 'UnaryExpression' ||
-            givenArg.type === 'ArrayExpression'
+            givenArg.type === 'ArrayExpression' ||
+            (givenArg.type === 'UnaryExpression' && typeof value === 'number' && !isNaN(value))
+            // FIXME -"someString" would be allowed and give NaN
         ) {
             const { errors: validationErrors } = validateValue(
                 givenArg,
