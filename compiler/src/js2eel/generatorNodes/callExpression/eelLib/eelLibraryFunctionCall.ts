@@ -4,6 +4,7 @@ import { literal } from '../../literal/literal.js';
 import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
+import { callExpression as compileCallExpression } from '../callExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 
 import type { CallExpression } from 'estree';
@@ -14,7 +15,8 @@ const defaultNumericArgAllowedValues: FunctionCallAllowedValues = [
     { nodeType: 'Literal', validationSchema: Joi.number() },
     { nodeType: 'Identifier' },
     { nodeType: 'BinaryExpression' },
-    { nodeType: 'UnaryExpression', validationSchema: Joi.number() }
+    { nodeType: 'UnaryExpression', validationSchema: Joi.number() },
+    { nodeType: 'CallExpression' }
 ];
 
 export const eelLibraryFunctionCall = (
@@ -168,6 +170,10 @@ export const eelLibraryFunctionCall = (
             }
             case 'UnaryExpression': {
                 argsSrc += unaryExpression(arg, instance);
+                break;
+            }
+            case 'CallExpression': {
+                argsSrc += compileCallExpression(arg, instance);
                 break;
             }
             default: {

@@ -2,6 +2,7 @@ import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { arrayExpression } from '../../arrayExpression/arrayExpression.js';
+import { callExpression } from '../callExpression.js';
 
 import { validateValue } from '../../../validation/validateValue.js';
 
@@ -188,6 +189,14 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
 
                 value = arrayExpVal;
                 rawValue = givenArg.elements.toString();
+
+                break;
+            }
+            case 'CallExpression': {
+                const callExpVal = callExpression(givenArg, instance);
+
+                value = callExpVal;
+                rawValue = callExpVal;
 
                 break;
             }

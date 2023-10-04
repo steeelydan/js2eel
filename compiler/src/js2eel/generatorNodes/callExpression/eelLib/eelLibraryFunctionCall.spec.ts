@@ -213,4 +213,81 @@ myVar__S2 = ${funcName}(1, 2);
             expect(result.errors.length).to.equal(0);
         });
     });
+
+    it('Function call as argument: Library Function', () => {
+        const compiler = new Js2EelCompiler();
+        const result = compiler.compile(`config({
+    description: 'libFuncCallTest',
+    inChannels: 2,
+    outChannels: 2
+});
+
+onSample(() => {
+    let aNumber = 0;
+    aNumber = sqrt(abs(aNumber));
+});
+`);
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:libFuncCallTest
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@sample
+
+aNumber__S2 = 0;
+aNumber__S2 = sqrt(abs(aNumber__S2));
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
+
+    it('Function call as argument: User Function', () => {
+        const compiler = new Js2EelCompiler();
+        const result = compiler.compile(`config({
+    description: 'libFuncCallTest',
+    inChannels: 2,
+    outChannels: 2
+});
+
+const someFunc = () => {
+    return 3;
+};
+
+onSample(() => {
+    let aNumber = 0;
+    aNumber = sqrt(someFunc());
+});
+`);
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:libFuncCallTest
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@sample
+
+aNumber__S3 = 0;
+R__S1__0 = 3;
+aNumber__S3 = sqrt(R__S1__0);
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
 });
