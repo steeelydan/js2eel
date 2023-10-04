@@ -1,9 +1,10 @@
-import type { LogicalExpression } from 'estree';
-import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
 import { identifier } from '../identifier/identifier';
-import { jsfxDenyCompilation } from '../../utils/jsfxNonCompilable';
 import { unaryExpression } from '../unaryExpression/unaryExpression';
 import { binaryExpression } from '../binaryExpression/binaryExpression';
+import { JSFX_DENY_COMPILATION } from '../../constants';
+
+import type { LogicalExpression } from 'estree';
+import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
 
 export const logicalExpression = (
     logicalExpressionNode: LogicalExpression,
@@ -38,7 +39,7 @@ export const logicalExpression = (
                 left
             );
 
-            return jsfxDenyCompilation();
+            return JSFX_DENY_COMPILATION;
         }
     }
 
@@ -68,7 +69,7 @@ export const logicalExpression = (
                 right
             );
 
-            return jsfxDenyCompilation();
+            return JSFX_DENY_COMPILATION;
         }
     }
 

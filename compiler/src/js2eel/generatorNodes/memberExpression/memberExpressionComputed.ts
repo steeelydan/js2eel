@@ -7,7 +7,7 @@ import { suffixEelBuffer } from '../../suffixersAndPrefixers/suffixEelBuffer.js'
 import { suffixEelArray } from '../../suffixersAndPrefixers/suffixEelArray.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
-import { jsfxDenyCompilation } from '../../utils/jsfxNonCompilable.js';
+import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 import type { MemberExpression } from 'estree';
@@ -25,7 +25,7 @@ export const memberExpressionComputed = (
     let potentialBuffer: EelBuffer | undefined;
     let potentialArray: EelArray | undefined;
 
-    let dimensionText = jsfxDenyCompilation();
+    let dimensionText = '';
     let positionText = '';
 
     let isParam = false;
@@ -59,7 +59,7 @@ export const memberExpressionComputed = (
                     object
                 );
 
-                return jsfxDenyCompilation();
+                return JSFX_DENY_COMPILATION;
             }
 
             switch (dimensionPart.property.type) {
@@ -71,7 +71,7 @@ export const memberExpressionComputed = (
                             dimensionPart.property
                         );
 
-                        break;
+                        return JSFX_DENY_COMPILATION;
                     }
 
                     let dimensions: number | undefined;
@@ -94,6 +94,8 @@ export const memberExpressionComputed = (
                             `Array/buffer dimension out of bounds. Array/buffer dimensions are ${dimensions} and you tried to access ${dimensionPart.property.value}`,
                             dimensionPart.property
                         );
+
+                        dimensionText = JSFX_DENY_COMPILATION;
                     }
 
                     break;
@@ -111,7 +113,7 @@ export const memberExpressionComputed = (
                                 dimensionPart.property
                             );
 
-                            break;
+                            dimensionText = JSFX_DENY_COMPILATION;
                         }
                     }
 
@@ -124,7 +126,7 @@ export const memberExpressionComputed = (
                         property
                     );
 
-                    return jsfxDenyCompilation();
+                    dimensionText = JSFX_DENY_COMPILATION;
                 }
             }
 
@@ -137,7 +139,7 @@ export const memberExpressionComputed = (
                 memberExpression
             );
 
-            return jsfxDenyCompilation();
+            return JSFX_DENY_COMPILATION;
         }
         default: {
             // Object itself is of wrong type, e.g. "someString"[1]
@@ -147,7 +149,7 @@ export const memberExpressionComputed = (
                 object
             );
 
-            return jsfxDenyCompilation();
+            return JSFX_DENY_COMPILATION;
         }
     }
 
@@ -177,6 +179,8 @@ export const memberExpressionComputed = (
                         `Array dimension out of bounds. Array size is ${positions} and you tried to access ${property.value}`,
                         property
                     );
+
+                    positionText = JSFX_DENY_COMPILATION;
                 }
             } else {
                 positionText += literal(property, instance);
@@ -202,7 +206,7 @@ export const memberExpressionComputed = (
                         property
                     );
 
-                    break;
+                    positionText = JSFX_DENY_COMPILATION;
                 }
             }
 
@@ -222,7 +226,7 @@ export const memberExpressionComputed = (
                 memberExpression.property
             );
 
-            return jsfxDenyCompilation();
+            positionText = JSFX_DENY_COMPILATION;
         }
     }
 

@@ -5,6 +5,9 @@ export const COMPILER_VERSION = 'TO_BE_REPLACED_COMPILER_VERSION';
 export const EEL_MAX_SYMBOL_NAME_LENGTH = 127;
 export const EEL_SYMBOL_REGEX = /^[a-zA-Z_][a-zA-Z0-9_]*$/;
 
+// Leads the JSFX compiler to deny compilation. Should be useful for preventing ear/equipment damage because we fucked up
+export const JSFX_DENY_COMPILATION = '?ä__DENY_COMPILATION';
+
 // Library objects
 
 const MATH_OBJECTS = ['Math'];

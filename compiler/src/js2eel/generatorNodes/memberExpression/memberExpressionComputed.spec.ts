@@ -92,7 +92,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = ?ä__DENY_COMPILATION;
+myVar__S2 = myArr__D?ä__DENY_COMPILATION__2;
 
 
 `)
@@ -165,7 +165,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = ?ä__DENY_COMPILATION;
+myVar__S2 = myArr__D0__?ä__DENY_COMPILATION;
 
 
 `)
@@ -237,7 +237,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = myArr__D?ä__DENY_COMPILATION__1;
+myVar__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -323,7 +323,7 @@ myVar = spl0;
 
 @sample
 
-myVar2__S2 = myArr__D0__;
+myVar2__S2 = myArr__D0__?ä__DENY_COMPILATION;
 
 
 `)
@@ -444,7 +444,7 @@ out_pin:In 1
 
 @sample
 
-myVar2__S2 = arr__D1__;
+myVar2__S2 = arr__D1__?ä__DENY_COMPILATION;
 
 
 `)
