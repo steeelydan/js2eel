@@ -12,7 +12,7 @@ import { suffixScopeBySymbol } from '../../suffixersAndPrefixers/suffixScope.js'
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 import { validateSymbolName } from '../../validation/validateSymbolName.js';
 import { getLowerCasedDeclaredSymbol } from '../../environment/getLowerCaseDeclaredSymbol.js';
-import { EEL_LIBRARY_VARS } from '../../constants.js';
+import { ALL_RESERVED_SYMBOL_NAMES, EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier, VariableDeclaration } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
@@ -97,6 +97,16 @@ export const variableDeclaration = (
                 instance.error(
                     'ScopeError',
                     `Symbol already declared: ${onlyDeclaration.id.name}. Keep in mind EEL is case-insensitive.`,
+                    onlyDeclaration.id
+                );
+
+                return '';
+            }
+
+            if (ALL_RESERVED_SYMBOL_NAMES.has(onlyDeclaration.id.name)) {
+                instance.error(
+                    'SymbolAlreadyDeclaredError',
+                    'Symbol name is reserved library symbol name: ' + onlyDeclaration.id.name,
                     onlyDeclaration.id
                 );
 

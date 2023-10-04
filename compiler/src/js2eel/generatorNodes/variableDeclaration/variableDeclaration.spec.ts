@@ -27,6 +27,30 @@ out_pin:In 1
         expect(result.errors[0].type).to.equal('KeywordError');
     });
 
+    it('Gives an error if symbol name is reserved name', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: 'variableDeclaration', inChannels: 2, outChannels: 2 });
+
+const abs = abs(sample);
+`);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:variableDeclaration
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(1);
+        expect(result.errors[0].type).to.equal('SymbolAlreadyDeclaredError');
+    });
+
     it('Gives an error if more than 1 declaration per line', () => {
         const compiler = new Js2EelCompiler();
         const result =
