@@ -31,8 +31,6 @@ export const memberExpressionComputed = (
     let isParam = false;
     let declaredSymbol;
 
-    // FIXME: Make sure that arrays & buffers are always accessed in 2 dimensions
-
     switch (object.type) {
         case 'MemberExpression': {
             // Object is itself member expression, will recurse into 2 dimensions. Example: -> myArr[1] <- [2]
@@ -133,18 +131,13 @@ export const memberExpressionComputed = (
             break;
         }
         case 'Identifier': {
-            // Object is identifier, so we're 1-dimensional. Example: -> myArr <- [1]
-            const potentialArrayOrBufferName = object.name;
+            instance.error(
+                'GenericError',
+                `One-dimensional arrays or buffers are not allowed.`,
+                memberExpression
+            );
 
-            potentialBuffer = instance.getEelBuffer(potentialArrayOrBufferName);
-            potentialArray = instance.getEelArray(potentialArrayOrBufferName);
-
-            declaredSymbol = instance.getDeclaredSymbolUpInScope(object.name);
-
-            // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
-            identifier(object, instance);
-
-            break;
+            return jsfxDenyCompilation();
         }
         default: {
             // Object itself is of wrong type, e.g. "someString"[1]
@@ -153,17 +146,9 @@ export const memberExpressionComputed = (
                 `Property access is not allowed on this type: ${object.type}`,
                 object
             );
+
+            return jsfxDenyCompilation();
         }
-    }
-
-    if (!potentialBuffer && !potentialArray && declaredSymbol?.symbol.declarationType !== 'param') {
-        instance.error(
-            'TypeError',
-            `Property access can only be performed on an array or buffer.`,
-            memberExpression
-        );
-
-        return jsfxDenyCompilation();
     }
 
     // Position part
@@ -230,11 +215,11 @@ export const memberExpressionComputed = (
             break;
         }
         default: {
-            // property node is of wrong type, e.g. myArr[-3]
+            // property node is of wrong type, e.g. myArr[0][-3]
             instance.error(
                 'TypeError',
                 `Property access is not allowed with this type: ${property.type}`,
-                memberExpression
+                memberExpression.property
             );
 
             return jsfxDenyCompilation();

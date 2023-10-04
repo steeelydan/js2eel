@@ -3,24 +3,20 @@ import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
 import { testEelSrc } from '../../test/helpers';
 
 describe('memberExpressionComputed', () => {
-    it('1-dimensional: error if property access on wrong type', () => {
+    it('1-dimensional: not allowed', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
-            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
+            compiler.compile(`config({ description: 'memberExpressionComputed', inChannels: 2, outChannels: 2 });
 
-const myVar = 'somestring';
-
-onSample(() => {
-    const myVar2 = myVar[3];
-});
-`);
+const someArr = new EelArray(2, 1);
+const someVar = someArr[0];`);
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
 
-desc:member_expression_computed
+desc:memberExpressionComputed
 
 in_pin:In 0
 in_pin:In 1
@@ -28,58 +24,14 @@ out_pin:In 0
 out_pin:In 1
 
 
-@init
-
-myVar = somestring;
-
-
-@sample
-
-myVar2__S2 = ?ä__DENY_COMPILATION;
-
-
+someVar = ?ä__DENY_COMPILATION;
 `)
         );
         expect(result.errors.length).to.equal(1);
-        expect(result.errors[0].type).to.equal('TypeError');
+        expect(result.errors[0].type).to.equal('GenericError');
     });
 
-    it('1-dimensional: error if object itself is of wrong type', () => {
-        const compiler = new Js2EelCompiler();
-
-        const result =
-            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
-
-onSample(() => {
-    const myVar = "someString"[2];
-});
-`);
-
-        expect(result.success).to.equal(false);
-        expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
-
-desc:member_expression_computed
-
-in_pin:In 0
-in_pin:In 1
-out_pin:In 0
-out_pin:In 1
-
-
-@sample
-
-myVar__S2 = ?ä__DENY_COMPILATION;
-
-
-`)
-        );
-        expect(result.errors.length).to.equal(2);
-        expect(result.errors[0].type).to.equal('TypeError');
-        expect(result.errors[1].type).to.equal('TypeError');
-    });
-
-    it('2-dimensional: error if object itself is of wrong type', () => {
+    it('error if object itself is of wrong type', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
@@ -113,43 +65,7 @@ myVar2__S2 = ?ä__DENY_COMPILATION;
         expect(result.errors[0].type).to.equal('TypeError');
     });
 
-    it('1-dimensional: gives type error if property access is with wrong node type', () => {
-        const compiler = new Js2EelCompiler();
-
-        const result =
-            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
-
-const myArr = new EelArray(2, 3);
-
-onSample(() => {
-    const myVar = myArr[-3];
-});
-`);
-
-        expect(result.success).to.equal(false);
-        expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
-
-desc:member_expression_computed
-
-in_pin:In 0
-in_pin:In 1
-out_pin:In 0
-out_pin:In 1
-
-
-@sample
-
-myVar__S2 = ?ä__DENY_COMPILATION;
-
-
-`)
-        );
-        expect(result.errors.length).to.equal(1);
-        expect(result.errors[0].type).to.equal('TypeError');
-    });
-
-    it('2-dimensional: gives type error if property access is with wrong node type', () => {
+    it('gives type error if property access is with wrong node type', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
@@ -185,7 +101,8 @@ myVar__S2 = ?ä__DENY_COMPILATION;
         expect(result.errors[0].type).to.equal('TypeError');
     });
 
-    it('1-dimensional: gives error if accessed with wrong type, e.g. string', () => {
+
+    it('error if property access performed on wrong type: with just one dimension', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
@@ -194,13 +111,13 @@ myVar__S2 = ?ä__DENY_COMPILATION;
 const myArr = new EelArray(2, 3);
 
 onSample(() => {
-    const myVar = myArr["a string"];
+    const myVar = "string"[0];
 });
 `);
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
 
 desc:member_expression_computed
 
@@ -212,7 +129,7 @@ out_pin:In 1
 
 @sample
 
-myVar__S2 = myArr__D?ä__DENY_COMPILATION__;
+myVar__S2 = ?ä__DENY_COMPILATION;
 
 
 `)
@@ -221,7 +138,43 @@ myVar__S2 = myArr__D?ä__DENY_COMPILATION__;
         expect(result.errors[0].type).to.equal('TypeError');
     });
 
-    it('2-dimensional: gives error if property value is wrong type, e.g. string', () => {
+    it('gives error if position value is wrong type, e.g. unary expression', () => {
+        const compiler = new Js2EelCompiler();
+
+        const result =
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
+
+const myArr = new EelArray(2, 3);
+
+onSample(() => {
+    const myVar = myArr[0][-1];
+});
+`);
+
+        expect(result.success).to.equal(false);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:member_expression_computed
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@sample
+
+myVar__S2 = ?ä__DENY_COMPILATION;
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(1);
+        expect(result.errors[0].type).to.equal('TypeError');
+    });
+
+    it('gives error if property value is wrong type, e.g. string', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
@@ -257,7 +210,7 @@ myVar__S2 = myArr__D1__;
         expect(result.errors[0].type).to.equal('TypeError');
     });
 
-    it('2-dimensional: gives error if object access property value is wrong type, e.g. string', () => {
+    it('gives error if object access property value is wrong type, e.g. string', () => {
         const compiler = new Js2EelCompiler();
 
         const result =
