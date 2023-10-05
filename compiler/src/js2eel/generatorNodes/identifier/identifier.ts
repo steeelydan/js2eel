@@ -5,6 +5,7 @@ import {
     suffixScopeBySymbol
 } from '../../suffixersAndPrefixers/suffixScope.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
+import { prefixChannel } from '../../suffixersAndPrefixers/prefixChannel.js';
 import { EEL_LIBRARY_VARS } from '../../constants.js';
 
 import type { Identifier } from 'estree';
@@ -39,7 +40,7 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
             const currentChannel = instance.getCurrentChannel();
 
             if (sampleParamsMap.channelIdentifier === identifier.name) {
-                identifierSrc = currentChannel.toString();
+                identifierSrc = `${prefixChannel(currentChannel)}`;
             } else {
                 identifierSrc = `spl${currentChannel}`;
             }

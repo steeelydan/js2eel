@@ -79,7 +79,6 @@ export const memberExpressionCall = (
                     } else if (eelArray) {
                         parentCallExpressionSrc += eelArrayMemberCall(
                             eelArray,
-                            calleeObject,
                             calleeProperty,
                             instance
                         );

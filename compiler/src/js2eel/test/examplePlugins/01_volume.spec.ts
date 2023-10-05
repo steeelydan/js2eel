@@ -36,9 +36,13 @@ target = 10 ^ (volume / (20));
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 spl0 *= target;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 spl1 *= target;
 

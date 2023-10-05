@@ -2,6 +2,7 @@ import { literal } from '../literal/literal.js';
 import { identifier } from '../identifier/identifier.js';
 import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { conditionalExpression } from '../conditionalExpression/conditionalExpression.js';
 import { newExpression } from '../newExpression/newExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
 import { memberExpression } from '../memberExpression/memberExpression.js';
@@ -230,6 +231,10 @@ export const variableDeclaration = (
 
                 declarationSrc += object.eelSrc;
 
+                break;
+            }
+            case 'ConditionalExpression': {
+                rightSideSrc += conditionalExpression(onlyDeclaration.init, instance);
                 break;
             }
             default: {

@@ -44,6 +44,8 @@ mix = 2 ^ (mixDb / (6));
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 bufferValue__S6 = buffer__B0[bufferPos__D0__0];
 delayVal__S6 = min((spl0 + bufferValue__S6 * feedback), 1);
 currentBufPos__S6 = bufferPos__D0__0;
@@ -55,6 +57,8 @@ bufferPos__D0__0 = 0;
 spl0 = (spl0 + bufferValue__S6 * mix);
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 bufferValue__S8 = buffer__B1[bufferPos__D0__1];
 delayVal__S8 = min((spl1 + bufferValue__S8 * feedback), 1);

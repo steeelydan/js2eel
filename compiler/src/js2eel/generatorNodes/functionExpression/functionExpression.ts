@@ -1,6 +1,7 @@
 import { blockStatement } from '../blockStatement/blockStatement.js';
 
 import { registerDeclarationParam } from '../../declarationParams/registerDeclarationParam.js';
+import { prefixChannel } from '../../suffixersAndPrefixers/prefixChannel.js';
 
 import type { ArrowFunctionExpression, FunctionExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
@@ -103,7 +104,11 @@ export const functionExpression = <ParamName extends string>(
                 i < instance.getChannels().inChannels;
                 /* FIXME is this sufficient? what about out? */ i++
             ) {
-                callbackSrc += `/* Channel ${i} */\n\n`;
+                callbackSrc += `/* Channel ${i} */
+
+${prefixChannel(i)} = ${i};
+
+`;
 
                 instance.setCurrentChannel(i);
 
@@ -190,7 +195,7 @@ export const functionExpression = <ParamName extends string>(
         default: {
             instance.error(
                 'GenericError',
-                "Function expressions are only allowed as arguments to onInit(), onBlock(), onSample(), eachChannel() and onSlider()",
+                'Function expressions are only allowed as arguments to onInit(), onBlock(), onSample(), eachChannel() and onSlider()',
                 functionExpression
             );
         }

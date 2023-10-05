@@ -98,11 +98,15 @@ out_pin:In 1
 
 /* Channel 0 */
 
-myVar__S4 = spl(0);
+CH__0 = 0;
+
+myVar__S4 = spl(CH__0);
 
 /* Channel 1 */
 
-myVar__S5 = spl(1);
+CH__1 = 1;
+
+myVar__S5 = spl(CH__1);
 
 
 

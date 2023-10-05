@@ -278,9 +278,13 @@ someVar = 1;
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 someVar += ;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 someVar += ;
 
@@ -326,9 +330,13 @@ out_pin:In 1
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 someVar__S4 = 1;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 someVar__S5 = 1;
 

@@ -276,5 +276,29 @@ someVar = 4;
         expect(result.errors.length).to.equal(0);
     });
 
+    it('Right side can be conditional expression (ternary)', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: 'variableDeclaration', inChannels: 2, outChannels: 2 });
+
+let someVar = 4 < 5 ? 1 : 2;
+    `);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:variableDeclaration
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+someVar = 4 < 5 ? 1 : 2;
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
+
     // ... other happy cases are covered in the example tests
 });

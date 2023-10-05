@@ -32,6 +32,8 @@ volume = 10 ^ (volumeDb / (20));
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 algorithm == 0 ? (
 spl0 = (2 * 1 / ((1 + exp(-gainIn * spl0))) - 1);
 ) : (algorithm == 1 ? (
@@ -45,6 +47,8 @@ spl0 = abs(spl0) > 0.5 ? 0.5 * sign(spl0) : spl0;
 spl0 *= volume;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 algorithm == 0 ? (
 spl1 = (2 * 1 / ((1 + exp(-gainIn * spl1))) - 1);
