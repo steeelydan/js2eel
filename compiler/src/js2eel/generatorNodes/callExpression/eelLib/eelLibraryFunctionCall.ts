@@ -5,6 +5,7 @@ import { identifier } from '../../identifier/identifier.js';
 import { unaryExpression } from '../../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { callExpression as compileCallExpression } from '../callExpression.js';
+import { memberExpression } from '../../memberExpression/memberExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
 
 import type { CallExpression } from 'estree';
@@ -16,7 +17,8 @@ const defaultNumericArgAllowedValues: FunctionCallAllowedValues = [
     { nodeType: 'Identifier' },
     { nodeType: 'BinaryExpression' },
     { nodeType: 'UnaryExpression', validationSchema: Joi.number() },
-    { nodeType: 'CallExpression' }
+    { nodeType: 'CallExpression' },
+    { nodeType: 'MemberExpression' }
 ];
 
 export const eelLibraryFunctionCall = (
@@ -174,6 +176,10 @@ export const eelLibraryFunctionCall = (
             }
             case 'CallExpression': {
                 argsSrc += compileCallExpression(arg, instance);
+                break;
+            }
+            case 'MemberExpression': {
+                argsSrc += memberExpression(null, arg, instance);
                 break;
             }
             default: {

@@ -18,8 +18,11 @@ export const memberExpressionCall = (
     if (!('object' in callee)) {
         instance.error(
             'TypeError',
-            'SimpleCallExpression not allowed. Parent CallExpression is of the wrong type: ' +
-                parentCallExpression.type,
+            `SimpleCallExpression not allowed. Parent CallExpression ${
+                'name' in parentCallExpression.callee
+                    ? parentCallExpression.callee.name
+                    : '[anonymous]'
+            } is of the wrong type: ${parentCallExpression.type}`,
             parentCallExpression
         );
 

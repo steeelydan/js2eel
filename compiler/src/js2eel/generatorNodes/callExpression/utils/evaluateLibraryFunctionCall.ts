@@ -14,6 +14,7 @@ import type {
     ParsedFunctionArgument,
     ValidatableFunctionCallAllowedValue
 } from '../../../types.js';
+import { memberExpression } from '../../memberExpression/memberExpression.js';
 
 type ValidatedArgs<ArgName extends string> = {
     [argName in ArgName]: ParsedFunctionArgument;
@@ -200,12 +201,18 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
 
                 break;
             }
+            case 'MemberExpression': {
+                value = '';
+                rawValue = '';
+
+                break;
+            }
             // FIXME: Should be caught further up at arg validation
             /* c8 ignore start */
             default: {
                 errors.push({
                     type: 'TypeError',
-                    msg: `${callee.name}: argument type ${givenArg.type} not allowed`,
+                    msg: `evaluateLibraryFunctionCall(): ${callee.name}: argument type ${givenArg.type} not allowed`,
                     node: functionCallExpression
                 });
                 value = '';
