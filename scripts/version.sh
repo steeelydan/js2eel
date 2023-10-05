@@ -9,4 +9,6 @@ then
     cd ../desktop || exit; printf "\nBumping package /desktop\n\n"; npm version "$1"; \
     cd ../gui || exit; printf "\nBumping package /gui\n\n"; npm version "$1"; \
     printf "\nBumped all packages to next %s version.\n" "$1"
+else
+    printf "Possible version values: patch, minor, major\n"
 fi
