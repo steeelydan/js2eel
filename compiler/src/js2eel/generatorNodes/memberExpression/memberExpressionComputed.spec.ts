@@ -101,7 +101,6 @@ myVar__S2 = myArr__D?ä__DENY_COMPILATION__2;
         expect(result.errors[0].type).to.equal('TypeError');
     });
 
-
     it('error if property access performed on wrong type: with just one dimension', () => {
         const compiler = new Js2EelCompiler();
 
@@ -367,6 +366,55 @@ buf__size = 2;
 @sample
 
 myVar2__S2 = buf__B1[1];
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
+
+    it('Array access with eachChannel() ch param as position accessor', () => {
+        const compiler = new Js2EelCompiler();
+
+        const result =
+            compiler.compile(`config({ description: 'member_expression_computed', inChannels: 2, outChannels: 2 });
+
+const buf = new EelArray(2, 2);
+
+onSample(() => {
+    eachChannel((_sample, channel) => {
+        const myConst = buf[0][channel];
+    });
+});
+`);
+
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:member_expression_computed
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@sample
+
+
+/* Channel 0 */
+
+CH__0 = 0;
+
+myConst__S4 = buf__D0__0;
+
+/* Channel 1 */
+
+CH__1 = 1;
+
+myConst__S5 = buf__D0__1;
+
 
 
 `)
