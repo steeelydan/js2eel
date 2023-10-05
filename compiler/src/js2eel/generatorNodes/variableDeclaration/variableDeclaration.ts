@@ -30,6 +30,8 @@ export const variableDeclaration = (
     let objectData: { objectRepresentation: ObjectRepresentation; eelSrc: string } | null = null;
 
     let isArrowFunctionDeclaration = false;
+    let isEelBuffer = false;
+    let isEelArray = false;
 
     // Because we inline user functions, we have to compose the compiled src from parts
     // let userFunctionBodySrc = '';
@@ -193,11 +195,14 @@ export const variableDeclaration = (
                 // Only happens for EelBuffers and EelArrays which we collect at the top
                 // of the file. So we don't return compiled src here.
 
-                newExpression(
+                const { newType, src: _src } = newExpression(
                     onlyDeclaration.init,
                     (onlyDeclaration.id as Identifier).name,
                     instance
                 );
+
+                isEelArray = newType === 'EelArray';
+                isEelBuffer = newType === 'EelBuffer';
 
                 // Gets printed at the end
                 doNotPrint = true;
@@ -303,11 +308,9 @@ export const variableDeclaration = (
 
     if (onlyDeclaration.init) {
         newDeclaredSymbol.currentAssignment = {
-            type: 'variable',
-            eelSrc: ''
+            type: isEelArray ? 'EelArray' : isEelBuffer ? 'EelBuffer' : 'variable',
+            eelSrc: declarationSrc
         };
-
-        newDeclaredSymbol.currentAssignment.eelSrc = declarationSrc;
     }
 
     instance.setDeclaredSymbol(onlyDeclaration.id.name, newDeclaredSymbol);

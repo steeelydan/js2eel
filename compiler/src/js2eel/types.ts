@@ -139,6 +139,13 @@ export type ObjectAssignment = {
     value: ObjectRepresentation;
 };
 
+export type EelNewExpressionType = 'EelBuffer' | 'EelArray';
+
+export type EelSymbolAssignment = {
+    type: EelNewExpressionType;
+    eelSrc: string;
+};
+
 export type DeclaredSymbol = {
     used: boolean;
     declarationType: AllowedDeclarationType;
@@ -146,10 +153,19 @@ export type DeclaredSymbol = {
     inScopeSuffix: number;
     name: string;
     node: Node | null | undefined;
-    currentAssignment: null | VariableAssignment | FunctionAssignment | ObjectAssignment;
+    currentAssignment:
+        | null
+        | VariableAssignment
+        | FunctionAssignment
+        | ObjectAssignment
+        | EelSymbolAssignment;
 };
 export type ResultDeclaredSymbol = DeclaredSymbol & {
-    currentAssignment: VariableAssignment | ResultFunctionAssignment | ObjectAssignment;
+    currentAssignment:
+        | VariableAssignment
+        | ResultFunctionAssignment
+        | ObjectAssignment
+        | EelSymbolAssignment;
 };
 
 export type Slider = {

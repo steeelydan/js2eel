@@ -1,17 +1,21 @@
 import { newEelBuffer } from './js2EelLib/newEelBuffer.js';
 import { newEelArray } from './js2EelLib/newEelArray.js';
+import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { NewExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import type { EelNewExpressionType } from '../../types.js';
 
 export const newExpression = (
     newExpression: NewExpression,
     symbolName: string,
     instance: Js2EelCompiler
-): string => {
+): { newType: EelNewExpressionType | null; src: string } => {
+    let newType: EelNewExpressionType | null = null;
+
     if (instance.getCurrentScopePath() !== 'root') {
         instance.error('ScopeError', 'Class instantiation not allowed here.', newExpression);
-        return '';
+        return { newType, src: JSFX_DENY_COMPILATION };
     }
 
     const newExpressionSrc = '';
@@ -24,7 +28,7 @@ export const newExpression = (
             newExpression.callee
         );
 
-        return '';
+        return { newType, src: JSFX_DENY_COMPILATION };
     }
     /* c8 ignore stop */
 
@@ -32,11 +36,15 @@ export const newExpression = (
         case 'EelBuffer': {
             newEelBuffer(newExpression, symbolName, instance);
 
+            newType = 'EelBuffer';
+
             break;
         }
 
         case 'EelArray': {
             newEelArray(newExpression, symbolName, instance);
+
+            newType = 'EelArray';
 
             break;
         }
@@ -50,5 +58,5 @@ export const newExpression = (
         }
     }
 
-    return newExpressionSrc;
+    return { newType, src: newExpressionSrc };
 };

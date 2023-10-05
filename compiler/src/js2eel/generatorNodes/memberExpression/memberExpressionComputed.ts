@@ -52,7 +52,9 @@ export const memberExpressionComputed = (
                     potentialArray = instance.getEelArray(potentialArrayOrBufferName);
 
                     // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
-                    identifier(dimensionPart.object, instance);
+                    identifier(dimensionPart.object, instance, {
+                        isObjectInMemberExpression: true
+                    });
                 }
             } else {
                 instance.error(

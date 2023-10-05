@@ -2,6 +2,7 @@ import { literal } from '../literal/literal';
 import { identifier } from '../identifier/identifier';
 import { unaryExpression } from '../unaryExpression/unaryExpression';
 import { binaryExpression } from '../binaryExpression/binaryExpression';
+import { memberExpression } from '../memberExpression/memberExpression';
 
 import type { ConditionalExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
@@ -51,10 +52,18 @@ export const conditionalExpression = (
             );
             break;
         }
+        case 'MemberExpression': {
+            conditionalExpressionSrc += memberExpression(
+                conditionalExpressionNode,
+                conditionalExpressionNode.consequent,
+                instance
+            );
+            break;
+        }
         default: {
             instance.error(
                 'TypeError',
-                `Type ${conditionalExpressionNode.consequent.type} not allowed`,
+                `Conditional expression: Consequent: Type ${conditionalExpressionNode.consequent.type} not allowed`,
                 conditionalExpressionNode.consequent
             );
         }
@@ -88,10 +97,18 @@ export const conditionalExpression = (
                 );
                 break;
             }
+            case 'MemberExpression': {
+                conditionalExpressionSrc += memberExpression(
+                    conditionalExpressionNode,
+                    conditionalExpressionNode.alternate,
+                    instance
+                );
+                break;
+            }
             default: {
                 instance.error(
                     'TypeError',
-                    `Type ${conditionalExpressionNode.alternate.type} not allowed`,
+                    `Conditional expression: Alternate: Type ${conditionalExpressionNode.alternate.type} not allowed`,
                     conditionalExpressionNode.alternate
                 );
             }
