@@ -435,10 +435,14 @@ out_pin:In 1
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 spl0 = 4;
  = 3;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 spl1 = 4;
  = 3;

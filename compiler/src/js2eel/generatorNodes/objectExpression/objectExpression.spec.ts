@@ -79,6 +79,36 @@ out_pin:In 1
     outChannels: 2
 });
 
+const someObj = { one: function myFunc() {} };
+`);
+
+        expect(result.success).to.equal(false);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.7.0 */
+
+desc:object_expression
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(1);
+        expect(result.errors[0].type).to.equal('TypeError');
+    });
+
+    it('literal value of wrong type', () => {
+        const compiler = new Js2EelCompiler();
+
+        const result = compiler.compile(`config({
+    description: 'object_expression',
+    inChannels: 2,
+    outChannels: 2
+});
+
 const someObj = { one: 'somestring' };
 `);
 

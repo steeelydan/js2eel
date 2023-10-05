@@ -55,6 +55,8 @@ outputGain = (10 ^ (outputGainDb / (20)));
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 lpFreq < 22000 ? (
 lpYStore__D0__0 = ((((lpCoefs__b0x * lpXStore__D0__0 + lpCoefs__b1x * lpXStore__D0__1) + lpCoefs__b2x * lpXStore__D0__2) - lpCoefs__a1x * lpYStore__D0__1) - lpCoefs__a2x * lpYStore__D0__2);
 lpYStore__D0__2 = lpYStore__D0__1;
@@ -68,6 +70,8 @@ spl0 = R__S2__0;
 spl0 = spl0 * outputGain;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 lpFreq < 22000 ? (
 lpYStore__D1__0 = ((((lpCoefs__b0x * lpXStore__D1__0 + lpCoefs__b1x * lpXStore__D1__1) + lpCoefs__b2x * lpXStore__D1__2) - lpCoefs__a1x * lpYStore__D1__1) - lpCoefs__a2x * lpYStore__D1__2);

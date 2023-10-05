@@ -48,11 +48,15 @@ writeIndex = 0;
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 bufferValue = buffer__B0[readIndex];
 buffer__B0[writeIndex] = spl0;
 spl0 = (spl0 + bufferValue * mix);
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 bufferValue = buffer__B1[readIndex];
 buffer__B1[writeIndex] = spl1;

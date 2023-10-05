@@ -35,25 +35,40 @@ export const objectExpression = (
             return null;
         }
 
-        if (
-            property.value.type !== 'Literal' ||
-            typeof property.value.value !== 'number' ||
-            property.value.value === undefined
-        ) {
-            instance.error(
-                'TypeError',
-                `Object property value must be number literal. ${property.value.type} not allowed`,
-                property.value
-            );
+        switch (property.value.type) {
+            case 'Literal': {
+                if (
+                    typeof property.value.value !== 'number' ||
+                    property.value.value === undefined
+                ) {
+                    instance.error(
+                        'TypeError',
+                        `Literal object property value must be number. ${typeof property.value
+                            .value} not allowed`,
+                        property.value
+                    );
 
-            return null;
+                    return null;
+                }
+
+                object[property.key.name] = property.value.value;
+                eelSrc += `${objectIdentifier.name}__${suffixScopeByScopeSuffix(
+                    property.key.name,
+                    instance.getCurrentScopeSuffix()
+                )} = ${property.value.value};\n`;
+
+                break;
+            }
+            default: {
+                instance.error(
+                    'TypeError',
+                    `Object property value is wrong type. ${property.value.type} not allowed`,
+                    property.value
+                );
+
+                return null;
+            }
         }
-
-        object[property.key.name] = property.value.value;
-        eelSrc += `${objectIdentifier.name}__${suffixScopeByScopeSuffix(
-            property.key.name,
-            instance.getCurrentScopeSuffix()
-        )} = ${property.value.value};\n`;
     }
 
     return { objectRepresentation: object, eelSrc: eelSrc };

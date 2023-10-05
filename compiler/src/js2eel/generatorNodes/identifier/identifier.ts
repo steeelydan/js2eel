@@ -5,12 +5,17 @@ import {
     suffixScopeBySymbol
 } from '../../suffixersAndPrefixers/suffixScope.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
-import { EEL_LIBRARY_VARS } from '../../constants.js';
+import { prefixChannel } from '../../suffixersAndPrefixers/prefixChannel.js';
+import { EEL_LIBRARY_VARS, JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { Identifier } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
 
-export const identifier = (identifier: Identifier, instance: Js2EelCompiler): string => {
+export const identifier = (
+    identifier: Identifier,
+    instance: Js2EelCompiler,
+    additionalData?: { isObjectInMemberExpression?: boolean; isParam?: boolean }
+): string => {
     if (EEL_LIBRARY_VARS.has(identifier.name.toLowerCase())) {
         // We can lowercase here because there's only lowercase symbols in EEL
         return identifier.name;
@@ -19,6 +24,21 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
     let identifierSrc = '';
 
     const declaredSymbol = getSymbolInNextUpScope(identifier.name, instance);
+
+    if (
+        (declaredSymbol?.symbol.currentAssignment?.type === 'EelArray' ||
+            declaredSymbol?.symbol.currentAssignment?.type === 'EelBuffer') &&
+        (!additionalData?.isObjectInMemberExpression &&
+            !additionalData?.isParam)
+    ) {
+        instance.error(
+            'GenericError',
+            'EelBuffer/EelArray cannot be used without accessors: ' + identifier.name,
+            identifier
+        );
+
+        return JSFX_DENY_COMPILATION;
+    }
 
     const sampleParamsMap = instance.getEachChannelParams();
     const inSampleParamsMap = Object.values(sampleParamsMap).includes(identifier.name);
@@ -39,7 +59,7 @@ export const identifier = (identifier: Identifier, instance: Js2EelCompiler): st
             const currentChannel = instance.getCurrentChannel();
 
             if (sampleParamsMap.channelIdentifier === identifier.name) {
-                identifierSrc = currentChannel.toString();
+                identifierSrc = `${prefixChannel(currentChannel)}`;
             } else {
                 identifierSrc = `spl${currentChannel}`;
             }

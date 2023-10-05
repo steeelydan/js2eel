@@ -9,14 +9,16 @@ const JS_STEREO_DELAY_SRC = fs.readFileSync(
     'utf-8'
 );
 
-const EEL_STEREO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.0.15 */
+const EEL_STEREO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.9.1 */
 
 desc:stereo_delay
 
-slider1:lengthMsL=120 < 0, 2000, 1 >Delay L / Mono (ms)
-slider2:lengthMsR=120 < 0, 2000, 1 >Delay R (ms)
-slider3:feedbackPercent=0 < 0, 100, 0.1 >Feedback (%)
-slider4:mixDb=-6 < -120, 6, 0.01 >Mix (dB)
+slider2:lengthMsL=120 < 0, 2000, 1 >Delay L / Mono (ms)
+slider3:lengthMsR=120 < 0, 2000, 1 >Delay R (ms)
+slider4:feedbackPercent=0 < 0, 100, 0.1 >Feedback (%)
+slider5:mixDb=-6 < -120, 6, 0.01 >Mix (dB)
+
+slider1:type=0 < 0, 3, 1 {Mono, Stereo, Ping Pong} >Type
 
 in_pin:In 0
 in_pin:In 1
@@ -26,6 +28,10 @@ out_pin:In 1
 
 @init
 
+numSamples__L = 0;
+numSamples__R = 0;
+bufferPos__L = 0;
+bufferPos__R = 0;
 buffer__B0 = 0 * 400000;
 buffer__B1 = 1 * 400000;
 buffer__size = 400000;
@@ -33,39 +39,35 @@ buffer__size = 400000;
 
 @slider
 
-numSamples__D0__0 = lengthMsL * srate / (1000);
-numSamples__D0__1 = lengthMsR * srate / (1000);
 feedback = feedbackPercent / (100);
+numSamples__L = lengthMsL * srate / (1000);
+numSamples__R = lengthMsR * srate / (1000);
+(type == 0 || type == 2) ? (
+lengthMsR = lengthMsL;
+);
 mix = 2 ^ (mixDb / (6));
 
 
 @sample
 
-
-/* Channel 0 */
-
-bufferValue__S6 = buffer__B0[bufferPos__D0__0];
-delayVal__S6 = min((spl0 + bufferValue__S6 * feedback), 1);
-currentBufPos__S6 = bufferPos__D0__0;
-buffer__B0[currentBufPos__S6] = delayVal__S6;
-bufferPos__D0__0 = (currentBufPos__S6 + 1);
-bufferPos__D0__0 >= numSamples__D0__0 ? (
-bufferPos__D0__0 = 0;
+bufferValueL__S5 = buffer__B0[bufferPos__L];
+bufferValueR__S5 = buffer__B1[bufferPos__R];
+type == 2 ? (
+buffer__B1[bufferPos__R] = min((spl0 + bufferValueL__S5 * feedback), 1);
+buffer__B0[bufferPos__L] = min((spl1 + bufferValueR__S5 * feedback), 1);
+) : (buffer__B0[bufferPos__L] = min((spl0 + bufferValueL__S5 * feedback), 1);
+buffer__B1[bufferPos__R] = min((spl1 + bufferValueR__S5 * feedback), 1);
 );
-spl0 = (spl0 + bufferValue__S6 * mix);
-
-/* Channel 1 */
-
-bufferValue__S8 = buffer__B1[bufferPos__D0__1];
-delayVal__S8 = min((spl1 + bufferValue__S8 * feedback), 1);
-currentBufPos__S8 = bufferPos__D0__1;
-buffer__B1[currentBufPos__S8] = delayVal__S8;
-bufferPos__D0__1 = (currentBufPos__S8 + 1);
-bufferPos__D0__1 >= numSamples__D0__1 ? (
-bufferPos__D0__1 = 0;
+bufferPos__L += 1;
+bufferPos__R += 1;
+bufferPos__L >= numSamples__L ? (
+bufferPos__L = 0;
 );
-spl1 = (spl1 + bufferValue__S8 * mix);
-
+bufferPos__R >= numSamples__R ? (
+bufferPos__R = 0;
+);
+spl0 = (spl0 + bufferValueL__S5 * mix);
+spl1 = (spl1 + bufferValueR__S5 * mix);
 
 
 `;

@@ -4,7 +4,6 @@ import type { EelArray } from '../../../types.js';
 
 export const eelArrayMemberCall = (
     eelArray: EelArray,
-    calleeObject: Identifier,
     calleeProperty: Identifier | PrivateIdentifier,
     instance: Js2EelCompiler
 ): string => {

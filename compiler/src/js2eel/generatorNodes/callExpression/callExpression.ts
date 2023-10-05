@@ -11,6 +11,7 @@ import { memberExpressionCall } from '../memberExpression/memberExpressionCall.j
 import { evaluateUserFunctionCall } from './utils/evaluateUserFunctionCall.js';
 import { suffixInlineReturn } from '../../suffixersAndPrefixers/suffixInlineReturn.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
+import { stripChannelPrefix } from '../../suffixersAndPrefixers/prefixChannel.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
 
@@ -99,16 +100,22 @@ export const callExpression = (
                         let replacedReturnSource = returnSrc?.src;
 
                         for (const [_key, arg] of Object.entries(args)) {
+                            let cleanValue = arg.value;
+
+                            if (typeof cleanValue === 'string') {
+                                cleanValue = stripChannelPrefix(arg.value);
+                            }
+
                             // FIXME this might hurt performance if functions get large
                             replacedBodySrc = replacedBodySrc.replaceAll(
                                 `${prefixParam(arg.scopedName)}`,
-                                arg.value
+                                cleanValue
                             );
 
                             if (replacedReturnSource) {
                                 replacedReturnSource = replacedReturnSource.replaceAll(
                                     `${prefixParam(arg.scopedName)}`,
-                                    arg.value
+                                    cleanValue
                                 );
                             }
                         }

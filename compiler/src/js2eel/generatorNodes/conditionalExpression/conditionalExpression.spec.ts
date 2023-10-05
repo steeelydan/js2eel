@@ -261,4 +261,85 @@ spl3 = spl0 == 1 ? 3 : -4 * 2;
         );
         expect(result.errors.length).to.equal(0);
     });
+
+    it('Consequent is member expression', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: "conditional", inChannels: 2, outChannels: 2 });
+
+const myEelbuf = new EelBuffer(2, 2);
+
+onSample(() => {
+    spl3 = spl0 === 1 ? myEelbuf[0][1] : -4 * 2;
+});`);
+
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:conditional
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@init
+
+myEelbuf__B0 = 0 * 2;
+myEelbuf__B1 = 1 * 2;
+myEelbuf__size = 2;
+
+
+@sample
+
+spl3 = spl0 == 1 ? myEelbuf__B0[1] : -4 * 2;
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
+
+    it('Alternate is member expression', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: 'conditional', inChannels: 2, outChannels: 2 });
+
+const myEelbuf = new EelBuffer(2, 2);
+
+onSample(() => {
+    spl3 = spl0 === 1 ? 3 : myEelbuf[1][1];
+});
+`);
+
+        expect(result.success).to.equal(true);
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+
+desc:conditional
+
+in_pin:In 0
+in_pin:In 1
+out_pin:In 0
+out_pin:In 1
+
+
+@init
+
+myEelbuf__B0 = 0 * 2;
+myEelbuf__B1 = 1 * 2;
+myEelbuf__size = 2;
+
+
+@sample
+
+spl3 = spl0 == 1 ? 3 : myEelbuf__B1[1];
+
+
+`)
+        );
+        expect(result.errors.length).to.equal(0);
+    });
 });

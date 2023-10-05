@@ -29,9 +29,13 @@ vol = (10 ^ (voldb / (20)));
 
 /* Channel 0 */
 
+CH__0 = 0;
+
 spl0 = sin(2 * $pi * freq * t) * vol;
 
 /* Channel 1 */
+
+CH__1 = 1;
 
 spl1 = sin(2 * $pi * freq * t) * vol;
 

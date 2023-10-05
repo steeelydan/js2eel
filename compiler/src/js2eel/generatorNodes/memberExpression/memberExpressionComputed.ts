@@ -7,6 +7,8 @@ import { suffixEelBuffer } from '../../suffixersAndPrefixers/suffixEelBuffer.js'
 import { suffixEelArray } from '../../suffixersAndPrefixers/suffixEelArray.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
+import { callExpression } from '../callExpression/callExpression.js';
+import { stripChannelPrefix } from '../../suffixersAndPrefixers/prefixChannel.js';
 import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
@@ -50,7 +52,9 @@ export const memberExpressionComputed = (
                     potentialArray = instance.getEelArray(potentialArrayOrBufferName);
 
                     // Will mark the symbol as used and give error if doesn't exist. We don't use the return string
-                    identifier(dimensionPart.object, instance);
+                    identifier(dimensionPart.object, instance, {
+                        isObjectInMemberExpression: true
+                    });
                 }
             } else {
                 instance.error(
@@ -229,6 +233,9 @@ export const memberExpressionComputed = (
             positionText = JSFX_DENY_COMPILATION;
         }
     }
+
+    dimensionText = stripChannelPrefix(dimensionText);
+    positionText = stripChannelPrefix(positionText);
 
     if (isParam && declaredSymbol) {
         // we suffix the param name to catch it in the callExpression() replacements...
