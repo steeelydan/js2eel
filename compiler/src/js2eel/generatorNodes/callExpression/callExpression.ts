@@ -1,5 +1,6 @@
 import { config } from './js2EelLib/config.js';
 import { slider } from './js2EelLib/slider.js';
+import { fileSelector } from './js2EelLib/fileSelector.js';
 import { selectBox } from './js2EelLib/selectBox.js';
 import { onInit } from './js2EelLib/onInit.js';
 import { onSlider } from './js2EelLib/onSlider.js';
@@ -39,6 +40,10 @@ export const callExpression = (
             }
             case 'selectBox': {
                 selectBox(callExpression, instance);
+                break;
+            }
+            case 'fileSelector': {
+                fileSelector(callExpression, instance);
                 break;
             }
             case 'onInit': {

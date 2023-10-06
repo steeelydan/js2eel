@@ -61,6 +61,27 @@ declare function selectBox(
     label: string
 ): void;
 
+/**
+ * Registers a file selector to be displayed in the plugin.
+ *
+ * The path is relative to <REAPER_DIR>/data.
+ *
+ * @example ```javascript
+ * fileSelector(
+ *     5,
+ *     'amp_models',
+ *     'none',
+ *     'Impulse Response'
+ * );
+ * ```
+ */
+declare function fileSelector(
+    sliderNumber: number,
+    path: string,
+    defaultValue: string,
+    label: string
+): void;
+
 // DEBUGGING
 
 /**

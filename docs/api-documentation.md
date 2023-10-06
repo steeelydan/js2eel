@@ -77,6 +77,29 @@ selectBox(
     'Algorithm'
 );
 ```
+### fileSelector()
+Registers a file selector to be displayed in the plugin.
+
+The path is relative to <REAPER_DIR>/data.
+
+```typescript
+fileSelector(
+    sliderNumber: number,
+    path: string,
+    defaultValue: string,
+    label: string
+): void;
+```
+
+Example:
+```javascript
+fileSelector(
+    5,
+    'amp_models',
+    'none',
+    'Impulse Response'
+);
+```
 
 
 ## Debugging

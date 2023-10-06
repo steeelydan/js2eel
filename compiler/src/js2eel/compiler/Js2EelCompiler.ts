@@ -19,6 +19,8 @@ import type {
     EelGeneratorWarning,
     JSFXStage,
     Slider,
+    SelectBox,
+    FileSelector,
     DeclaredSymbol,
     Environment,
     CompileResult,
@@ -26,10 +28,9 @@ import type {
     EachChannelParamMap,
     ErrorType,
     ScopedEnvironment,
-    SelectBox,
+    InlineData,
     WarningType,
-    ReturnSrc,
-    InlineData
+    ReturnSrc
 } from '../types.js';
 
 export class Js2EelCompiler {
@@ -72,6 +73,7 @@ export class Js2EelCompiler {
         sliderNumbers: new Set(),
         sliders: {},
         selectBoxes: {},
+        fileSelectors: {},
         eelBuffers: {},
         eelArrays: {},
         environment: {
@@ -150,6 +152,7 @@ export class Js2EelCompiler {
             sliderNumbers: new Set(),
             sliders: {},
             selectBoxes: {},
+            fileSelectors: {},
             eelBuffers: {},
             eelArrays: {},
             environment: {
@@ -225,6 +228,16 @@ export class Js2EelCompiler {
                 )} < ${0}, ${selectBox.values.length}, ${1} ${
                     '{' + selectBox.values.map((value) => value.label).join(', ') + '}'
                 } >${selectBox.label}\n`;
+            }
+
+            this.src.eelSrcFinal += '\n';
+        }
+
+        // FILE SELECTORS
+
+        if (Object.keys(this.pluginData.fileSelectors).length) {
+            for (const [_id, fileSelector] of Object.entries(this.pluginData.fileSelectors)) {
+                this.src.eelSrcFinal += `slider${fileSelector.sliderNumber}:/${fileSelector.path}:${fileSelector.defaultValue}:${fileSelector.label}\n`;
             }
 
             this.src.eelSrcFinal += '\n';
@@ -398,6 +411,14 @@ export class Js2EelCompiler {
 
     getSelectBox(selectBoxName: string): SelectBox | undefined {
         return this.pluginData.selectBoxes[selectBoxName];
+    }
+
+    addFileSelector(fileSelector: FileSelector): void {
+        this.pluginData.fileSelectors[fileSelector.id] = fileSelector;
+    }
+
+    getFileSelector(fileSelectorId: string): FileSelector | undefined {
+        return this.pluginData.fileSelectors[fileSelectorId];
     }
 
     setOnInitSrc(src: string): void {

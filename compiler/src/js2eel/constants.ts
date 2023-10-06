@@ -18,6 +18,7 @@ export const JS2EEL_LIBRARY_FUNCTION_NAMES = new Set([
     'config',
     'slider',
     'selectBox',
+    'fileSelector',
     'onInit',
     'onSlider',
     'onSample',

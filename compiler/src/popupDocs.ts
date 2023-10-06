@@ -34,6 +34,14 @@ selectBox: {
     "signature": "selectBox(\n    sliderNumber: number,\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
     "autoCompleteTemplate": "selectBox(${sliderNumber}, ${variable}, ${initialValue}, [${}], ${label});"
 },
+fileSelector: {
+    "name": "fileSelector",
+    "type": "function",
+    "text": "Registers a file selector to be displayed in the plugin.\n\nThe path is relative to <REAPER_DIR>/data.",
+    "example": "```javascript\nfileSelector(\n    5,\n    'amp_models',\n    'none',\n    'Impulse Response'\n);\n```",
+    "signature": "fileSelector(\n    sliderNumber: number,\n    path: string,\n    defaultValue: string,\n    label: string\n): void;",
+    "autoCompleteTemplate": "fileSelector(${sliderNumber}, ${path}, ${defaultValue}, ${label});"
+},
 console: {
     "name": "console",
     "type": "constant",

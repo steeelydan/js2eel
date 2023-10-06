@@ -94,7 +94,7 @@ out_pin:In 1
         expect(result.errors[0].type).to.equal('EelConventionError');
     });
 
-    it('Error if slider number invalid', () => {
+    it('Error if argument invalid', () => {
         const compiler = new Js2EelCompiler();
         const result =
             compiler.compile(`config({ description: 'selectBox', inChannels: 2, outChannels: 2 });

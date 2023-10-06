@@ -75,6 +75,7 @@ export type PluginData = {
     sliderNumbers: Set<number>;
     sliders: { [name in string]: Slider };
     selectBoxes: { [name in string]: SelectBox };
+    fileSelectors: { [id in string]: FileSelector };
     eelBuffers: { [name in string]?: EelBuffer };
     eelArrays: { [name in string]?: EelArray };
     environment: Environment;
@@ -184,6 +185,14 @@ export type SelectBox = {
     label: string;
     initialValue: string;
     values: { name: string; label: string }[];
+};
+
+export type FileSelector = {
+    sliderNumber: number;
+    id: string;
+    path: string;
+    defaultValue: string;
+    label: string;
 };
 
 export type EelBuffer = {
