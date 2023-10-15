@@ -4,6 +4,7 @@ export const getPopupContent = (
     example: string | null
 ): { dom: HTMLElement } => {
     const info = { dom: document.createElement('div') };
+    info.dom.style.maxWidth = '640px';
     info.dom.style.padding = '6px';
     const signatureEl = document.createElement('pre');
     signatureEl.style.whiteSpace = 'pre-wrap';

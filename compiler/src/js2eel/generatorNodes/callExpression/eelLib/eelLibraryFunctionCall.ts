@@ -7,6 +7,7 @@ import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { callExpression as compileCallExpression } from '../callExpression.js';
 import { memberExpression } from '../../memberExpression/memberExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
+import { JSFX_DENY_COMPILATION } from '../../../constants.js';
 
 import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
@@ -144,7 +145,13 @@ export const eelLibraryFunctionCall = (
         }
 
         default: {
-            //
+            instance.error(
+                'UnknownSymbolError',
+                `EEL library function not yet implemented: ${callee.name}`,
+                callee
+            );
+
+            return JSFX_DENY_COMPILATION;
         }
     }
 

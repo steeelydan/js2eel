@@ -316,6 +316,13 @@ export class Js2EelCompiler {
             this.src.eelSrcFinal += '\n\n';
         }
 
+        const initSrcText = this.getOnInitSrc();
+
+        if (initSrcText) {
+            this.src.eelSrcFinal += initSrcText;
+            this.src.eelSrcFinal += '\n\n';
+        }
+
         // @SLIDER
 
         const sliderStageHeader = '@slider\n\n';
@@ -423,6 +430,10 @@ export class Js2EelCompiler {
 
     setOnInitSrc(src: string): void {
         this.src.onInitSrc = src;
+    }
+
+    getOnInitSrc(): string {
+        return this.src.onInitSrc;
     }
 
     setOnSliderSrc(src: string): void {

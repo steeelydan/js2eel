@@ -857,5 +857,13 @@ invsqrt: {
     "example": null,
     "signature": "invsqrt(x: number): number;",
     "autoCompleteTemplate": "invsqrt(${x});"
+},
+extTailSize: {
+    "name": "extTailSize",
+    "type": "function",
+    "text": "Set to nonzero if the plug-in produces silence from silence. If positive, specifies length in samples that the plug-in should keep processing after silence (either the output tail length, or the number of samples needed for the plug-in state to settle). If set to -1, REAPER will use automatic output silence detection and let plug-in state settle. If set to -2, then REAPER will assume the plug-in has no tail and no inter-sample state.",
+    "example": null,
+    "signature": "extTailSize(samples: number): void;",
+    "autoCompleteTemplate": "extTailSize(${samples});"
 }
 };

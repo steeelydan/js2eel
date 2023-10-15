@@ -6,6 +6,7 @@ import { onInit } from './js2EelLib/onInit.js';
 import { onSlider } from './js2EelLib/onSlider.js';
 import { onSample } from './js2EelLib/onSample.js';
 import { eachChannel } from './js2EelLib/eachChannel.js';
+import { extTailSize } from './js2EelLib/extTailSize.js';
 import { eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
 
 import { memberExpressionCall } from '../memberExpression/memberExpressionCall.js';
@@ -29,7 +30,7 @@ export const callExpression = (
 
     if ('name' in callee) {
         switch (callee.name) {
-            // Library functions
+            // JS2EEL Library functions
             case 'config': {
                 config(callExpression, instance);
                 break;
@@ -62,9 +63,13 @@ export const callExpression = (
                 callExpressionSrc += eachChannel(callExpression, instance);
                 break;
             }
+            case 'extTailSize': {
+                callExpressionSrc += extTailSize(callExpression, instance);
+                break;
+            }
 
             default: {
-                // Library functions
+                // EEL Library functions
                 if (EEL_LIBRARY_FUNCTION_NAMES.has(callee.name.toLowerCase())) {
                     // We can lowercase here because there's only lowercase symbols in EEL
                     callExpressionSrc += eelLibraryFunctionCall(callExpression, instance);

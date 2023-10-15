@@ -393,3 +393,9 @@ Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.
 ```typescript
 invsqrt(x: number): number;
 ```
+### extTailSize()
+Set to nonzero if the plug-in produces silence from silence. If positive, specifies length in samples that the plug-in should keep processing after silence (either the output tail length, or the number of samples needed for the plug-in state to settle). If set to -1, REAPER will use automatic output silence detection and let plug-in state settle. If set to -2, then REAPER will assume the plug-in has no tail and no inter-sample state.
+
+```typescript
+extTailSize(samples: number): void;
+```
