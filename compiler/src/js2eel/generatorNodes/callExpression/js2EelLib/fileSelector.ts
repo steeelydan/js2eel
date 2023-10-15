@@ -27,11 +27,7 @@ export const fileSelector = (callExpression: CallExpression, instance: Js2EelCom
                     { nodeType: 'Literal', validationSchema: Joi.number().min(1).max(64) }
                 ]
             },
-            {
-                name: 'id',
-                required: true,
-                allowedValues: [{ nodeType: 'Literal', validationSchema: Joi.string().max(64) }]
-            },
+            { name: 'variable', required: true, allowedValues: [{ nodeType: 'Identifier' }] },
             {
                 name: 'path',
                 required: true,
@@ -67,11 +63,17 @@ export const fileSelector = (callExpression: CallExpression, instance: Js2EelCom
         return;
     }
 
-    if (instance.getFileSelector(args.id.value)) {
+    const fileSelectorBoundVariable = args.variable.name;
+
+    if (
+        instance.getSlider(fileSelectorBoundVariable) ||
+        instance.getSelectBox(fileSelectorBoundVariable) ||
+        instance.getFileSelector(fileSelectorBoundVariable)
+    ) {
         instance.error(
-            'EelConventionError',
-            `Error at file selector registration: A file selector with this ID is already registered: ${args.id.value}`,
-            args.id.node
+            'BindingError',
+            `Error at file selector registration: This variable is already bound to a slider, select box or file selector: ${fileSelectorBoundVariable}`,
+            args.variable.node
         );
 
         return;
@@ -81,7 +83,8 @@ export const fileSelector = (callExpression: CallExpression, instance: Js2EelCom
 
     const fileSelector: FileSelector = {
         sliderNumber: args.sliderNumber.value,
-        id: args.id.value,
+        variable: fileSelectorBoundVariable,
+        rawSliderName: 'slider' + args.sliderNumber.value,
         path: args.path.value,
         defaultValue: args.defaultValue.value,
         label: args.label.value

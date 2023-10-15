@@ -69,6 +69,7 @@ declare function selectBox(
  * @example ```javascript
  * fileSelector(
  *     5,
+ *     ampModel,
  *     'amp_models',
  *     'none',
  *     'Impulse Response'
@@ -77,6 +78,7 @@ declare function selectBox(
  */
 declare function fileSelector(
     sliderNumber: number,
+    variable: string,
     path: string,
     defaultValue: string,
     label: string
@@ -423,7 +425,16 @@ declare function ceil(x: number): number;
  */
 declare function invsqrt(x: number): number;
 
-// SPECIAL VARIABLES
+// FILE FUNCTIONS
+
+/**
+ *Opens a file from a file slider. Once open, you may use all of the file functions available. Be sure to close the file handle when done with it, using file_close(). The search path for finding files depends on the method used, but generally speaking in 4.59+ it will look in the same path as the current effect, then in the JS Data/ directory.
+ *
+ * @param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types
+ */
+declare function file_open(fileSelector: any): any;
+
+// SPECIAL FUNCTIONS AND VARIABLES
 
 /**
  * Set to nonzero if the plug-in produces silence from silence. If positive, specifies length in samples that the plug-in should keep processing after silence (either the output tail length, or the number of samples needed for the plug-in state to settle). If set to -1, REAPER will use automatic output silence detection and let plug-in state settle. If set to -2, then REAPER will assume the plug-in has no tail and no inter-sample state.

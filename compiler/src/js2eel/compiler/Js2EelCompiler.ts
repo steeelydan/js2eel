@@ -421,11 +421,11 @@ export class Js2EelCompiler {
     }
 
     addFileSelector(fileSelector: FileSelector): void {
-        this.pluginData.fileSelectors[fileSelector.id] = fileSelector;
+        this.pluginData.fileSelectors[fileSelector.variable] = fileSelector;
     }
 
-    getFileSelector(fileSelectorId: string): FileSelector | undefined {
-        return this.pluginData.fileSelectors[fileSelectorId];
+    getFileSelector(fileSelectorName: string): FileSelector | undefined {
+        return this.pluginData.fileSelectors[fileSelectorName];
     }
 
     setOnInitSrc(src: string): void {

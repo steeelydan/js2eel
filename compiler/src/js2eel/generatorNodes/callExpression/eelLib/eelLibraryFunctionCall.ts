@@ -143,6 +143,40 @@ export const eelLibraryFunctionCall = (
 
             break;
         }
+        // File functions
+        case 'file_open': {
+            const { args, errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileSelectorVariable',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            if (errors) {
+                instance.multipleErrors(errors);
+
+                return JSFX_DENY_COMPILATION;
+            }
+
+            const fileSelector = instance.getFileSelector(args.fileSelectorVariable.value);
+
+            if (!fileSelector) {
+                instance.error(
+                    'BindingError',
+                    `file_open can only be called with a variable that is bound to a file selector`,
+                    callExpression
+                );
+
+                return JSFX_DENY_COMPILATION;
+            }
+
+            return `file_open(slider${fileSelector.sliderNumber})`;
+        }
 
         default: {
             instance.error(

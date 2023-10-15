@@ -38,9 +38,9 @@ fileSelector: {
     "name": "fileSelector",
     "type": "function",
     "text": "Registers a file selector to be displayed in the plugin.\n\nThe path is relative to <REAPER_DIR>/data.",
-    "example": "```javascript\nfileSelector(\n    5,\n    'amp_models',\n    'none',\n    'Impulse Response'\n);\n```",
-    "signature": "fileSelector(\n    sliderNumber: number,\n    path: string,\n    defaultValue: string,\n    label: string\n): void;",
-    "autoCompleteTemplate": "fileSelector(${sliderNumber}, ${path}, ${defaultValue}, ${label});"
+    "example": "```javascript\nfileSelector(\n    5,\n    ampModel,\n    'amp_models',\n    'none',\n    'Impulse Response'\n);\n```",
+    "signature": "fileSelector(\n    sliderNumber: number,\n    variable: string,\n    path: string,\n    defaultValue: string,\n    label: string\n): void;",
+    "autoCompleteTemplate": "fileSelector(${sliderNumber}, ${variable}, ${path}, ${defaultValue}, ${label});"
 },
 console: {
     "name": "console",
@@ -857,6 +857,14 @@ invsqrt: {
     "example": null,
     "signature": "invsqrt(x: number): number;",
     "autoCompleteTemplate": "invsqrt(${x});"
+},
+file_open: {
+    "name": "file_open",
+    "type": "function",
+    "text": "Opens a file from a file slider. Once open, you may use all of the file functions available. Be sure to close the file handle when done with it, using file_close(). The search path for finding files depends on the method used, but generally speaking in 4.59+ it will look in the same path as the current effect, then in the JS Data/ directory.\n\n@param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types",
+    "example": null,
+    "signature": "file_open(fileSelector: any): any;",
+    "autoCompleteTemplate": "file_open();"
 },
 extTailSize: {
     "name": "extTailSize",

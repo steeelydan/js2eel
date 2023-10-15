@@ -189,7 +189,8 @@ export type SelectBox = {
 
 export type FileSelector = {
     sliderNumber: number;
-    id: string;
+    variable: string;
+    rawSliderName: string;
     path: string;
     defaultValue: string;
     label: string;
