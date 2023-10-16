@@ -245,6 +245,10 @@ parts.forEach((part) => {
         addMarkdownHeading('Special Functions & Variables');
     } else if (part.name.startsWith('file_open')) {
         addMarkdownHeading('File Functions');
+    } else if (part.name.startsWith('fft')) {
+        addMarkdownHeading('FFT & MDCT Functions');
+    } else if (part.name.startsWith('memset')) {
+        addMarkdownHeading('Memory Functions');
     } else if (part.name.match(/^spl\d/)) {
         if (parseInt(part.name.slice(3, 4)) === 0) {
             partHeading = `### spl<1-64>

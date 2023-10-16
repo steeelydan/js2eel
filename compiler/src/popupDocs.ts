@@ -95,7 +95,7 @@ EelBuffer: {
     "type": "class",
     "text": "A fixed-size, multi-dimensional container for audio samples.\n\nAccess: `buf[dimension][position]`\n\nTranslates to EEL2s memory objects. Is not inlined in the EEL source, so\nonly feasible for large data. For small data, use EelArray.",
     "example": null,
-    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n}",
+    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n    start(): number;\n}",
     "autoCompleteTemplate": "EelBuffer(${dimensions}, ${size});"
 },
 EelArray: {
@@ -866,6 +866,14 @@ invsqrt: {
     "signature": "invsqrt(x: number): number;",
     "autoCompleteTemplate": "invsqrt(${x});"
 },
+memset: {
+    "name": "memset",
+    "type": "function",
+    "text": "",
+    "example": null,
+    "signature": "memset(): void;",
+    "autoCompleteTemplate": "memset();"
+},
 file_open: {
     "name": "file_open",
     "type": "function",
@@ -905,6 +913,30 @@ file_mem: {
     "example": null,
     "signature": "file_mem(fileHandle: any, offset: number, length: number): number;",
     "autoCompleteTemplate": "file_mem(${offset}, ${length});"
+},
+fft: {
+    "name": "fft",
+    "type": "function",
+    "text": "Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.\n\nNote that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).\n\nNote that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.\n\nThe fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).",
+    "example": null,
+    "signature": "fft(startIndex: number, size: number): void;",
+    "autoCompleteTemplate": "fft(${startIndex}, ${size});"
+},
+ifft: {
+    "name": "ifft",
+    "type": "function",
+    "text": "Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.\n\nNote that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).\n\nNote that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.\n\nThe fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).",
+    "example": null,
+    "signature": "ifft(startIndex: number, size: number): void;",
+    "autoCompleteTemplate": "ifft(${startIndex}, ${size});"
+},
+convolve_c: {
+    "name": "convolve_c",
+    "type": "function",
+    "text": "Used to convolve two buffers, typically after FFTing them. convolve_c works with complex numbers. The sizes specify number of items (the number of complex number pairs).\n\nNote that the convolution must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.",
+    "example": null,
+    "signature": "convolve_c(destination: number, source: number, size: number): void;",
+    "autoCompleteTemplate": "convolve_c(${destination}, ${source}, ${size});"
 },
 extTailSize: {
     "name": "extTailSize",

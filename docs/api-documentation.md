@@ -7,7 +7,9 @@
 - [Audio Constants](#audio-constants)
 - [Math Constants](#math-constants)
 - [Math Functions](#math-functions)
+- [Memory Functions](#memory-functions)
 - [File Functions](#file-functions)
+- [FFT & MDCT Functions](#fft-&-mdct-functions)
 - [Special Functions & Variables](#special-functions-&-variables)
 
 
@@ -177,6 +179,7 @@ EelBuffer {
 
     dimensions(): number;
     size(): number;
+    start(): number;
 }
 ```
 ### EelArray
@@ -405,6 +408,16 @@ invsqrt(x: number): number;
 ```
 
 
+## Memory Functions
+
+### memset()
+
+
+```typescript
+memset(): void;
+```
+
+
 ## File Functions
 
 ### file_open()
@@ -440,6 +453,42 @@ Reads (or writes) the block of local memory from(to) the current file. Returns t
 
 ```typescript
 file_mem(fileHandle: any, offset: number, length: number): number;
+```
+
+
+## FFT & MDCT Functions
+
+### fft()
+Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.
+
+Note that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).
+
+Note that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+
+The fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).
+
+```typescript
+fft(startIndex: number, size: number): void;
+```
+### ifft()
+Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.
+
+Note that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).
+
+Note that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+
+The fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).
+
+```typescript
+ifft(startIndex: number, size: number): void;
+```
+### convolve_c()
+Used to convolve two buffers, typically after FFTing them. convolve_c works with complex numbers. The sizes specify number of items (the number of complex number pairs).
+
+Note that the convolution must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+
+```typescript
+convolve_c(destination: number, source: number, size: number): void;
 ```
 
 

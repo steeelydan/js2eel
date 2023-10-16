@@ -143,6 +143,60 @@ export const eelLibraryFunctionCall = (
 
             break;
         }
+        // Memory functions
+        case 'memset': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'destination',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    },
+                    {
+                        name: 'value',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    },
+                    {
+                        name: 'length',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+
+            break;
+        }
         // File functions
         case 'file_open': {
             const { args, errors } = evaluateLibraryFunctionCall(
@@ -221,7 +275,6 @@ export const eelLibraryFunctionCall = (
 
             break;
         }
-
         case 'file_avail': {
             const { errors } = evaluateLibraryFunctionCall(
                 callExpression,
@@ -263,6 +316,97 @@ export const eelLibraryFunctionCall = (
                     },
                     {
                         name: 'length',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        // FFT functions
+        case 'fft':
+        case 'ifft': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'startIndex',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    },
+                    {
+                        name: 'size',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'convolve_c': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'destination',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    },
+                    {
+                        name: 'source',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
+                        ]
+                    },
+                    {
+                        name: 'size',
                         required: true,
                         allowedValues: [
                             {
