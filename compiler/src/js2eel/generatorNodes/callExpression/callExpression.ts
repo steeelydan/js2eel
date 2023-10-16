@@ -53,7 +53,7 @@ export const callExpression = (
                 break;
             }
             case 'onSlider': {
-                instance.setOnSliderSrc(onSlider(callExpression, instance));
+                callExpressionSrc += onSlider(callExpression, instance);
                 break;
             }
             case 'onBlock': {

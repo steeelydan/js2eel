@@ -43,11 +43,17 @@ export const onSlider = (callExpression: CallExpression, instance: Js2EelCompile
         return '';
     }
 
-    let onSlidersSrc = ``;
-
     const callback = callExpression.arguments[0] as FunctionExpression | ArrowFunctionExpression;
 
-    onSlidersSrc += functionExpression(callback, [], 'onSlider', instance);
+    const onSlidersCallbackSrc = functionExpression(callback, [], 'onSlider', instance);
+
+    let onSlidersSrc = ``;
+
+    if (onSlidersCallbackSrc) {
+        onSlidersSrc += '@slider\n\n';
+        onSlidersSrc += onSlidersCallbackSrc;
+        onSlidersSrc += '\n\n';
+    }
 
     instance.setUsedStage('onSlider');
 

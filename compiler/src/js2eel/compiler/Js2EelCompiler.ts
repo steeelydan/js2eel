@@ -294,22 +294,6 @@ export class Js2EelCompiler {
             }
         }
 
-        // Arrays
-
-        // for (const [_eelArrayName, eelArray] of Object.entries(this.pluginData.eelArrays)) {
-        //     if (eelArray) {
-        //         for (let i = 0; i < eelArray.dimensions; i++) {
-        //             for (let j = 0; j < eelArray.size; j++) {
-        //                 initStageText += `${suffixEelArray(
-        //                     eelArray.name,
-        //                     i.toString(),
-        //                     j.toString()
-        //                 )};\n`;
-        //             }
-        //         }
-        //     }
-        // }
-
         if (initStageText) {
             initStageText = initStageHeader + initStageText;
             this.src.eelSrcFinal += initStageText;
@@ -320,16 +304,6 @@ export class Js2EelCompiler {
 
         if (initSrcText) {
             this.src.eelSrcFinal += initSrcText;
-            this.src.eelSrcFinal += '\n\n';
-        }
-
-        // @SLIDER
-
-        const sliderStageHeader = '@slider\n\n';
-        const sliderText = this.getOnSliderSrc();
-        if (sliderText) {
-            this.src.eelSrcFinal += sliderStageHeader;
-            this.src.eelSrcFinal += sliderText;
             this.src.eelSrcFinal += '\n\n';
         }
 
@@ -424,14 +398,6 @@ export class Js2EelCompiler {
 
     getOnInitSrc(): string {
         return this.src.onInitSrc;
-    }
-
-    setOnSliderSrc(src: string): void {
-        this.src.onSliderSrc = src;
-    }
-
-    getOnSliderSrc(): string {
-        return this.src.onSliderSrc;
     }
 
     setDeclaredSymbol(symbolName: string, symbol: DeclaredSymbol): void {
