@@ -28,7 +28,7 @@ export const blockStatement = (
                 break;
             }
             case 'ExpressionStatement': {
-                blockSrc += expressionStatement(blockBody, instance);
+                blockSrc += expressionStatement(blockStatement, blockBody, instance);
                 break;
             }
             case 'VariableDeclaration': {
