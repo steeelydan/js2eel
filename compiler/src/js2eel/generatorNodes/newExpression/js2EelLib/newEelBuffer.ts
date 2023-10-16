@@ -38,7 +38,7 @@ export const newEelBuffer = (
         const newEelBuffer: EelBuffer = {
             name: symbolName,
             dimensions: args.dimensions.value,
-            sizeSrc: args.size.value
+            size: args.size.value
         };
 
         instance.setEelBuffer(newEelBuffer);

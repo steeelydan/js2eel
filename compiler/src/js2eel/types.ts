@@ -199,7 +199,7 @@ export type FileSelector = {
 export type EelBuffer = {
     name: string;
     dimensions: number;
-    sizeSrc: string;
+    size: number;
 };
 
 export type EelArray = {

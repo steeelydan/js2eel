@@ -24,8 +24,8 @@ out_pin:In 1
 readIndex = 0;
 writeIndex = 0;
 bufferValue = 0;
-buffer__B0 = 0 * 400000;
-buffer__B1 = 1 * 400000;
+buffer__B0 = 0 * 400000 + 0;
+buffer__B1 = 1 * 400000 + 0;
 buffer__size = 400000;
 
 

@@ -32,8 +32,8 @@ numSamples__L = 0;
 numSamples__R = 0;
 bufferPos__L = 0;
 bufferPos__R = 0;
-buffer__B0 = 0 * 400000;
-buffer__B1 = 1 * 400000;
+buffer__B0 = 0 * 400000 + 0;
+buffer__B1 = 1 * 400000 + 0;
 buffer__size = 400000;
 
 

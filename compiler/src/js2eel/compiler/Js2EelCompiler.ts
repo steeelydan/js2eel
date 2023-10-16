@@ -282,15 +282,19 @@ export class Js2EelCompiler {
 
         // Buffers
 
+        let bufferOffset = 0;
+
         for (const [_eelBufferName, eelBuffer] of Object.entries(this.pluginData.eelBuffers)) {
             if (eelBuffer) {
                 for (let i = 0; i < eelBuffer.dimensions; i++) {
                     initStageText += `${suffixEelBuffer(eelBuffer.name, i.toString())} = ${i} * ${
-                        eelBuffer.sizeSrc
-                    };\n`;
+                        eelBuffer.size
+                    } + ${bufferOffset};\n`;
                 }
 
-                initStageText += `${suffixBufferSize(eelBuffer.name)} = ${eelBuffer.sizeSrc};\n`;
+                bufferOffset += eelBuffer.size * eelBuffer.dimensions;
+
+                initStageText += `${suffixBufferSize(eelBuffer.name)} = ${eelBuffer.size};\n`;
             }
         }
 

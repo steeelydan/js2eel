@@ -287,8 +287,8 @@ out_pin:In 1
 
 @init
 
-myEelbuf__B0 = 0 * 2;
-myEelbuf__B1 = 1 * 2;
+myEelbuf__B0 = 0 * 2 + 0;
+myEelbuf__B1 = 1 * 2 + 0;
 myEelbuf__size = 2;
 
 
@@ -328,8 +328,8 @@ out_pin:In 1
 
 @init
 
-myEelbuf__B0 = 0 * 2;
-myEelbuf__B1 = 1 * 2;
+myEelbuf__B0 = 0 * 2 + 0;
+myEelbuf__B1 = 1 * 2 + 0;
 myEelbuf__size = 2;
 
 

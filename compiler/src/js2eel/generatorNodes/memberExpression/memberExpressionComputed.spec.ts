@@ -358,8 +358,8 @@ out_pin:In 1
 
 @init
 
-buf__B0 = 0 * 2;
-buf__B1 = 1 * 2;
+buf__B0 = 0 * 2 + 0;
+buf__B1 = 1 * 2 + 0;
 buf__size = 2;
 
 
@@ -449,8 +449,8 @@ out_pin:In 1
 
 @init
 
-buf__B0 = 0 * 2;
-buf__B1 = 1 * 2;
+buf__B0 = 0 * 2 + 0;
+buf__B1 = 1 * 2 + 0;
 buf__size = 2;
 
 

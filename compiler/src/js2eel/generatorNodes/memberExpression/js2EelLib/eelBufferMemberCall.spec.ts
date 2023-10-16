@@ -29,8 +29,8 @@ out_pin:In 1
 
 @init
 
-myBuf__B0 = 0 * 3;
-myBuf__B1 = 1 * 3;
+myBuf__B0 = 0 * 3 + 0;
+myBuf__B1 = 1 * 3 + 0;
 myBuf__size = 3;
 
 
@@ -66,8 +66,8 @@ out_pin:In 1
 
 @init
 
-myBuf__B0 = 0 * 3;
-myBuf__B1 = 1 * 3;
+myBuf__B0 = 0 * 3 + 0;
+myBuf__B1 = 1 * 3 + 0;
 myBuf__size = 3;
 
 
