@@ -151,41 +151,17 @@ export const eelLibraryFunctionCall = (
                     {
                         name: 'destination',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'value',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'length',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     }
                 ],
                 instance
