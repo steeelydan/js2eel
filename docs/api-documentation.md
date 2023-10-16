@@ -141,6 +141,12 @@ What happens when a slider is moved.
 ```typescript
 onSlider(callback: () => void): void;
 ```
+### onBlock()
+Called for every audio block.
+
+```typescript
+onBlock(callback: () => void): void;
+```
 ### onSample()
 Called for every single sample.
 

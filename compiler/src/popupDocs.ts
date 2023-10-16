@@ -66,6 +66,14 @@ onSlider: {
     "signature": "onSlider(callback: () => void): void;",
     "autoCompleteTemplate": "onSlider(() => {\n    ${}\n});"
 },
+onBlock: {
+    "name": "onBlock",
+    "type": "function",
+    "text": "Called for every audio block.",
+    "example": null,
+    "signature": "onBlock(callback: () => void): void;",
+    "autoCompleteTemplate": "onBlock(() => {\n    ${}\n});"
+},
 onSample: {
     "name": "onSample",
     "type": "function",

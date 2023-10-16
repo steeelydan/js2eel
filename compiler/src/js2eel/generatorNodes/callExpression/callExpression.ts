@@ -19,6 +19,7 @@ import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
 
 import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { onBlock } from './js2EelLib/onBlock.js';
 
 export const callExpression = (
     callExpression: CallExpression,
@@ -55,8 +56,12 @@ export const callExpression = (
                 instance.setOnSliderSrc(onSlider(callExpression, instance));
                 break;
             }
+            case 'onBlock': {
+                callExpressionSrc += onBlock(callExpression, instance);
+                break;
+            }
             case 'onSample': {
-                instance.setOnSampleSrc(onSample(callExpression, instance));
+                callExpressionSrc += onSample(callExpression, instance);
                 break;
             }
             case 'eachChannel': {

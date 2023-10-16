@@ -4,26 +4,26 @@ import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCal
 import type { ArrowFunctionExpression, CallExpression, FunctionExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 
-export const onSample = (callExpression: CallExpression, instance: Js2EelCompiler): string => {
-    let onSampleSrc = '';
+export const onBlock = (callExpression: CallExpression, instance: Js2EelCompiler): string => {
+    let onBlockSrc = '';
 
     if (instance.getCurrentScopePath() !== 'root') {
         instance.error(
             'ScopeError',
-            'onSample() can only be called in the root scope',
+            'onBlock() can only be called in the root scope',
             callExpression
         );
 
         return '';
     }
 
-    if (instance.getUsedStage('onSample')) {
-        instance.error('StageError', 'onSample() can only be called once', callExpression);
+    if (instance.getUsedStage('onBlock')) {
+        instance.error('StageError', 'onBlock() can only be called once', callExpression);
 
         return '';
     }
 
-    const { args: _args, errors: onSampleErrors } = evaluateLibraryFunctionCall(
+    const { args: _args, errors: onBlockErrors } = evaluateLibraryFunctionCall(
         callExpression,
         [
             {
@@ -38,21 +38,17 @@ export const onSample = (callExpression: CallExpression, instance: Js2EelCompile
         instance
     );
 
-    if (onSampleErrors) {
-        instance.multipleErrors(onSampleErrors);
+    if (onBlockErrors) {
+        instance.multipleErrors(onBlockErrors);
 
         return '';
     }
 
     const callback = callExpression.arguments[0] as ArrowFunctionExpression | FunctionExpression;
 
-    onSampleSrc += functionExpression(callback, [], 'onSample', instance);
-    if (onSampleSrc) {
-        onSampleSrc = '@sample\n\n' + onSampleSrc;
-        onSampleSrc += '\n\n';
-    }
+    onBlockSrc += functionExpression(callback, [], 'onBlock', instance);
 
-    instance.setUsedStage('onSample');
+    instance.setUsedStage('onBlock');
 
-    return onSampleSrc;
+    return onBlockSrc;
 };

@@ -112,6 +112,11 @@ declare function onInit(callback: () => void): void;
 declare function onSlider(callback: () => void): void;
 
 /**
+ * Called for every audio block.
+ */
+declare function onBlock(callback: () => void): void;
+
+/**
  * Called for every single sample.
  */
 declare function onSample(callback: () => void): void;

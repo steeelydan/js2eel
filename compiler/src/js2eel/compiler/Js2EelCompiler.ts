@@ -333,16 +333,6 @@ export class Js2EelCompiler {
             this.src.eelSrcFinal += '\n\n';
         }
 
-        // @SAMPLE
-
-        const sampleStageHeader = '@sample\n\n';
-        const sampleText = this.getOnSampleSrc();
-        if (sampleText) {
-            this.src.eelSrcFinal += sampleStageHeader;
-            this.src.eelSrcFinal += sampleText;
-            this.src.eelSrcFinal += '\n\n';
-        }
-
         this.src.eelSrcFinal += this.src.eelSrcTemp;
 
         for (const [_scopePath, scopedEnvironment] of Object.entries(this.pluginData.environment)) {
@@ -442,14 +432,6 @@ export class Js2EelCompiler {
 
     getOnSliderSrc(): string {
         return this.src.onSliderSrc;
-    }
-
-    setOnSampleSrc(src: string): void {
-        this.src.onSampleSrc = src;
-    }
-
-    getOnSampleSrc(): { [channel in number]: string } {
-        return this.src.onSampleSrc;
     }
 
     setDeclaredSymbol(symbolName: string, symbol: DeclaredSymbol): void {

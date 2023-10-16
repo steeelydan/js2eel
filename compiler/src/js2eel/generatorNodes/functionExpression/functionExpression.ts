@@ -177,13 +177,30 @@ ${prefixChannel(i)} = ${i};
         case 'onInit': {
             switch (body.type) {
                 case 'BlockStatement': {
-                    functionExpressionSrc += blockStatement(body, 'onInit', instance);
+                    blockStatement(body, 'onInit', instance);
                     break;
                 }
                 default: {
                     instance.error(
                         'TypeError',
                         `onInit() callback body type ${body.type} not allowed`,
+                        body
+                    );
+                }
+            }
+            break;
+        }
+        case 'onBlock': {
+            switch (body.type) {
+                case 'BlockStatement': {
+                    functionExpressionSrc += '@block\n\n';
+                    functionExpressionSrc += blockStatement(body, 'onBlock', instance);
+                    break;
+                }
+                default: {
+                    instance.error(
+                        'TypeError',
+                        `onBlock() callback body type ${body.type} not allowed`,
                         body
                     );
                 }
