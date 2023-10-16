@@ -1,12 +1,13 @@
 import { blockStatement } from '../blockStatement/blockStatement.js';
 import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { logicalExpression } from '../logicalExpression/logicalExpression.js';
+import { identifier } from '../identifier/identifier.js';
 
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 
 import type { IfStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
-import { logicalExpression } from '../logicalExpression/logicalExpression.js';
 
 export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompiler): string => {
     let ifSrc = ``;
@@ -26,6 +27,10 @@ export const ifStatement = (ifStatementNode: IfStatement, instance: Js2EelCompil
         }
         case 'LogicalExpression': {
             testSrc += logicalExpression(ifStatementNode.test, instance);
+            break;
+        }
+        case 'Identifier': {
+            testSrc += identifier(ifStatementNode.test, instance);
             break;
         }
         default: {
