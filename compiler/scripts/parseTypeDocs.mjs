@@ -243,6 +243,8 @@ parts.forEach((part) => {
         addMarkdownHeading('Audio Constants');
     } else if (part.name.startsWith('extTailSize')) {
         addMarkdownHeading('Special Functions & Variables');
+    } else if (part.name.startsWith('file_open')) {
+        addMarkdownHeading('File Functions');
     } else if (part.name.match(/^spl\d/)) {
         if (parseInt(part.name.slice(3, 4)) === 0) {
             partHeading = `### spl<1-64>

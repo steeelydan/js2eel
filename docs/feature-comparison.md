@@ -34,19 +34,19 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 
 ## File Handling
 
-| Status | Feature                              | Comment |
-| ------ | ------------------------------------ | ------- |
-| 🕒     | `import`                             |         |
-| 🕒     | `filename`                           |         |
-| 🕒     | `file_open(index \| slider)`         |         |
-| 🕒     | `file_close(handle)`                 |         |
-| 🕒     | `file_rewind(handle)`                |         |
-| 🕒     | `file_var(handle, variable)`         |         |
-| 🕒     | `file_mem(handle, offset, length)`   |         |
-| 🕒     | `file_avail(handle)`                 |         |
-| 🕒     | `file_riff(handle, nch, samplerate)` |         |
-| 🕒     | `file_text(handle, istext)`          |         |
-| 🕒     | `file_string(handle,str)`            |         |
+| Status | Feature                              | Comment                    |
+| ------ | ------------------------------------ | -------------------------- |
+| 🕒     | `import`                             |                            |
+| 🕒     | `filename`                           |                            |
+| ✅     | `file_open(index \| slider)`         | Slider variant implemented |
+| ✅     | `file_close(handle)`                 |                            |
+| 🕒     | `file_rewind(handle)`                |                            |
+| 🕒     | `file_var(handle, variable)`         |                            |
+| ✅     | `file_mem(handle, offset, length)`   |                            |
+| ✅     | `file_avail(handle)`                 |                            |
+| ✅     | `file_riff(handle, nch, samplerate)` |                            |
+| 🕒     | `file_text(handle, istext)`          |                            |
+| 🕒     | `file_string(handle,str)`            |                            |
 
 ## Routing and Input
 
@@ -60,7 +60,7 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 | ------ | -------------------------------------- | ------------------------------------------------------------- |
 | ✅     | Slider: Normal                         | `slider()`                                                    |
 | ✅     | Slider: Select                         | `selectBox()`                                                 |
-| 🕒     | Slider: File                           |                                                               |
+| ✅     | Slider: File                           |                                                               |
 | 🕒     | Hidden sliders                         |                                                               |
 | 🕒     | Slider: shapes                         |                                                               |
 | ❌     | `slider(index)`                        | Might not be necessary as every slider is bound to a variable |
@@ -335,7 +335,7 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 | 🕒     | `trigger`       |         |
 | 🕒     | `ext_noinit`    |         |
 | 🕒     | `ext_nodenorm`  |         |
-| 🕒     | `ext_tail_size` |         |
+| ✅     | `ext_tail_size` |         |
 | 🕒     | `reg00-reg99`   |         |
 | 🕒     | `_global.*`     |         |
 

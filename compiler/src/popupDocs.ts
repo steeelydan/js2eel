@@ -866,6 +866,38 @@ file_open: {
     "signature": "file_open(fileSelector: any): any;",
     "autoCompleteTemplate": "file_open();"
 },
+file_close: {
+    "name": "file_close",
+    "type": "function",
+    "text": "Closes a file opened with file_open().",
+    "example": null,
+    "signature": "file_close(fileHandle: any): void;",
+    "autoCompleteTemplate": "file_close();"
+},
+file_avail: {
+    "name": "file_avail",
+    "type": "function",
+    "text": "Returns the number of items remaining in the file, if it is in read mode. Returns < 0 if in write mode. If the file is in text mode (file_text(handle) returns TRUE), then the return value is simply 0 if EOF, 1 if not EOF.",
+    "example": null,
+    "signature": "file_avail(fileSelector: any): number;",
+    "autoCompleteTemplate": "file_avail();"
+},
+file_riff: {
+    "name": "file_riff",
+    "type": "function",
+    "text": "If the file was a media file (.wav, .ogg, etc), this will set the first parameter to the number of channels, and the second to the samplerate.\n\nREAPER 6.29+: if the caller sets nch to 'rqsr' and samplerate to a valid samplerate, the file will be resampled to the desired samplerate (this must ONLY be called before any file_var() or file_mem() calls and will change the value returned by file_avail())",
+    "example": null,
+    "signature": "file_riff(fileHandle: any, numberOfCh: number, sampleRate: number): void;",
+    "autoCompleteTemplate": "file_riff(${numberOfCh}, ${sampleRate});"
+},
+file_mem: {
+    "name": "file_mem",
+    "type": "function",
+    "text": "Reads (or writes) the block of local memory from(to) the current file. Returns the actual number of items read (or written).",
+    "example": null,
+    "signature": "file_mem(fileHandle: any, offset: number, length: number): number;",
+    "autoCompleteTemplate": "file_mem(${offset}, ${length});"
+},
 extTailSize: {
     "name": "extTailSize",
     "type": "function",

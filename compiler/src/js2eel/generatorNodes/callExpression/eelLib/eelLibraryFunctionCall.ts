@@ -177,6 +177,109 @@ export const eelLibraryFunctionCall = (
 
             return `file_open(slider${fileSelector.sliderNumber})`;
         }
+        case 'file_close': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'file_riff': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'numberOfCh',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'sampleRate',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+
+        case 'file_avail': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'file_mem': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'offset',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' }
+                        ]
+                    },
+                    {
+                        name: 'length',
+                        required: true,
+                        allowedValues: [
+                            {
+                                nodeType: 'Literal',
+                                validationSchema: Joi.number()
+                            },
+                            { nodeType: 'Identifier' },
+                            { nodeType: 'BinaryExpression' }
+                        ]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
 
         default: {
             instance.error(

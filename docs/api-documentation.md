@@ -7,6 +7,7 @@
 - [Audio Constants](#audio-constants)
 - [Math Constants](#math-constants)
 - [Math Functions](#math-functions)
+- [File Functions](#file-functions)
 - [Special Functions & Variables](#special-functions-&-variables)
 
 
@@ -396,6 +397,10 @@ Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.
 ```typescript
 invsqrt(x: number): number;
 ```
+
+
+## File Functions
+
 ### file_open()
 Opens a file from a file slider. Once open, you may use all of the file functions available. Be sure to close the file handle when done with it, using file_close(). The search path for finding files depends on the method used, but generally speaking in 4.59+ it will look in the same path as the current effect, then in the JS Data/ directory.
 
@@ -403,6 +408,32 @@ Opens a file from a file slider. Once open, you may use all of the file function
 
 ```typescript
 file_open(fileSelector: any): any;
+```
+### file_close()
+Closes a file opened with file_open().
+
+```typescript
+file_close(fileHandle: any): void;
+```
+### file_avail()
+Returns the number of items remaining in the file, if it is in read mode. Returns < 0 if in write mode. If the file is in text mode (file_text(handle) returns TRUE), then the return value is simply 0 if EOF, 1 if not EOF.
+
+```typescript
+file_avail(fileSelector: any): number;
+```
+### file_riff()
+If the file was a media file (.wav, .ogg, etc), this will set the first parameter to the number of channels, and the second to the samplerate.
+
+REAPER 6.29+: if the caller sets nch to 'rqsr' and samplerate to a valid samplerate, the file will be resampled to the desired samplerate (this must ONLY be called before any file_var() or file_mem() calls and will change the value returned by file_avail())
+
+```typescript
+file_riff(fileHandle: any, numberOfCh: number, sampleRate: number): void;
+```
+### file_mem()
+Reads (or writes) the block of local memory from(to) the current file. Returns the actual number of items read (or written).
+
+```typescript
+file_mem(fileHandle: any, offset: number, length: number): number;
 ```
 
 
