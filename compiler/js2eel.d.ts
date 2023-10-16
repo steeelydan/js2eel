@@ -141,6 +141,7 @@ declare class EelBuffer {
 
     dimensions(): number;
     size(): number;
+    start(): number;
 }
 
 /**

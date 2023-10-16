@@ -1,4 +1,5 @@
 import { suffixBufferSize } from '../../../suffixersAndPrefixers/suffixBufferSize.js';
+import { suffixEelBuffer } from '../../../suffixersAndPrefixers/suffixEelBuffer.js';
 
 import type { Identifier, PrivateIdentifier } from 'estree';
 import type { Js2EelCompiler } from '../../../index.js';
@@ -19,6 +20,10 @@ export const eelBufferMemberCall = (
         }
         case 'dimensions': {
             bufferMemberCallSrc += eelBuffer.dimensions;
+            break;
+        }
+        case 'start': {
+            bufferMemberCallSrc += suffixEelBuffer(eelBuffer.name, '0');
             break;
         }
         default: {

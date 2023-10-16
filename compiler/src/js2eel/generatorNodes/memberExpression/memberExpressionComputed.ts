@@ -1,5 +1,6 @@
 import { literal } from '../literal/literal.js';
 import { identifier } from '../identifier/identifier.js';
+import { binaryExpression } from '../binaryExpression/binaryExpression.js';
 import { memberExpression as compileMemberExpression } from './memberExpression.js';
 
 import { inScope } from '../../environment/inScope.js';
@@ -7,7 +8,6 @@ import { suffixEelBuffer } from '../../suffixersAndPrefixers/suffixEelBuffer.js'
 import { suffixEelArray } from '../../suffixersAndPrefixers/suffixEelArray.js';
 import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
-import { callExpression } from '../callExpression/callExpression.js';
 import { stripChannelPrefix } from '../../suffixersAndPrefixers/prefixChannel.js';
 import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
@@ -219,6 +219,21 @@ export const memberExpressionComputed = (
         case 'MemberExpression': {
             // property is member expression -> we're 2-dimensional, e.g. myArr[1] -> [2] <-  (??)
             positionText += compileMemberExpression(memberExpression, property, instance);
+
+            break;
+        }
+        case 'BinaryExpression': {
+            if (potentialBuffer) {
+                positionText += binaryExpression(property, instance);
+            } else {
+                instance.error(
+                    'TypeError',
+                    `Property access on array is not allowed with this type: ${property.type}`,
+                    memberExpression.property
+                );
+
+                positionText += JSFX_DENY_COMPILATION;
+            }
 
             break;
         }

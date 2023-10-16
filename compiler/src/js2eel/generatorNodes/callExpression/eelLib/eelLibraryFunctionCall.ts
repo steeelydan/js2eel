@@ -257,7 +257,8 @@ export const eelLibraryFunctionCall = (
                                 validationSchema: Joi.number()
                             },
                             { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' }
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
                         ]
                     },
                     {
@@ -269,7 +270,8 @@ export const eelLibraryFunctionCall = (
                                 validationSchema: Joi.number()
                             },
                             { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' }
+                            { nodeType: 'BinaryExpression' },
+                            { nodeType: 'CallExpression' }
                         ]
                     }
                 ],
