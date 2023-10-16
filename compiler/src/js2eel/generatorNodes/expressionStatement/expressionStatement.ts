@@ -1,6 +1,7 @@
 import { binaryExpression } from '../binaryExpression/binaryExpression.js';
 import { assignmentExpression } from '../assignmentExpression/assignmentExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
+import { updateExpression } from '../updateExpression/updateExpression.js';
 import { addSemicolonIfNone } from '../../suffixersAndPrefixers/addSemicolonIfNone.js';
 
 import type { ExpressionStatement, Node } from 'estree';
@@ -26,6 +27,10 @@ export const expressionStatement = (
         }
         case 'AssignmentExpression': {
             expressionSrc += assignmentExpression(expressionStatement.expression, instance);
+            break;
+        }
+        case 'UpdateExpression': {
+            expressionSrc += updateExpression(expressionStatement.expression, instance);
             break;
         }
         default: {

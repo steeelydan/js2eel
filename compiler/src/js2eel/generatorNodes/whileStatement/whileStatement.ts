@@ -11,7 +11,6 @@ export const whileStatement = (
 ): string => {
     let testSrc = '';
     let bodySrc = '';
-    console.log('whileStatement', whileStatement);
 
     switch (whileStatement.test.type) {
         case 'BinaryExpression': {
