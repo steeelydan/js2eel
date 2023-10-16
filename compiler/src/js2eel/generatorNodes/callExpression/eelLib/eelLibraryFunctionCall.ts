@@ -304,28 +304,12 @@ export const eelLibraryFunctionCall = (
                     {
                         name: 'offset',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'length',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     }
                 ],
                 instance
@@ -344,28 +328,12 @@ export const eelLibraryFunctionCall = (
                     {
                         name: 'startIndex',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'size',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     }
                 ],
                 instance
@@ -382,41 +350,17 @@ export const eelLibraryFunctionCall = (
                     {
                         name: 'destination',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'source',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     },
                     {
                         name: 'size',
                         required: true,
-                        allowedValues: [
-                            {
-                                nodeType: 'Literal',
-                                validationSchema: Joi.number()
-                            },
-                            { nodeType: 'Identifier' },
-                            { nodeType: 'BinaryExpression' },
-                            { nodeType: 'CallExpression' }
-                        ]
+                        allowedValues: defaultNumericArgAllowedValues
                     }
                 ],
                 instance
