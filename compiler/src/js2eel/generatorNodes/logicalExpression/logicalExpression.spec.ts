@@ -21,7 +21,7 @@ if (one && two) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -38,7 +38,7 @@ two = 0;
 
 
 (one && two) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -62,7 +62,7 @@ if (!one && !two) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -79,7 +79,7 @@ two = 0;
 
 
 (!one && !two) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -103,7 +103,7 @@ if (one > 0 && two < 2) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -120,7 +120,7 @@ two = 1;
 
 
 (one > 0 && two < 2) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -144,7 +144,7 @@ if (one > 0 && two < 2 && (1 < 2 || 2 < 3)) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -161,7 +161,7 @@ two = 1;
 
 
 ((one > 0 && two < 2) && (1 < 2 || 2 < 3)) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -185,7 +185,7 @@ if (function myFunc() {} && two) {
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -202,7 +202,7 @@ two = 0;
 
 
 ?ä__DENY_COMPILATION ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -227,7 +227,7 @@ if (one && function myFunc() {}) {
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
@@ -244,7 +244,7 @@ two = 0;
 
 
 ?ä__DENY_COMPILATION ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );

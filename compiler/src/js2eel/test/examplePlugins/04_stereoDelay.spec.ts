@@ -9,7 +9,7 @@ const JS_STEREO_DELAY_SRC = fs.readFileSync(
     'utf-8'
 );
 
-const EEL_STEREO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.9.1 */
+const EEL_STEREO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:stereo_delay
 
@@ -43,7 +43,7 @@ feedback = feedbackPercent / (100);
 numSamples__L = lengthMsL * srate / (1000);
 numSamples__R = lengthMsR * srate / (1000);
 (type == 0 || type == 2) ? (
-lengthMsR = lengthMsL;
+    lengthMsR = lengthMsL;
 );
 mix = 2 ^ (mixDb / (6));
 
@@ -53,18 +53,19 @@ mix = 2 ^ (mixDb / (6));
 bufferValueL__S5 = buffer__B0[bufferPos__L];
 bufferValueR__S5 = buffer__B1[bufferPos__R];
 type == 2 ? (
-buffer__B1[bufferPos__R] = min((spl0 + bufferValueL__S5 * feedback), 1);
-buffer__B0[bufferPos__L] = min((spl1 + bufferValueR__S5 * feedback), 1);
-) : (buffer__B0[bufferPos__L] = min((spl0 + bufferValueL__S5 * feedback), 1);
-buffer__B1[bufferPos__R] = min((spl1 + bufferValueR__S5 * feedback), 1);
+    buffer__B1[bufferPos__R] = min((spl0 + bufferValueL__S5 * feedback), 1);
+    buffer__B0[bufferPos__L] = min((spl1 + bufferValueR__S5 * feedback), 1);
+) : (
+    buffer__B0[bufferPos__L] = min((spl0 + bufferValueL__S5 * feedback), 1);
+    buffer__B1[bufferPos__R] = min((spl1 + bufferValueR__S5 * feedback), 1);
 );
 bufferPos__L += 1;
 bufferPos__R += 1;
 bufferPos__L >= numSamples__L ? (
-bufferPos__L = 0;
+    bufferPos__L = 0;
 );
 bufferPos__R >= numSamples__R ? (
-bufferPos__R = 0;
+    bufferPos__R = 0;
 );
 spl0 = (spl0 + bufferValueL__S5 * mix);
 spl1 = (spl1 + bufferValueR__S5 * mix);

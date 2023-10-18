@@ -9,12 +9,12 @@ describe('ifStatement()', () => {
             compiler.compile(`config({ description: 'eachChannel', inChannels: 2, outChannels: 2 });
 
 if ('string') {
-    //
+    let a = 1;
 }
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:eachChannel
 
@@ -24,7 +24,8 @@ out_pin:In 0
 out_pin:In 1
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `)
         );
@@ -41,7 +42,7 @@ if (3 > 4) 3;
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:eachChannel
 
@@ -52,6 +53,7 @@ out_pin:In 1
 
 
 3 > 4 ? (
+    ?ä__DENY_COMPILATION
 );
 `)
         );
@@ -65,12 +67,12 @@ out_pin:In 1
             compiler.compile(`config({ description: 'eachChannel', inChannels: 2, outChannels: 2 });
 
 if (3 > 4) {
-    //
+    let a = 2;
 } else spl(0);
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.24 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:eachChannel
 
@@ -81,6 +83,9 @@ out_pin:In 1
 
 
 3 > 4 ? (
+    a__S1 = 2;
+) : (
+    ?ä__DENY_COMPILATION
 );
 `)
         );
@@ -108,7 +113,7 @@ onSample(() => {
 
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:ifStatement
 
@@ -127,8 +132,9 @@ result = 1;
 @sample
 
 !bool ? (
-result = 0;
-) : (result = 1;
+    result = 0;
+) : (
+    result = 1;
 );
 
 

@@ -258,7 +258,7 @@ onSample(() => {
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:somevar
 
@@ -281,12 +281,14 @@ someVar = 1;
 CH__0 = 0;
 
 someVar += ;
+?ä__DENY_COMPILATION;
 
 /* Channel 1 */
 
 CH__1 = 1;
 
 someVar += ;
+?ä__DENY_COMPILATION;
 
 
 

@@ -6,7 +6,7 @@ import { testEelSrc } from '../helpers.js';
 
 const JS_MONO_DELAY_SRC = fs.readFileSync(path.resolve('../examples/03_mono_delay.js'), 'utf-8');
 
-const EEL_MONO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.0.15 */
+const EEL_MONO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:mono_delay
 
@@ -39,11 +39,11 @@ mix = 2 ^ (mixDb / (6));
 
 readIndex = (writeIndex - numSamples);
 readIndex < 0 ? (
-readIndex += buffer__size;
+    readIndex += buffer__size;
 );
 writeIndex += 1;
 writeIndex >= buffer__size ? (
-writeIndex = 0;
+    writeIndex = 0;
 );
 
 /* Channel 0 */

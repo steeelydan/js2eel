@@ -1,6 +1,8 @@
 import { JSFX_DENY_COMPILATION } from '../../constants';
 import { binaryExpression } from '../binaryExpression/binaryExpression';
 import { blockStatement } from '../blockStatement/blockStatement';
+import { indent } from '../../suffixersAndPrefixers/indent';
+import { removeLastLinebreak } from '../../suffixersAndPrefixers/removeLastLinebreak';
 
 import type { WhileStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
@@ -48,7 +50,8 @@ export const whileStatement = (
     }
 
     const whileStatementSrc = `while (${testSrc}) (
-    ${bodySrc});
+${indent(removeLastLinebreak(bodySrc))}
+);
 `;
 
     return whileStatementSrc;

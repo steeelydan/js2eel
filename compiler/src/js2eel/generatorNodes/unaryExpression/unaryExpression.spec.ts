@@ -14,7 +14,7 @@ const myVar2 = -function myFunc() {};
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.22 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:test
 
@@ -89,7 +89,7 @@ onSample(() => {
 
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:unaryExpression
 
@@ -107,8 +107,9 @@ result = 1;
 @sample
 
 !bools__D0__0 ? (
-result = 0;
-) : (result = 1;
+    result = 0;
+) : (
+    result = 1;
 );
 
 

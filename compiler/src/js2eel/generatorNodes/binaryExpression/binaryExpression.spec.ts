@@ -84,11 +84,11 @@ selectBox(
 );
 
 if (algorithm === myVar) {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -105,7 +105,8 @@ out_pin:In 1
 myVar = 1;
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 
@@ -135,11 +136,11 @@ selectBox(
 );
 
 if (algorithm === 1) {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -151,7 +152,8 @@ out_pin:In 0
 out_pin:In 1
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 
@@ -181,11 +183,11 @@ selectBox(
 );
 
 if (algorithm === "sigmund") {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -197,7 +199,8 @@ out_pin:In 0
 out_pin:In 1
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 
