@@ -75,6 +75,7 @@ export class Js2EelCompiler {
         selectBoxes: {},
         fileSelectors: {},
         eelBuffers: {},
+        eelBufferOffset: 0,
         eelArrays: {},
         environment: {
             root: {
@@ -154,6 +155,7 @@ export class Js2EelCompiler {
             selectBoxes: {},
             fileSelectors: {},
             eelBuffers: {},
+            eelBufferOffset: 0,
             eelArrays: {},
             environment: {
                 root: {
@@ -282,17 +284,13 @@ export class Js2EelCompiler {
 
         // Buffers
 
-        let bufferOffset = 0;
-
         for (const [_eelBufferName, eelBuffer] of Object.entries(this.pluginData.eelBuffers)) {
             if (eelBuffer) {
                 for (let i = 0; i < eelBuffer.dimensions; i++) {
                     initStageText += `${suffixEelBuffer(eelBuffer.name, i.toString())} = ${i} * ${
                         eelBuffer.size
-                    } + ${bufferOffset};\n`;
+                    } + ${eelBuffer.offset};\n`;
                 }
-
-                bufferOffset += eelBuffer.size * eelBuffer.dimensions;
 
                 initStageText += `${suffixBufferSize(eelBuffer.name)} = ${eelBuffer.size};\n`;
             }
@@ -466,6 +464,14 @@ export class Js2EelCompiler {
 
     getEelBuffer(eelBufferName: string): EelBuffer | undefined {
         return this.pluginData.eelBuffers[eelBufferName];
+    }
+
+    addEelBufferOffset(offset: number): void {
+        this.pluginData.eelBufferOffset += offset;
+    }
+
+    getEelBufferOffset(): number {
+        return this.pluginData.eelBufferOffset;
     }
 
     setEelBuffer(eelBuffer: EelBuffer): void {

@@ -95,7 +95,7 @@ EelBuffer: {
     "type": "class",
     "text": "A fixed-size, multi-dimensional container for audio samples.\n\nAccess: `buf[dimension][position]`\n\nTranslates to EEL2s memory objects. Is not inlined in the EEL source, so\nonly feasible for large data. For small data, use EelArray.",
     "example": null,
-    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n    start(): number;\n}",
+    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n    start(): number;\n    setStart(newPosition: number): void;\n}",
     "autoCompleteTemplate": "EelBuffer(${dimensions}, ${size});"
 },
 EelArray: {

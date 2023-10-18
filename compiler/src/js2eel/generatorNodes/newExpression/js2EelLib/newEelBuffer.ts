@@ -16,7 +16,9 @@ export const newEelBuffer = (
             {
                 name: 'dimensions',
                 required: true,
-                allowedValues: [{ nodeType: 'Literal', validationSchema: Joi.number().min(1).max(64) }]
+                allowedValues: [
+                    { nodeType: 'Literal', validationSchema: Joi.number().min(1).max(64) }
+                ]
             },
             {
                 name: 'size',
@@ -37,10 +39,12 @@ export const newEelBuffer = (
     } else {
         const newEelBuffer: EelBuffer = {
             name: symbolName,
+            offset: instance.getEelBufferOffset(),
             dimensions: args.dimensions.value,
             size: args.size.value
         };
 
         instance.setEelBuffer(newEelBuffer);
+        instance.addEelBufferOffset(args.dimensions.value * args.size.value);
     }
 };

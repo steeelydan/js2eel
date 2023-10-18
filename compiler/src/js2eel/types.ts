@@ -77,6 +77,7 @@ export type PluginData = {
     selectBoxes: { [name in string]: SelectBox };
     fileSelectors: { [id in string]: FileSelector };
     eelBuffers: { [name in string]?: EelBuffer };
+    eelBufferOffset: number;
     eelArrays: { [name in string]?: EelArray };
     environment: Environment;
     initVariableNames: string[];
@@ -198,6 +199,7 @@ export type FileSelector = {
 
 export type EelBuffer = {
     name: string;
+    offset: number;
     dimensions: number;
     size: number;
 };

@@ -88,7 +88,7 @@ myBuf__size = 6;
         compiler.setEelArray({ dimensions: 2, name: 'myArr', size: 3 });
         expect(compiler.getErrors().length).to.equal(1);
         expect(compiler.getErrors()[0].type).to.equal('SymbolAlreadyDeclaredError');
-        compiler.setEelBuffer({ dimensions: 2, name: 'myBuf', size: 6 });
+        compiler.setEelBuffer({ dimensions: 2, offset: 0, name: 'myBuf', size: 6 });
         expect(compiler.getErrors().length).to.equal(2);
         expect(compiler.getErrors()[1].type).to.equal('SymbolAlreadyDeclaredError');
     });

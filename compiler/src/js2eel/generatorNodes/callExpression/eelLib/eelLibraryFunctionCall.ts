@@ -7,20 +7,12 @@ import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { callExpression as compileCallExpression } from '../callExpression.js';
 import { memberExpression } from '../../memberExpression/memberExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
+import { defaultNumericArgAllowedValues } from '../../helpers.js';
 import { JSFX_DENY_COMPILATION } from '../../../constants.js';
 
 import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
-import type { EelGeneratorError, FunctionCallAllowedValues } from '../../../types.js';
-
-const defaultNumericArgAllowedValues: FunctionCallAllowedValues = [
-    { nodeType: 'Literal', validationSchema: Joi.number() },
-    { nodeType: 'Identifier' },
-    { nodeType: 'BinaryExpression' },
-    { nodeType: 'UnaryExpression', validationSchema: Joi.number() },
-    { nodeType: 'CallExpression' },
-    { nodeType: 'MemberExpression' }
-];
+import type { EelGeneratorError } from '../../../types.js';
 
 export const eelLibraryFunctionCall = (
     callExpression: CallExpression,
