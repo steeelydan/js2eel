@@ -33,8 +33,8 @@ slider20:lowType=0 < 0, 2, 1 {Shelf, Peak} >Low Type
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init

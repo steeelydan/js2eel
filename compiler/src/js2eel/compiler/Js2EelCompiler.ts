@@ -251,7 +251,7 @@ export class Js2EelCompiler {
             this.src.eelSrcFinal += `in_pin:In ${i}\n`;
         }
         for (let i = 0; i < this.pluginData.outChannels; i++) {
-            this.src.eelSrcFinal += `out_pin:In ${i}\n`;
+            this.src.eelSrcFinal += `out_pin:Out ${i}\n`;
         }
 
         this.src.eelSrcFinal += '\n\n';
