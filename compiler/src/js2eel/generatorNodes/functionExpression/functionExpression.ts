@@ -195,6 +195,8 @@ ${prefixChannel(i)} = ${i};
                 case 'BlockStatement': {
                     functionExpressionSrc += '@block\n\n';
                     functionExpressionSrc += blockStatement(body, 'onBlock', instance);
+                    functionExpressionSrc += '\n\n';
+
                     break;
                 }
                 default: {
