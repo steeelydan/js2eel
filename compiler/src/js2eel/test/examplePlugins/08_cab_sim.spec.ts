@@ -36,6 +36,8 @@ lastBlock__size = 65536;
 
 @slider
 
+ampModel = slider1;
+
 ampModel !== lastAmpModel ? (
     lastAmpModel = ampModel;
     fileHandle__S5 = file_open(slider1);

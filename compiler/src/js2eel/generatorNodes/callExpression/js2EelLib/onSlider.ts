@@ -51,6 +51,17 @@ export const onSlider = (callExpression: CallExpression, instance: Js2EelCompile
 
     if (onSlidersCallbackSrc) {
         onSlidersSrc += '@slider\n\n';
+
+        const fileSelectors = instance.getFileSelectors();
+
+        if (Object.entries(fileSelectors).length) {
+            for (const fileSelector of Object.values(fileSelectors)) {
+                onSlidersSrc += `${fileSelector.variable} = slider${fileSelector.sliderNumber};`;
+            }
+
+            onSlidersSrc += '\n\n';
+        }
+
         onSlidersSrc += onSlidersCallbackSrc;
         onSlidersSrc += '\n\n';
     }

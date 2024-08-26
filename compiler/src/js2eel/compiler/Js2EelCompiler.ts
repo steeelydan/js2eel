@@ -394,6 +394,10 @@ export class Js2EelCompiler {
         return this.pluginData.fileSelectors[fileSelectorName];
     }
 
+    getFileSelectors(): { [id in string]: FileSelector } {
+        return this.pluginData.fileSelectors;
+    }
+
     setOnInitSrc(src: string): void {
         this.src.onInitSrc = src;
     }
