@@ -115,7 +115,6 @@ export const eelBufferMemberCall = (
                 bufferMemberCallSrc += `__TEMP_BUFFER_SWAP__${i} = ${printedOrigBuffer};
 ${printedOrigBuffer} = ${printedOtherBuffer};
 ${printedOtherBuffer} = __TEMP_BUFFER_SWAP__${i};
-
 `;
             }
 

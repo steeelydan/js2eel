@@ -9,7 +9,7 @@ const JS_CAB_SIM_SRC = fs.readFileSync(path.resolve('../examples/08_cab_sim.js')
 
 const EEL_CAB_SIM_SRC_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
-desc:cab_sim
+desc:sd_amp_sim
 
 slider1:/amp_models:none:Impulse Response
 
@@ -32,6 +32,11 @@ importedBuffer__B0 = 0 * 131072 + 131072;
 importedBuffer__size = 131072;
 lastBlock__B0 = 0 * 65536 + 262144;
 lastBlock__size = 65536;
+currentBlock__B0 = 0 * 65536 + 327680;
+currentBlock__size = 65536;
+
+
+ext_tail_size = 32768;
 
 
 @slider
@@ -67,7 +72,6 @@ needsReFft ? (
     chunkSize = ((fftSize - importedBufferSize) - 1);
     chunkSize2x = chunkSize * 2;
     bufferPosition = 0;
-    currentBlock = 0;
     inverseFftSize = 1 / (fftSize);
     i__S10 = 0;
     i2__S10 = 0;
@@ -86,6 +90,7 @@ needsReFft ? (
         convolutionSource__B0[i2__S10] = 0;
         convolutionSource__B0[(i2__S10 + 1)] = 0;
         i2__S10 += 2;
+        zeroPadCounter__S10 += 1;
     );
     fft(convolutionSource__B0, fftSize);
     i__S10 = 0;
@@ -93,6 +98,7 @@ needsReFft ? (
     while (normalizeCounter__S10 < fftSize * 2) (
         convolutionSource__B0[i__S10] *= inverseFftSize;
         i__S10 += 1;
+        normalizeCounter__S10 += 1;
     );
     needsReFft = 0;
 );
@@ -102,17 +108,25 @@ needsReFft ? (
 
 importedBufferSize > 0 ? (
     bufferPosition >= chunkSize ? (
-        t__S19 = ?ä__DENY_COMPILATION;
-        ?ä__DENY_COMPILATION = currentBlock;
-        currentBlock = t__S19;
-        memset(currentBlock * chunkSize * 2, 0, (fftSize - chunkSize) * 2);
-        fft(currentBlock, fftSize);
-        convolve_c(currentBlock, convolutionSource__B0, fftSize);
-        ifft(currentBlock, fftSize);
+        __TEMP_BUFFER_SWAP__0 = lastBlock__B0;
+        lastBlock__B0 = currentBlock__B0;
+        currentBlock__B0 = __TEMP_BUFFER_SWAP__0;
+        memset((currentBlock__B0 + chunkSize * 2), 0, (fftSize - chunkSize) * 2);
+        fft(currentBlock__B0, fftSize);
+        convolve_c(currentBlock__B0, convolutionSource__B0, fftSize);
+        ifft(currentBlock__B0, fftSize);
         bufferPosition = 0;
     );
     bufferPosition2x__S18 = bufferPosition * 2;
-    ?ä__DENY_COMPILATION = spl0;
+    lastBlock__B0[bufferPosition2x__S18] = spl0;
+    lastBlock__B0[(bufferPosition2x__S18 + 1)] = 0;
+    spl0 = currentBlock__B0[bufferPosition2x__S18];
+    spl1 = currentBlock__B0[(bufferPosition2x__S18 + 1)];
+    bufferPosition < (fftSize - chunkSize) ? (
+        spl0 += lastBlock__B0[(chunkSize2x + bufferPosition2x__S18)];
+        spl1 += lastBlock__B0[((chunkSize2x + bufferPosition2x__S18) + 1)];
+    );
+    bufferPosition += 1;
 );
 
 
@@ -124,14 +138,9 @@ describe('Example Test: Cab Sim', () => {
     it('Compiles cab sim', () => {
         const result = js2EelCompiler.compile(JS_CAB_SIM_SRC);
 
-        expect(result.success).to.equal(false);
+        expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(testEelSrc(EEL_CAB_SIM_SRC_EXPECTED));
-        expect(result.errors.length).to.equal(3);
-        expect(result.errors.map((error) => error.type)).to.deep.equal([
-            'GenericError',
-            'GenericError',
-            'GenericError'
-        ]);
-        expect(result.warnings.length).to.equal(2);
+        expect(result.errors.length).to.equal(0);
+        expect(result.warnings.length).to.equal(0);
     });
 });

@@ -1,4 +1,4 @@
-config({ description: 'cab_sim', inChannels: 2, outChannels: 2 });
+config({ description: 'sd_amp_sim', inChannels: 2, outChannels: 2 });
 
 let fftSize = -1;
 let needsReFft = true;
@@ -10,8 +10,8 @@ let importedBufferSize;
 let chunkSize;
 let chunkSize2x;
 let bufferPosition;
-let currentBlock;
 let lastBlock = new EelBuffer(1, 65536); // 64 * 1024
+let currentBlock = new EelBuffer(1, 65536); // 64 * 1024
 let inverseFftSize;
 const interpolationStepCount = 1.0;
 
@@ -67,7 +67,6 @@ onBlock(() => {
         chunkSize = fftSize - importedBufferSize - 1;
         chunkSize2x = chunkSize * 2;
         bufferPosition = 0;
-        currentBlock = 0;
 
         inverseFftSize = 1 / fftSize;
 
@@ -100,6 +99,8 @@ onBlock(() => {
             convolutionSource[0][i2] = 0;
             convolutionSource[0][i2 + 1] = 0;
             i2 += 2;
+
+            zeroPadCounter++;
         }
 
         fft(convolutionSource.start(), fftSize);
@@ -111,6 +112,8 @@ onBlock(() => {
         while (normalizeCounter < fftSize * 2) {
             convolutionSource[0][i] *= inverseFftSize;
             i += 1;
+
+            normalizeCounter++;
         }
 
         needsReFft = false;
@@ -120,20 +123,34 @@ onBlock(() => {
 onSample(() => {
     if (importedBufferSize > 0) {
         if (bufferPosition >= chunkSize) {
-            const t = lastBlock;
-            lastBlock = currentBlock;
-            currentBlock = t;
+            // Swap current and last blocks, zero-pad last block
+            lastBlock.swap(currentBlock);
 
-            memset(currentBlock * chunkSize * 2, 0, (fftSize - chunkSize) * 2);
+            memset(currentBlock.start() + chunkSize * 2, 0, (fftSize - chunkSize) * 2);
 
-            fft(currentBlock, fftSize);
-            convolve_c(currentBlock, convolutionSource.start(), fftSize);
-            ifft(currentBlock, fftSize);
+            // Perform FFT on currentBlock, convolve, and perform inverse FFT
+            fft(currentBlock.start(), fftSize);
+            convolve_c(currentBlock.start(), convolutionSource.start(), fftSize);
+            ifft(currentBlock.start(), fftSize);
 
             bufferPosition = 0;
         }
 
+        // Save sample
         const bufferPosition2x = bufferPosition * 2;
-        lastBlock[bufferPosition2x] = spl0;
+
+        lastBlock[0][bufferPosition2x] = spl0;
+        lastBlock[0][bufferPosition2x + 1] = 0;
+
+        spl0 = currentBlock[0][bufferPosition2x];
+        spl1 = currentBlock[0][bufferPosition2x + 1];
+
+        // Apply overlap-and-add for block continuity
+        if (bufferPosition < fftSize - chunkSize) {
+            spl0 += lastBlock[0][chunkSize2x + bufferPosition2x];
+            spl1 += lastBlock[0][chunkSize2x + bufferPosition2x + 1];
+        }
+
+        bufferPosition += 1;
     }
 });
