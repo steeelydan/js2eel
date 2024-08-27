@@ -181,6 +181,7 @@ EelBuffer {
     dimensions(): number;
     size(): number;
     start(): number;
+    swap(otherBuffer: EelBuffer): void;
 }
 ```
 ### EelArray

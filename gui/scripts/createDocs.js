@@ -21,6 +21,10 @@ const marked = new Marked(
 const renderer = new marked.Renderer();
 
 renderer.link = (link) => {
+    if (link.href.startsWith('#')) {
+        return `<a href="${link.href}">${link.text}</a>`;
+    }
+
     return `<a target="_blank" href="${link.href}">${link.text}</a>`;
 };
 
