@@ -1,5 +1,14 @@
 # Changelog
 
+-   v0.11.0:
+    -   Allow configuration of `ext_tail_size` (`config.extTailSize`)
+    -   File selector slider
+    -   @block section (`onBlock`)
+    -   Start location getter for `EelBuffer`: `EelBuffer.start()`
+    -   New memory function: `memset()`
+    -   New file functions: `file_open()`, `file_close()`, `file_avail()`, `file_riff()`, `file_mem()`
+    -   FFT functions: `fft()`, `ifft()`, `convolve_c()`
+    -   Cab sim demo (very early stage)
 -   v0.9.1:
     -   New example: 4-Band RBJ EQ
 -   v0.7.0:
