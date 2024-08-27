@@ -177,7 +177,7 @@ ${prefixChannel(i)} = ${i};
         case 'onInit': {
             switch (body.type) {
                 case 'BlockStatement': {
-                    blockStatement(body, 'onInit', instance);
+                    functionExpressionSrc += blockStatement(body, 'onInit', instance);
                     break;
                 }
                 default: {
