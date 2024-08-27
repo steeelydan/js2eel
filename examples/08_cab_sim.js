@@ -1,3 +1,5 @@
+// Minimal JS2EEL version of Cockos' 'Convolution Amp/Cab Modeler' (Effects/guitar/amp-model)
+
 config({ description: 'sd_amp_sim', inChannels: 2, outChannels: 2, extTailSize: 32768 });
 
 let fftSize = -1;
