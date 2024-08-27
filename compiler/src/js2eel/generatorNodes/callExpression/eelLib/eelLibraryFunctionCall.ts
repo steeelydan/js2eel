@@ -162,8 +162,6 @@ export const eelLibraryFunctionCall = (
             evaluationErrors = errors;
 
             break;
-
-            break;
         }
         // File functions
         case 'file_open': {
