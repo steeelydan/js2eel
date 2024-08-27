@@ -478,15 +478,17 @@ export class Js2EelCompiler {
         return this.pluginData.eelBufferOffset;
     }
 
-    setEelBuffer(eelBuffer: EelBuffer): void {
-        if (!this.pluginData.eelBuffers[eelBuffer.name]) {
-            this.pluginData.eelBuffers[eelBuffer.name] = eelBuffer;
-        } else {
+    setEelBuffer(eelBuffer: EelBuffer, checkExisting = true): void {
+        const exists = !!this.pluginData.eelBuffers[eelBuffer.name];
+
+        if (checkExisting && exists) {
             this.error(
                 'SymbolAlreadyDeclaredError',
                 'EelBuffer with this name already exists: ' + eelBuffer.name,
                 null
             );
+        } else {
+            this.pluginData.eelBuffers[eelBuffer.name] = eelBuffer;
         }
     }
 

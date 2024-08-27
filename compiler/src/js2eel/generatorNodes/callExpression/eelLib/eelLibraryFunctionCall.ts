@@ -361,7 +361,7 @@ export const eelLibraryFunctionCall = (
 
         switch (arg.type) {
             case 'Identifier': {
-                argsSrc += identifier(arg, instance);
+                argsSrc += identifier(arg, instance, { isParam: true });
                 break;
             }
             case 'BinaryExpression': {

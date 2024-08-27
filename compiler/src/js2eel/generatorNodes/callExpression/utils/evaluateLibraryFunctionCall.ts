@@ -164,7 +164,7 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
                 break;
             }
             case 'Identifier': {
-                const id = identifier(givenArg, instance);
+                const id = identifier(givenArg, instance, { isParam: true });
                 value = id;
                 rawValue = id;
                 break;
