@@ -241,8 +241,6 @@ parts.forEach((part) => {
         addMarkdownHeading('Math Constants');
     } else if (part.name.startsWith('srate')) {
         addMarkdownHeading('Audio Constants');
-    } else if (part.name.startsWith('extTailSize')) {
-        addMarkdownHeading('Special Functions & Variables');
     } else if (part.name.startsWith('file_open')) {
         addMarkdownHeading('File Functions');
     } else if (part.name.startsWith('fft')) {

@@ -181,7 +181,6 @@ EelBuffer {
     dimensions(): number;
     size(): number;
     start(): number;
-    setStart(newPosition: number): void;
 }
 ```
 ### EelArray

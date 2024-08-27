@@ -30,33 +30,6 @@ export const eelBufferMemberCall = (
             bufferMemberCallSrc += suffixEelBuffer(eelBuffer.name, '0');
             break;
         }
-        case 'setStart': {
-            const { args, errors } = evaluateLibraryFunctionCall(
-                callExpression,
-                [
-                    {
-                        name: 'position',
-                        required: true,
-                        allowedValues: defaultNumericArgAllowedValues
-                    }
-                ],
-                instance
-            );
-
-            if (errors) {
-                instance.multipleErrors(errors);
-
-                return JSFX_DENY_COMPILATION;
-            }
-
-            for (let i = 0; i < eelBuffer.dimensions; i++) {
-                bufferMemberCallSrc += `${suffixEelBuffer(eelBuffer.name, i.toString())} = ${i} * ${
-                    eelBuffer.size
-                } + ${args.position.value};\n`;
-            }
-
-            break;
-        }
         case 'swap': {
             const { args, errors } = evaluateLibraryFunctionCall(
                 callExpression,
