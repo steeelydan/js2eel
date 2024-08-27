@@ -3,6 +3,7 @@ import { functionDeclaration } from '../functionDeclaration/functionDeclaration.
 import { expressionStatement } from '../expressionStatement/expressionStatement.js';
 import { returnStatement } from '../returnStatement/returnStatement.js';
 import { ifStatement } from '../ifStatement/ifStatement.js';
+import { whileStatement } from '../whileStatement/whileStatement.js';
 
 import type { BlockStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
@@ -28,11 +29,15 @@ export const blockStatement = (
                 break;
             }
             case 'ExpressionStatement': {
-                blockSrc += expressionStatement(blockBody, instance);
+                blockSrc += expressionStatement(blockStatement, blockBody, instance);
                 break;
             }
             case 'VariableDeclaration': {
                 blockSrc += variableDeclaration(blockBody, instance);
+                break;
+            }
+            case 'WhileStatement': {
+                blockSrc += whileStatement(blockBody, instance);
                 break;
             }
             case 'ReturnStatement': {
@@ -48,13 +53,13 @@ export const blockStatement = (
                     instance.error(
                         'TypeError',
                         `Body type ${blockBody.type} not allowed. Did you insert a superfluous semicolon?`,
-                        blockStatement
+                        blockBody
                     );
                 } else {
                     instance.error(
                         'TypeError',
                         `Body type ${blockBody.type} not allowed`,
-                        blockStatement
+                        blockBody
                     );
                 }
             }

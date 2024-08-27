@@ -43,7 +43,7 @@ export const jsCodeMirror = (
                 javascript(),
                 history(),
                 lineNumbers(),
-                linter(createEsLintLintSource(setEslintErrors)),
+                // linter(createEsLintLintSource(setEslintErrors)),
                 linter(createJs2EelLintSource(compileResultRef)),
                 EditorView.lineWrapping,
                 closeBrackets(),

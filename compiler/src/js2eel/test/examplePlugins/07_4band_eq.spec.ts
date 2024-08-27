@@ -6,7 +6,7 @@ import { testEelSrc } from '../helpers.js';
 
 const JS_4BAND_EQ_SRC = fs.readFileSync(path.resolve('../examples/07_4band_eq.js'), 'utf-8');
 
-const EEL_4BAND_EQ_SRC_EXPECTED = `/* Compiled with JS2EEL v0.9.0 */
+const EEL_4BAND_EQ_SRC_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:4band_eq
 
@@ -33,8 +33,8 @@ slider20:lowType=0 < 0, 2, 1 {Shelf, Peak} >Low Type
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -228,84 +228,86 @@ outputGain = (10 ^ (outputGainDb / (20)));
 CH__0 = 0;
 
 lpFreq < 22000 ? (
-lpYStore__D0__0 = ((((lpCoefs__b0x * lpXStore__D0__0 + lpCoefs__b1x * lpXStore__D0__1) + lpCoefs__b2x * lpXStore__D0__2) - lpCoefs__a1x * lpYStore__D0__1) - lpCoefs__a2x * lpYStore__D0__2);
-lpYStore__D0__2 = lpYStore__D0__1;
-lpYStore__D0__1 = lpYStore__D0__0;
-lpXStore__D0__2 = lpXStore__D0__1;
-lpXStore__D0__1 = lpXStore__D0__0;
-lpXStore__D0__0 = spl0;
-R__S6__0 = lpYStore__D0__0;
-spl0 = R__S6__0;
+    lpYStore__D0__0 = ((((lpCoefs__b0x * lpXStore__D0__0 + lpCoefs__b1x * lpXStore__D0__1) + lpCoefs__b2x * lpXStore__D0__2) - lpCoefs__a1x * lpYStore__D0__1) - lpCoefs__a2x * lpYStore__D0__2);
+    lpYStore__D0__2 = lpYStore__D0__1;
+    lpYStore__D0__1 = lpYStore__D0__0;
+    lpXStore__D0__2 = lpXStore__D0__1;
+    lpXStore__D0__1 = lpXStore__D0__0;
+    lpXStore__D0__0 = spl0;
+    R__S6__0 = lpYStore__D0__0;
+    spl0 = R__S6__0;
 );
 highGain !== 0 ? (
-highType == 1 ? (
-hiYStore__D0__0 = ((((hiCoefs__b0x * hiXStore__D0__0 + hiCoefs__b1x * hiXStore__D0__1) + hiCoefs__b2x * hiXStore__D0__2) - hiCoefs__a1x * hiYStore__D0__1) - hiCoefs__a2x * hiYStore__D0__2);
-hiYStore__D0__2 = hiYStore__D0__1;
-hiYStore__D0__1 = hiYStore__D0__0;
-hiXStore__D0__2 = hiXStore__D0__1;
-hiXStore__D0__1 = hiXStore__D0__0;
-hiXStore__D0__0 = spl0;
-R__S6__0 = hiYStore__D0__0;
-spl0 = R__S6__0;
-) : (hiShelfYStore__D0__0 = ((((hiShelfCoefs__b0x * hiShelfXStore__D0__0 + hiShelfCoefs__b1x * hiShelfXStore__D0__1) + hiShelfCoefs__b2x * hiShelfXStore__D0__2) - hiShelfCoefs__a1x * hiShelfYStore__D0__1) - hiShelfCoefs__a2x * hiShelfYStore__D0__2);
-hiShelfYStore__D0__2 = hiShelfYStore__D0__1;
-hiShelfYStore__D0__1 = hiShelfYStore__D0__0;
-hiShelfXStore__D0__2 = hiShelfXStore__D0__1;
-hiShelfXStore__D0__1 = hiShelfXStore__D0__0;
-hiShelfXStore__D0__0 = spl0;
-R__S6__0 = hiShelfYStore__D0__0;
-spl0 = R__S6__0;
-);
+    highType == 1 ? (
+        hiYStore__D0__0 = ((((hiCoefs__b0x * hiXStore__D0__0 + hiCoefs__b1x * hiXStore__D0__1) + hiCoefs__b2x * hiXStore__D0__2) - hiCoefs__a1x * hiYStore__D0__1) - hiCoefs__a2x * hiYStore__D0__2);
+        hiYStore__D0__2 = hiYStore__D0__1;
+        hiYStore__D0__1 = hiYStore__D0__0;
+        hiXStore__D0__2 = hiXStore__D0__1;
+        hiXStore__D0__1 = hiXStore__D0__0;
+        hiXStore__D0__0 = spl0;
+        R__S6__0 = hiYStore__D0__0;
+        spl0 = R__S6__0;
+    ) : (
+        hiShelfYStore__D0__0 = ((((hiShelfCoefs__b0x * hiShelfXStore__D0__0 + hiShelfCoefs__b1x * hiShelfXStore__D0__1) + hiShelfCoefs__b2x * hiShelfXStore__D0__2) - hiShelfCoefs__a1x * hiShelfYStore__D0__1) - hiShelfCoefs__a2x * hiShelfYStore__D0__2);
+        hiShelfYStore__D0__2 = hiShelfYStore__D0__1;
+        hiShelfYStore__D0__1 = hiShelfYStore__D0__0;
+        hiShelfXStore__D0__2 = hiShelfXStore__D0__1;
+        hiShelfXStore__D0__1 = hiShelfXStore__D0__0;
+        hiShelfXStore__D0__0 = spl0;
+        R__S6__0 = hiShelfYStore__D0__0;
+        spl0 = R__S6__0;
+    );
 );
 hiMidGain !== 0 ? (
-hiMidYStore__D0__0 = ((((hiMidCoefs__b0x * hiMidXStore__D0__0 + hiMidCoefs__b1x * hiMidXStore__D0__1) + hiMidCoefs__b2x * hiMidXStore__D0__2) - hiMidCoefs__a1x * hiMidYStore__D0__1) - hiMidCoefs__a2x * hiMidYStore__D0__2);
-hiMidYStore__D0__2 = hiMidYStore__D0__1;
-hiMidYStore__D0__1 = hiMidYStore__D0__0;
-hiMidXStore__D0__2 = hiMidXStore__D0__1;
-hiMidXStore__D0__1 = hiMidXStore__D0__0;
-hiMidXStore__D0__0 = spl0;
-R__S6__0 = hiMidYStore__D0__0;
-spl0 = R__S6__0;
+    hiMidYStore__D0__0 = ((((hiMidCoefs__b0x * hiMidXStore__D0__0 + hiMidCoefs__b1x * hiMidXStore__D0__1) + hiMidCoefs__b2x * hiMidXStore__D0__2) - hiMidCoefs__a1x * hiMidYStore__D0__1) - hiMidCoefs__a2x * hiMidYStore__D0__2);
+    hiMidYStore__D0__2 = hiMidYStore__D0__1;
+    hiMidYStore__D0__1 = hiMidYStore__D0__0;
+    hiMidXStore__D0__2 = hiMidXStore__D0__1;
+    hiMidXStore__D0__1 = hiMidXStore__D0__0;
+    hiMidXStore__D0__0 = spl0;
+    R__S6__0 = hiMidYStore__D0__0;
+    spl0 = R__S6__0;
 );
 loMidGain !== 0 ? (
-loMidYStore__D0__0 = ((((loMidCoefs__b0x * loMidXStore__D0__0 + loMidCoefs__b1x * loMidXStore__D0__1) + loMidCoefs__b2x * loMidXStore__D0__2) - loMidCoefs__a1x * loMidYStore__D0__1) - loMidCoefs__a2x * loMidYStore__D0__2);
-loMidYStore__D0__2 = loMidYStore__D0__1;
-loMidYStore__D0__1 = loMidYStore__D0__0;
-loMidXStore__D0__2 = loMidXStore__D0__1;
-loMidXStore__D0__1 = loMidXStore__D0__0;
-loMidXStore__D0__0 = spl0;
-R__S6__0 = loMidYStore__D0__0;
-spl0 = R__S6__0;
+    loMidYStore__D0__0 = ((((loMidCoefs__b0x * loMidXStore__D0__0 + loMidCoefs__b1x * loMidXStore__D0__1) + loMidCoefs__b2x * loMidXStore__D0__2) - loMidCoefs__a1x * loMidYStore__D0__1) - loMidCoefs__a2x * loMidYStore__D0__2);
+    loMidYStore__D0__2 = loMidYStore__D0__1;
+    loMidYStore__D0__1 = loMidYStore__D0__0;
+    loMidXStore__D0__2 = loMidXStore__D0__1;
+    loMidXStore__D0__1 = loMidXStore__D0__0;
+    loMidXStore__D0__0 = spl0;
+    R__S6__0 = loMidYStore__D0__0;
+    spl0 = R__S6__0;
 );
 lowGain !== 0 ? (
-lowType == 1 ? (
-loYStore__D0__0 = ((((loCoefs__b0x * loXStore__D0__0 + loCoefs__b1x * loXStore__D0__1) + loCoefs__b2x * loXStore__D0__2) - loCoefs__a1x * loYStore__D0__1) - loCoefs__a2x * loYStore__D0__2);
-loYStore__D0__2 = loYStore__D0__1;
-loYStore__D0__1 = loYStore__D0__0;
-loXStore__D0__2 = loXStore__D0__1;
-loXStore__D0__1 = loXStore__D0__0;
-loXStore__D0__0 = spl0;
-R__S6__0 = loYStore__D0__0;
-spl0 = R__S6__0;
-) : (loShelfYStore__D0__0 = ((((loShelfCoefs__b0x * loShelfXStore__D0__0 + loShelfCoefs__b1x * loShelfXStore__D0__1) + loShelfCoefs__b2x * loShelfXStore__D0__2) - loShelfCoefs__a1x * loShelfYStore__D0__1) - loShelfCoefs__a2x * loShelfYStore__D0__2);
-loShelfYStore__D0__2 = loShelfYStore__D0__1;
-loShelfYStore__D0__1 = loShelfYStore__D0__0;
-loShelfXStore__D0__2 = loShelfXStore__D0__1;
-loShelfXStore__D0__1 = loShelfXStore__D0__0;
-loShelfXStore__D0__0 = spl0;
-R__S6__0 = loShelfYStore__D0__0;
-spl0 = R__S6__0;
-);
+    lowType == 1 ? (
+        loYStore__D0__0 = ((((loCoefs__b0x * loXStore__D0__0 + loCoefs__b1x * loXStore__D0__1) + loCoefs__b2x * loXStore__D0__2) - loCoefs__a1x * loYStore__D0__1) - loCoefs__a2x * loYStore__D0__2);
+        loYStore__D0__2 = loYStore__D0__1;
+        loYStore__D0__1 = loYStore__D0__0;
+        loXStore__D0__2 = loXStore__D0__1;
+        loXStore__D0__1 = loXStore__D0__0;
+        loXStore__D0__0 = spl0;
+        R__S6__0 = loYStore__D0__0;
+        spl0 = R__S6__0;
+    ) : (
+        loShelfYStore__D0__0 = ((((loShelfCoefs__b0x * loShelfXStore__D0__0 + loShelfCoefs__b1x * loShelfXStore__D0__1) + loShelfCoefs__b2x * loShelfXStore__D0__2) - loShelfCoefs__a1x * loShelfYStore__D0__1) - loShelfCoefs__a2x * loShelfYStore__D0__2);
+        loShelfYStore__D0__2 = loShelfYStore__D0__1;
+        loShelfYStore__D0__1 = loShelfYStore__D0__0;
+        loShelfXStore__D0__2 = loShelfXStore__D0__1;
+        loShelfXStore__D0__1 = loShelfXStore__D0__0;
+        loShelfXStore__D0__0 = spl0;
+        R__S6__0 = loShelfYStore__D0__0;
+        spl0 = R__S6__0;
+    );
 );
 hpFreq > 20 ? (
-hpYStore__D0__0 = ((((hpCoefs__b0x * hpXStore__D0__0 + hpCoefs__b1x * hpXStore__D0__1) + hpCoefs__b2x * hpXStore__D0__2) - hpCoefs__a1x * hpYStore__D0__1) - hpCoefs__a2x * hpYStore__D0__2);
-hpYStore__D0__2 = hpYStore__D0__1;
-hpYStore__D0__1 = hpYStore__D0__0;
-hpXStore__D0__2 = hpXStore__D0__1;
-hpXStore__D0__1 = hpXStore__D0__0;
-hpXStore__D0__0 = spl0;
-R__S6__0 = hpYStore__D0__0;
-spl0 = R__S6__0;
+    hpYStore__D0__0 = ((((hpCoefs__b0x * hpXStore__D0__0 + hpCoefs__b1x * hpXStore__D0__1) + hpCoefs__b2x * hpXStore__D0__2) - hpCoefs__a1x * hpYStore__D0__1) - hpCoefs__a2x * hpYStore__D0__2);
+    hpYStore__D0__2 = hpYStore__D0__1;
+    hpYStore__D0__1 = hpYStore__D0__0;
+    hpXStore__D0__2 = hpXStore__D0__1;
+    hpXStore__D0__1 = hpXStore__D0__0;
+    hpXStore__D0__0 = spl0;
+    R__S6__0 = hpYStore__D0__0;
+    spl0 = R__S6__0;
 );
 spl0 = spl0 * outputGain;
 
@@ -314,84 +316,86 @@ spl0 = spl0 * outputGain;
 CH__1 = 1;
 
 lpFreq < 22000 ? (
-lpYStore__D1__0 = ((((lpCoefs__b0x * lpXStore__D1__0 + lpCoefs__b1x * lpXStore__D1__1) + lpCoefs__b2x * lpXStore__D1__2) - lpCoefs__a1x * lpYStore__D1__1) - lpCoefs__a2x * lpYStore__D1__2);
-lpYStore__D1__2 = lpYStore__D1__1;
-lpYStore__D1__1 = lpYStore__D1__0;
-lpXStore__D1__2 = lpXStore__D1__1;
-lpXStore__D1__1 = lpXStore__D1__0;
-lpXStore__D1__0 = spl1;
-R__S6__0 = lpYStore__D1__0;
-spl1 = R__S6__0;
+    lpYStore__D1__0 = ((((lpCoefs__b0x * lpXStore__D1__0 + lpCoefs__b1x * lpXStore__D1__1) + lpCoefs__b2x * lpXStore__D1__2) - lpCoefs__a1x * lpYStore__D1__1) - lpCoefs__a2x * lpYStore__D1__2);
+    lpYStore__D1__2 = lpYStore__D1__1;
+    lpYStore__D1__1 = lpYStore__D1__0;
+    lpXStore__D1__2 = lpXStore__D1__1;
+    lpXStore__D1__1 = lpXStore__D1__0;
+    lpXStore__D1__0 = spl1;
+    R__S6__0 = lpYStore__D1__0;
+    spl1 = R__S6__0;
 );
 highGain !== 0 ? (
-highType == 1 ? (
-hiYStore__D1__0 = ((((hiCoefs__b0x * hiXStore__D1__0 + hiCoefs__b1x * hiXStore__D1__1) + hiCoefs__b2x * hiXStore__D1__2) - hiCoefs__a1x * hiYStore__D1__1) - hiCoefs__a2x * hiYStore__D1__2);
-hiYStore__D1__2 = hiYStore__D1__1;
-hiYStore__D1__1 = hiYStore__D1__0;
-hiXStore__D1__2 = hiXStore__D1__1;
-hiXStore__D1__1 = hiXStore__D1__0;
-hiXStore__D1__0 = spl1;
-R__S6__0 = hiYStore__D1__0;
-spl1 = R__S6__0;
-) : (hiShelfYStore__D1__0 = ((((hiShelfCoefs__b0x * hiShelfXStore__D1__0 + hiShelfCoefs__b1x * hiShelfXStore__D1__1) + hiShelfCoefs__b2x * hiShelfXStore__D1__2) - hiShelfCoefs__a1x * hiShelfYStore__D1__1) - hiShelfCoefs__a2x * hiShelfYStore__D1__2);
-hiShelfYStore__D1__2 = hiShelfYStore__D1__1;
-hiShelfYStore__D1__1 = hiShelfYStore__D1__0;
-hiShelfXStore__D1__2 = hiShelfXStore__D1__1;
-hiShelfXStore__D1__1 = hiShelfXStore__D1__0;
-hiShelfXStore__D1__0 = spl1;
-R__S6__0 = hiShelfYStore__D1__0;
-spl1 = R__S6__0;
-);
+    highType == 1 ? (
+        hiYStore__D1__0 = ((((hiCoefs__b0x * hiXStore__D1__0 + hiCoefs__b1x * hiXStore__D1__1) + hiCoefs__b2x * hiXStore__D1__2) - hiCoefs__a1x * hiYStore__D1__1) - hiCoefs__a2x * hiYStore__D1__2);
+        hiYStore__D1__2 = hiYStore__D1__1;
+        hiYStore__D1__1 = hiYStore__D1__0;
+        hiXStore__D1__2 = hiXStore__D1__1;
+        hiXStore__D1__1 = hiXStore__D1__0;
+        hiXStore__D1__0 = spl1;
+        R__S6__0 = hiYStore__D1__0;
+        spl1 = R__S6__0;
+    ) : (
+        hiShelfYStore__D1__0 = ((((hiShelfCoefs__b0x * hiShelfXStore__D1__0 + hiShelfCoefs__b1x * hiShelfXStore__D1__1) + hiShelfCoefs__b2x * hiShelfXStore__D1__2) - hiShelfCoefs__a1x * hiShelfYStore__D1__1) - hiShelfCoefs__a2x * hiShelfYStore__D1__2);
+        hiShelfYStore__D1__2 = hiShelfYStore__D1__1;
+        hiShelfYStore__D1__1 = hiShelfYStore__D1__0;
+        hiShelfXStore__D1__2 = hiShelfXStore__D1__1;
+        hiShelfXStore__D1__1 = hiShelfXStore__D1__0;
+        hiShelfXStore__D1__0 = spl1;
+        R__S6__0 = hiShelfYStore__D1__0;
+        spl1 = R__S6__0;
+    );
 );
 hiMidGain !== 0 ? (
-hiMidYStore__D1__0 = ((((hiMidCoefs__b0x * hiMidXStore__D1__0 + hiMidCoefs__b1x * hiMidXStore__D1__1) + hiMidCoefs__b2x * hiMidXStore__D1__2) - hiMidCoefs__a1x * hiMidYStore__D1__1) - hiMidCoefs__a2x * hiMidYStore__D1__2);
-hiMidYStore__D1__2 = hiMidYStore__D1__1;
-hiMidYStore__D1__1 = hiMidYStore__D1__0;
-hiMidXStore__D1__2 = hiMidXStore__D1__1;
-hiMidXStore__D1__1 = hiMidXStore__D1__0;
-hiMidXStore__D1__0 = spl1;
-R__S6__0 = hiMidYStore__D1__0;
-spl1 = R__S6__0;
+    hiMidYStore__D1__0 = ((((hiMidCoefs__b0x * hiMidXStore__D1__0 + hiMidCoefs__b1x * hiMidXStore__D1__1) + hiMidCoefs__b2x * hiMidXStore__D1__2) - hiMidCoefs__a1x * hiMidYStore__D1__1) - hiMidCoefs__a2x * hiMidYStore__D1__2);
+    hiMidYStore__D1__2 = hiMidYStore__D1__1;
+    hiMidYStore__D1__1 = hiMidYStore__D1__0;
+    hiMidXStore__D1__2 = hiMidXStore__D1__1;
+    hiMidXStore__D1__1 = hiMidXStore__D1__0;
+    hiMidXStore__D1__0 = spl1;
+    R__S6__0 = hiMidYStore__D1__0;
+    spl1 = R__S6__0;
 );
 loMidGain !== 0 ? (
-loMidYStore__D1__0 = ((((loMidCoefs__b0x * loMidXStore__D1__0 + loMidCoefs__b1x * loMidXStore__D1__1) + loMidCoefs__b2x * loMidXStore__D1__2) - loMidCoefs__a1x * loMidYStore__D1__1) - loMidCoefs__a2x * loMidYStore__D1__2);
-loMidYStore__D1__2 = loMidYStore__D1__1;
-loMidYStore__D1__1 = loMidYStore__D1__0;
-loMidXStore__D1__2 = loMidXStore__D1__1;
-loMidXStore__D1__1 = loMidXStore__D1__0;
-loMidXStore__D1__0 = spl1;
-R__S6__0 = loMidYStore__D1__0;
-spl1 = R__S6__0;
+    loMidYStore__D1__0 = ((((loMidCoefs__b0x * loMidXStore__D1__0 + loMidCoefs__b1x * loMidXStore__D1__1) + loMidCoefs__b2x * loMidXStore__D1__2) - loMidCoefs__a1x * loMidYStore__D1__1) - loMidCoefs__a2x * loMidYStore__D1__2);
+    loMidYStore__D1__2 = loMidYStore__D1__1;
+    loMidYStore__D1__1 = loMidYStore__D1__0;
+    loMidXStore__D1__2 = loMidXStore__D1__1;
+    loMidXStore__D1__1 = loMidXStore__D1__0;
+    loMidXStore__D1__0 = spl1;
+    R__S6__0 = loMidYStore__D1__0;
+    spl1 = R__S6__0;
 );
 lowGain !== 0 ? (
-lowType == 1 ? (
-loYStore__D1__0 = ((((loCoefs__b0x * loXStore__D1__0 + loCoefs__b1x * loXStore__D1__1) + loCoefs__b2x * loXStore__D1__2) - loCoefs__a1x * loYStore__D1__1) - loCoefs__a2x * loYStore__D1__2);
-loYStore__D1__2 = loYStore__D1__1;
-loYStore__D1__1 = loYStore__D1__0;
-loXStore__D1__2 = loXStore__D1__1;
-loXStore__D1__1 = loXStore__D1__0;
-loXStore__D1__0 = spl1;
-R__S6__0 = loYStore__D1__0;
-spl1 = R__S6__0;
-) : (loShelfYStore__D1__0 = ((((loShelfCoefs__b0x * loShelfXStore__D1__0 + loShelfCoefs__b1x * loShelfXStore__D1__1) + loShelfCoefs__b2x * loShelfXStore__D1__2) - loShelfCoefs__a1x * loShelfYStore__D1__1) - loShelfCoefs__a2x * loShelfYStore__D1__2);
-loShelfYStore__D1__2 = loShelfYStore__D1__1;
-loShelfYStore__D1__1 = loShelfYStore__D1__0;
-loShelfXStore__D1__2 = loShelfXStore__D1__1;
-loShelfXStore__D1__1 = loShelfXStore__D1__0;
-loShelfXStore__D1__0 = spl1;
-R__S6__0 = loShelfYStore__D1__0;
-spl1 = R__S6__0;
-);
+    lowType == 1 ? (
+        loYStore__D1__0 = ((((loCoefs__b0x * loXStore__D1__0 + loCoefs__b1x * loXStore__D1__1) + loCoefs__b2x * loXStore__D1__2) - loCoefs__a1x * loYStore__D1__1) - loCoefs__a2x * loYStore__D1__2);
+        loYStore__D1__2 = loYStore__D1__1;
+        loYStore__D1__1 = loYStore__D1__0;
+        loXStore__D1__2 = loXStore__D1__1;
+        loXStore__D1__1 = loXStore__D1__0;
+        loXStore__D1__0 = spl1;
+        R__S6__0 = loYStore__D1__0;
+        spl1 = R__S6__0;
+    ) : (
+        loShelfYStore__D1__0 = ((((loShelfCoefs__b0x * loShelfXStore__D1__0 + loShelfCoefs__b1x * loShelfXStore__D1__1) + loShelfCoefs__b2x * loShelfXStore__D1__2) - loShelfCoefs__a1x * loShelfYStore__D1__1) - loShelfCoefs__a2x * loShelfYStore__D1__2);
+        loShelfYStore__D1__2 = loShelfYStore__D1__1;
+        loShelfYStore__D1__1 = loShelfYStore__D1__0;
+        loShelfXStore__D1__2 = loShelfXStore__D1__1;
+        loShelfXStore__D1__1 = loShelfXStore__D1__0;
+        loShelfXStore__D1__0 = spl1;
+        R__S6__0 = loShelfYStore__D1__0;
+        spl1 = R__S6__0;
+    );
 );
 hpFreq > 20 ? (
-hpYStore__D1__0 = ((((hpCoefs__b0x * hpXStore__D1__0 + hpCoefs__b1x * hpXStore__D1__1) + hpCoefs__b2x * hpXStore__D1__2) - hpCoefs__a1x * hpYStore__D1__1) - hpCoefs__a2x * hpYStore__D1__2);
-hpYStore__D1__2 = hpYStore__D1__1;
-hpYStore__D1__1 = hpYStore__D1__0;
-hpXStore__D1__2 = hpXStore__D1__1;
-hpXStore__D1__1 = hpXStore__D1__0;
-hpXStore__D1__0 = spl1;
-R__S6__0 = hpYStore__D1__0;
-spl1 = R__S6__0;
+    hpYStore__D1__0 = ((((hpCoefs__b0x * hpXStore__D1__0 + hpCoefs__b1x * hpXStore__D1__1) + hpCoefs__b2x * hpXStore__D1__2) - hpCoefs__a1x * hpYStore__D1__1) - hpCoefs__a2x * hpYStore__D1__2);
+    hpYStore__D1__2 = hpYStore__D1__1;
+    hpYStore__D1__1 = hpYStore__D1__0;
+    hpXStore__D1__2 = hpXStore__D1__1;
+    hpXStore__D1__1 = hpXStore__D1__0;
+    hpXStore__D1__0 = spl1;
+    R__S6__0 = hpYStore__D1__0;
+    spl1 = R__S6__0;
 );
 spl1 = spl1 * outputGain;
 

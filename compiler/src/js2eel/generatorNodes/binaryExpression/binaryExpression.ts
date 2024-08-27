@@ -4,7 +4,7 @@ import { identifier } from '../identifier/identifier.js';
 import { unaryExpression } from '../unaryExpression/unaryExpression.js';
 import { callExpression } from '../callExpression/callExpression.js';
 import { memberExpression } from '../memberExpression/memberExpression.js';
-import { ALLOWED_BINARY_OPERATORS } from '../../constants.js';
+import { ALLOWED_BINARY_OPERATORS, JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { BinaryExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
@@ -21,9 +21,13 @@ export const binaryExpression = (
     const binaryOperator = expression.operator;
 
     if (!ALLOWED_BINARY_OPERATORS.has(binaryOperator)) {
-        instance.error('OperatorError', `Binary operator not allowed: ${binaryOperator}`, expression);
+        instance.error(
+            'OperatorError',
+            `Binary operator not allowed: ${binaryOperator}`,
+            expression
+        );
 
-        return '';
+        return JSFX_DENY_COMPILATION;
     }
 
     // Select box enum value
@@ -40,7 +44,7 @@ export const binaryExpression = (
                     rightExpression
                 );
 
-                return binarySrc;
+                return JSFX_DENY_COMPILATION;
             }
             if (typeof rightExpression.value !== 'string') {
                 instance.error(
@@ -49,7 +53,7 @@ export const binaryExpression = (
                     rightExpression
                 );
 
-                return binarySrc;
+                return JSFX_DENY_COMPILATION;
             }
 
             if (!potentialSelectBox.values.find((value) => value.name === rightExpression.value)) {
@@ -63,7 +67,7 @@ export const binaryExpression = (
                     rightExpression
                 );
 
-                return binarySrc;
+                return JSFX_DENY_COMPILATION;
             }
 
             binarySrc += identifier(expression.left, instance);

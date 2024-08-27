@@ -1,4 +1,4 @@
-import { EEL_MAX_SYMBOL_NAME_LENGTH, EEL_SYMBOL_REGEX } from '../constants';
+import { EEL_MAX_SYMBOL_NAME_LENGTH, EEL_SYMBOL_REGEX } from '../constants.js';
 
 export const validateSymbolName = (symbolName: string): { errors: string[] } => {
     const errors: string[] = [];

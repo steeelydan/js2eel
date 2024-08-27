@@ -34,7 +34,8 @@ export const config = (callExpression: CallExpression, instance: Js2EelCompiler)
                         validationSchema: Joi.object({
                             description: Joi.string().required().max(64),
                             inChannels: Joi.number().min(1).max(64).required(),
-                            outChannels: Joi.number().min(1).max(64).required()
+                            outChannels: Joi.number().min(1).max(64).required(),
+                            extTailSize: Joi.number().min(-2).optional()
                         })
                     }
                 ]
@@ -54,5 +55,8 @@ export const config = (callExpression: CallExpression, instance: Js2EelCompiler)
         instance.setDescription(configObject.description);
         instance.setName(configObject.description);
         instance.setChannels(configObject.inChannels, configObject.outChannels);
+        if (configObject.extTailSize !== null && configObject.extTailSize !== undefined) {
+            instance.setExtTailSize(configObject.extTailSize);
+        }
     }
 };

@@ -65,6 +65,7 @@ export type PluginData = {
     description: string;
     inChannels: number;
     outChannels: number;
+    extTailSize: number | null;
     currentChannel: number;
     eachChannelParamMap: EachChannelParamMap;
     currentScopePath: string;
@@ -75,7 +76,9 @@ export type PluginData = {
     sliderNumbers: Set<number>;
     sliders: { [name in string]: Slider };
     selectBoxes: { [name in string]: SelectBox };
+    fileSelectors: { [id in string]: FileSelector };
     eelBuffers: { [name in string]?: EelBuffer };
+    eelBufferOffset: number;
     eelArrays: { [name in string]?: EelArray };
     environment: Environment;
     initVariableNames: string[];
@@ -186,10 +189,20 @@ export type SelectBox = {
     values: { name: string; label: string }[];
 };
 
+export type FileSelector = {
+    sliderNumber: number;
+    variable: string;
+    rawSliderName: string;
+    path: string;
+    defaultValue: string;
+    label: string;
+};
+
 export type EelBuffer = {
     name: string;
+    offset: number;
     dimensions: number;
-    sizeSrc: string;
+    size: number;
 };
 
 export type EelArray = {

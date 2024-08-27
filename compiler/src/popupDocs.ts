@@ -15,8 +15,8 @@ export const POPUP_DOCS: {
     "type": "function",
     "text": "Configures the plugin.",
     "example": "```javascript\nconfig({ description: 'volume', inChannels: 2, outChannels: 2 });\n```",
-    "signature": "config({\n    description,\n    inChannels,\n    outChannels\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n}): void;",
-    "autoCompleteTemplate": "config({description: '${}', inChannels: , outChannels: });"
+    "signature": "config({\n    description,\n    inChannels,\n    outChannels,\n    extTailSize\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n    extTailSize?: number;\n}): void;",
+    "autoCompleteTemplate": "config({description: '${}', inChannels: , outChannels: , extTailSize: });"
 },
 slider: {
     "name": "slider",
@@ -33,6 +33,14 @@ selectBox: {
     "example": "```javascript\nselectBox(\n    3,\n    algorithm,\n    'sigmoid',\n    [\n        { name: 'sigmoid', label: 'Sigmoid' },\n        { name: 'htan', label: 'Hyperbolic Tangent' },\n        { name: 'hclip', label: 'Hard Clip' }\n    ],\n    'Algorithm'\n);\n```",
     "signature": "selectBox(\n    sliderNumber: number,\n    variable: string,\n    initialValue: string,\n    values: { name: string; label: string }[],\n    label: string\n): void;",
     "autoCompleteTemplate": "selectBox(${sliderNumber}, ${variable}, ${initialValue}, [${}], ${label});"
+},
+fileSelector: {
+    "name": "fileSelector",
+    "type": "function",
+    "text": "Registers a file selector to be displayed in the plugin.\n\nThe path is relative to <REAPER_DIR>/data.",
+    "example": "```javascript\nfileSelector(\n    5,\n    ampModel,\n    'amp_models',\n    'none',\n    'Impulse Response'\n);\n```",
+    "signature": "fileSelector(\n    sliderNumber: number,\n    variable: string,\n    path: string,\n    defaultValue: string,\n    label: string\n): void;",
+    "autoCompleteTemplate": "fileSelector(${sliderNumber}, ${variable}, ${path}, ${defaultValue}, ${label});"
 },
 console: {
     "name": "console",
@@ -58,6 +66,14 @@ onSlider: {
     "signature": "onSlider(callback: () => void): void;",
     "autoCompleteTemplate": "onSlider(() => {\n    ${}\n});"
 },
+onBlock: {
+    "name": "onBlock",
+    "type": "function",
+    "text": "Called for every audio block.",
+    "example": null,
+    "signature": "onBlock(callback: () => void): void;",
+    "autoCompleteTemplate": "onBlock(() => {\n    ${}\n});"
+},
 onSample: {
     "name": "onSample",
     "type": "function",
@@ -79,7 +95,7 @@ EelBuffer: {
     "type": "class",
     "text": "A fixed-size, multi-dimensional container for audio samples.\n\nAccess: `buf[dimension][position]`\n\nTranslates to EEL2s memory objects. Is not inlined in the EEL source, so\nonly feasible for large data. For small data, use EelArray.",
     "example": null,
-    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n}",
+    "signature": "EelBuffer {\n    constructor(dimensions: number, size: number);\n\n    dimensions(): number;\n    size(): number;\n    start(): number;\n    swap(otherBuffer: EelBuffer): void;\n}",
     "autoCompleteTemplate": "EelBuffer(${dimensions}, ${size});"
 },
 EelArray: {
@@ -849,5 +865,77 @@ invsqrt: {
     "example": null,
     "signature": "invsqrt(x: number): number;",
     "autoCompleteTemplate": "invsqrt(${x});"
+},
+memset: {
+    "name": "memset",
+    "type": "function",
+    "text": "",
+    "example": null,
+    "signature": "memset(): void;",
+    "autoCompleteTemplate": "memset();"
+},
+file_open: {
+    "name": "file_open",
+    "type": "function",
+    "text": "Opens a file from a file slider. Once open, you may use all of the file functions available. Be sure to close the file handle when done with it, using file_close(). The search path for finding files depends on the method used, but generally speaking in 4.59+ it will look in the same path as the current effect, then in the JS Data/ directory.\n\n@param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types",
+    "example": null,
+    "signature": "file_open(fileSelector: any): number;",
+    "autoCompleteTemplate": "file_open();"
+},
+file_close: {
+    "name": "file_close",
+    "type": "function",
+    "text": "Closes a file opened with file_open().",
+    "example": null,
+    "signature": "file_close(fileHandle: any): void;",
+    "autoCompleteTemplate": "file_close();"
+},
+file_avail: {
+    "name": "file_avail",
+    "type": "function",
+    "text": "Returns the number of items remaining in the file, if it is in read mode. Returns < 0 if in write mode. If the file is in text mode (file_text(handle) returns TRUE), then the return value is simply 0 if EOF, 1 if not EOF.",
+    "example": null,
+    "signature": "file_avail(fileSelector: any): number;",
+    "autoCompleteTemplate": "file_avail();"
+},
+file_riff: {
+    "name": "file_riff",
+    "type": "function",
+    "text": "If the file was a media file (.wav, .ogg, etc), this will set the first parameter to the number of channels, and the second to the samplerate.\n\nREAPER 6.29+: if the caller sets nch to 'rqsr' and samplerate to a valid samplerate, the file will be resampled to the desired samplerate (this must ONLY be called before any file_var() or file_mem() calls and will change the value returned by file_avail())",
+    "example": null,
+    "signature": "file_riff(fileHandle: any, numberOfCh: number, sampleRate: number): void;",
+    "autoCompleteTemplate": "file_riff(${numberOfCh}, ${sampleRate});"
+},
+file_mem: {
+    "name": "file_mem",
+    "type": "function",
+    "text": "Reads (or writes) the block of local memory from(to) the current file. Returns the actual number of items read (or written).",
+    "example": null,
+    "signature": "file_mem(fileHandle: any, offset: number, length: number): number;",
+    "autoCompleteTemplate": "file_mem(${offset}, ${length});"
+},
+fft: {
+    "name": "fft",
+    "type": "function",
+    "text": "Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.\n\nNote that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).\n\nNote that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.\n\nThe fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).",
+    "example": null,
+    "signature": "fft(startIndex: number, size: number): void;",
+    "autoCompleteTemplate": "fft(${startIndex}, ${size});"
+},
+ifft: {
+    "name": "ifft",
+    "type": "function",
+    "text": "Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.\n\nNote that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).\n\nNote that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.\n\nThe fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).",
+    "example": null,
+    "signature": "ifft(startIndex: number, size: number): void;",
+    "autoCompleteTemplate": "ifft(${startIndex}, ${size});"
+},
+convolve_c: {
+    "name": "convolve_c",
+    "type": "function",
+    "text": "Used to convolve two buffers, typically after FFTing them. convolve_c works with complex numbers. The sizes specify number of items (the number of complex number pairs).\n\nNote that the convolution must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.",
+    "example": null,
+    "signature": "convolve_c(destination: number, source: number, size: number): void;",
+    "autoCompleteTemplate": "convolve_c(${destination}, ${source}, ${size});"
 }
 };

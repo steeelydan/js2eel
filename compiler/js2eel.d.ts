@@ -12,11 +12,13 @@
 declare function config({
     description,
     inChannels,
-    outChannels
+    outChannels,
+    extTailSize
 }: {
     description: number;
     inChannels: number;
     outChannels: number;
+    extTailSize?: number;
 }): void;
 
 /**
@@ -61,6 +63,29 @@ declare function selectBox(
     label: string
 ): void;
 
+/**
+ * Registers a file selector to be displayed in the plugin.
+ *
+ * The path is relative to <REAPER_DIR>/data.
+ *
+ * @example ```javascript
+ * fileSelector(
+ *     5,
+ *     ampModel,
+ *     'amp_models',
+ *     'none',
+ *     'Impulse Response'
+ * );
+ * ```
+ */
+declare function fileSelector(
+    sliderNumber: number,
+    variable: string,
+    path: string,
+    defaultValue: string,
+    label: string
+): void;
+
 // DEBUGGING
 
 /**
@@ -89,6 +114,11 @@ declare function onInit(callback: () => void): void;
 declare function onSlider(callback: () => void): void;
 
 /**
+ * Called for every audio block.
+ */
+declare function onBlock(callback: () => void): void;
+
+/**
  * Called for every single sample.
  */
 declare function onSample(callback: () => void): void;
@@ -113,6 +143,8 @@ declare class EelBuffer {
 
     dimensions(): number;
     size(): number;
+    start(): number;
+    swap(otherBuffer: EelBuffer): void;
 }
 
 /**
@@ -401,3 +433,72 @@ declare function ceil(x: number): number;
  * Returns a fast inverse square root (1/sqrt(x)) approximation of the parameter.
  */
 declare function invsqrt(x: number): number;
+
+// MEMORY FUNCTIONS
+
+/**
+ *
+ */
+declare function memset(): void;
+
+// FILE FUNCTIONS
+
+/**
+ *Opens a file from a file slider. Once open, you may use all of the file functions available. Be sure to close the file handle when done with it, using file_close(). The search path for finding files depends on the method used, but generally speaking in 4.59+ it will look in the same path as the current effect, then in the JS Data/ directory.
+ *
+ * @param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types
+ */
+declare function file_open(fileSelector: any): number;
+
+/**
+ *  Closes a file opened with file_open().
+ */
+declare function file_close(fileHandle: any): void;
+
+/**
+ *  Returns the number of items remaining in the file, if it is in read mode. Returns < 0 if in write mode. If the file is in text mode (file_text(handle) returns TRUE), then the return value is simply 0 if EOF, 1 if not EOF.
+ */
+declare function file_avail(fileSelector: any): number;
+
+/**
+ *  If the file was a media file (.wav, .ogg, etc), this will set the first parameter to the number of channels, and the second to the samplerate.
+
+REAPER 6.29+: if the caller sets nch to 'rqsr' and samplerate to a valid samplerate, the file will be resampled to the desired samplerate (this must ONLY be called before any file_var() or file_mem() calls and will change the value returned by file_avail())
+ */
+declare function file_riff(fileHandle: any, numberOfCh: number, sampleRate: number): void;
+
+/**
+ *  Reads (or writes) the block of local memory from(to) the current file. Returns the actual number of items read (or written).
+ */
+declare function file_mem(fileHandle: any, offset: number, length: number): number;
+
+// FFT & MDCT FUNCTIONS
+
+/**
+ *  Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.
+
+Note that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).
+
+Note that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+
+The fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).
+ */
+declare function fft(startIndex: number, size: number): void;
+
+/**
+ *  Performs a FFT (or inverse in the case of ifft()) on the data in the local memory buffer at the offset specified by the first parameter. The size of the FFT is specified by the second parameter, which must be 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8192, 16384, or 32768. The outputs are permuted, so if you plan to use them in-order, call fft_permute(buffer, size) before and fft_ipermute(buffer,size) after your in-order use. Your inputs or outputs will need to be scaled down by 1/size, if used.
+
+Note that the FFT/IFFT require real/imaginary input pairs (so a 256 point FFT actually works with 512 items).
+
+Note that the FFT/IFFT must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+
+The fft_real()/ifft_real() variants operate on a set of size real inputs, and produce size/2 complex outputs. The first output pair is DC,nyquist. Normally this is used with fft_permute(buffer,size/2).
+ */
+declare function ifft(startIndex: number, size: number): void;
+
+/**
+ * Used to convolve two buffers, typically after FFTing them. convolve_c works with complex numbers. The sizes specify number of items (the number of complex number pairs).
+
+Note that the convolution must NOT cross a 65,536 item boundary, so be sure to specify the offset accordingly.
+ */
+declare function convolve_c(destination: number, source: number, size: number): void;

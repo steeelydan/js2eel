@@ -6,7 +6,7 @@ import { testEelSrc } from '../helpers.js';
 
 const JS_MONO_DELAY_SRC = fs.readFileSync(path.resolve('../examples/03_mono_delay.js'), 'utf-8');
 
-const EEL_MONO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.0.15 */
+const EEL_MONO_DELAY_SRC_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:mono_delay
 
@@ -15,8 +15,8 @@ slider2:mixDb=-6 < -120, 6, 1 >Mix (dB)
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -24,8 +24,8 @@ out_pin:In 1
 readIndex = 0;
 writeIndex = 0;
 bufferValue = 0;
-buffer__B0 = 0 * 400000;
-buffer__B1 = 1 * 400000;
+buffer__B0 = 0 * 400000 + 0;
+buffer__B1 = 1 * 400000 + 0;
 buffer__size = 400000;
 
 
@@ -39,11 +39,11 @@ mix = 2 ^ (mixDb / (6));
 
 readIndex = (writeIndex - numSamples);
 readIndex < 0 ? (
-readIndex += buffer__size;
+    readIndex += buffer__size;
 );
 writeIndex += 1;
 writeIndex >= buffer__size ? (
-writeIndex = 0;
+    writeIndex = 0;
 );
 
 /* Channel 0 */

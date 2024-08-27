@@ -93,7 +93,7 @@ export const EditorApp = ({ initialStorage, environment, onCompile }: Props): VN
             lastTickRef.current = Date.now();
         }, 500);
 
-        return () => {
+        return (): void => {
             clearInterval(tickInterval);
         };
     }, []);
@@ -107,7 +107,7 @@ export const EditorApp = ({ initialStorage, environment, onCompile }: Props): VN
 
             window.onbeforeunload = onBeforeUnload;
 
-            return () => {
+            return (): void => {
                 window.removeEventListener('beforeunload', onBeforeUnload);
             };
         }

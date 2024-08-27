@@ -19,6 +19,8 @@ import type {
     EelGeneratorWarning,
     JSFXStage,
     Slider,
+    SelectBox,
+    FileSelector,
     DeclaredSymbol,
     Environment,
     CompileResult,
@@ -26,10 +28,9 @@ import type {
     EachChannelParamMap,
     ErrorType,
     ScopedEnvironment,
-    SelectBox,
+    InlineData,
     WarningType,
-    ReturnSrc,
-    InlineData
+    ReturnSrc
 } from '../types.js';
 
 export class Js2EelCompiler {
@@ -62,6 +63,7 @@ export class Js2EelCompiler {
         description: '',
         inChannels: 2,
         outChannels: 2,
+        extTailSize: null,
         currentChannel: 0,
         eachChannelParamMap: {},
         currentScopePath: 'root',
@@ -72,7 +74,9 @@ export class Js2EelCompiler {
         sliderNumbers: new Set(),
         sliders: {},
         selectBoxes: {},
+        fileSelectors: {},
         eelBuffers: {},
+        eelBufferOffset: 0,
         eelArrays: {},
         environment: {
             root: {
@@ -140,6 +144,7 @@ export class Js2EelCompiler {
             description: '',
             inChannels: 2,
             outChannels: 2,
+            extTailSize: null,
             currentChannel: 0,
             eachChannelParamMap: {},
             currentScopePath: 'root',
@@ -150,7 +155,9 @@ export class Js2EelCompiler {
             sliderNumbers: new Set(),
             sliders: {},
             selectBoxes: {},
+            fileSelectors: {},
             eelBuffers: {},
+            eelBufferOffset: 0,
             eelArrays: {},
             environment: {
                 root: {
@@ -230,13 +237,23 @@ export class Js2EelCompiler {
             this.src.eelSrcFinal += '\n';
         }
 
+        // FILE SELECTORS
+
+        if (Object.keys(this.pluginData.fileSelectors).length) {
+            for (const [_id, fileSelector] of Object.entries(this.pluginData.fileSelectors)) {
+                this.src.eelSrcFinal += `slider${fileSelector.sliderNumber}:/${fileSelector.path}:${fileSelector.defaultValue}:${fileSelector.label}\n`;
+            }
+
+            this.src.eelSrcFinal += '\n';
+        }
+
         // IN_PIN & OUT_PIN
 
         for (let i = 0; i < this.pluginData.inChannels; i++) {
             this.src.eelSrcFinal += `in_pin:In ${i}\n`;
         }
         for (let i = 0; i < this.pluginData.outChannels; i++) {
-            this.src.eelSrcFinal += `out_pin:In ${i}\n`;
+            this.src.eelSrcFinal += `out_pin:Out ${i}\n`;
         }
 
         this.src.eelSrcFinal += '\n\n';
@@ -246,6 +263,10 @@ export class Js2EelCompiler {
         let initStageText = '';
 
         const initStageHeader = '@init\n\n';
+
+        if (this.pluginData.extTailSize !== null) {
+            initStageText += `ext_tail_size = ${this.pluginData.extTailSize};\n\n`;
+        }
 
         this.pluginData.initVariableNames.forEach((initVariableName) => {
             // Cannot declare slider identifier in eel2
@@ -273,53 +294,27 @@ export class Js2EelCompiler {
             if (eelBuffer) {
                 for (let i = 0; i < eelBuffer.dimensions; i++) {
                     initStageText += `${suffixEelBuffer(eelBuffer.name, i.toString())} = ${i} * ${
-                        eelBuffer.sizeSrc
-                    };\n`;
+                        eelBuffer.size
+                    } + ${eelBuffer.offset};\n`;
                 }
 
-                initStageText += `${suffixBufferSize(eelBuffer.name)} = ${eelBuffer.sizeSrc};\n`;
+                initStageText += `${suffixBufferSize(eelBuffer.name)} = ${eelBuffer.size};\n`;
             }
         }
 
-        // Arrays
+        const initSrcText = this.getOnInitSrc();
 
-        // for (const [_eelArrayName, eelArray] of Object.entries(this.pluginData.eelArrays)) {
-        //     if (eelArray) {
-        //         for (let i = 0; i < eelArray.dimensions; i++) {
-        //             for (let j = 0; j < eelArray.size; j++) {
-        //                 initStageText += `${suffixEelArray(
-        //                     eelArray.name,
-        //                     i.toString(),
-        //                     j.toString()
-        //                 )};\n`;
-        //             }
-        //         }
-        //     }
-        // }
+        if (initStageText || initSrcText) {
+            this.src.eelSrcFinal += initStageHeader;
+        }
 
         if (initStageText) {
-            initStageText = initStageHeader + initStageText;
             this.src.eelSrcFinal += initStageText;
             this.src.eelSrcFinal += '\n\n';
         }
 
-        // @SLIDER
-
-        const sliderStageHeader = '@slider\n\n';
-        const sliderText = this.getOnSliderSrc();
-        if (sliderText) {
-            this.src.eelSrcFinal += sliderStageHeader;
-            this.src.eelSrcFinal += sliderText;
-            this.src.eelSrcFinal += '\n\n';
-        }
-
-        // @SAMPLE
-
-        const sampleStageHeader = '@sample\n\n';
-        const sampleText = this.getOnSampleSrc();
-        if (sampleText) {
-            this.src.eelSrcFinal += sampleStageHeader;
-            this.src.eelSrcFinal += sampleText;
+        if (initSrcText) {
+            this.src.eelSrcFinal += initSrcText;
             this.src.eelSrcFinal += '\n\n';
         }
 
@@ -400,24 +395,24 @@ export class Js2EelCompiler {
         return this.pluginData.selectBoxes[selectBoxName];
     }
 
+    addFileSelector(fileSelector: FileSelector): void {
+        this.pluginData.fileSelectors[fileSelector.variable] = fileSelector;
+    }
+
+    getFileSelector(fileSelectorName: string): FileSelector | undefined {
+        return this.pluginData.fileSelectors[fileSelectorName];
+    }
+
+    getFileSelectors(): { [id in string]: FileSelector } {
+        return this.pluginData.fileSelectors;
+    }
+
     setOnInitSrc(src: string): void {
         this.src.onInitSrc = src;
     }
 
-    setOnSliderSrc(src: string): void {
-        this.src.onSliderSrc = src;
-    }
-
-    getOnSliderSrc(): string {
-        return this.src.onSliderSrc;
-    }
-
-    setOnSampleSrc(src: string): void {
-        this.src.onSampleSrc = src;
-    }
-
-    getOnSampleSrc(): { [channel in number]: string } {
-        return this.src.onSampleSrc;
+    getOnInitSrc(): string {
+        return this.src.onInitSrc;
     }
 
     setDeclaredSymbol(symbolName: string, symbol: DeclaredSymbol): void {
@@ -484,15 +479,25 @@ export class Js2EelCompiler {
         return this.pluginData.eelBuffers[eelBufferName];
     }
 
-    setEelBuffer(eelBuffer: EelBuffer): void {
-        if (!this.pluginData.eelBuffers[eelBuffer.name]) {
-            this.pluginData.eelBuffers[eelBuffer.name] = eelBuffer;
-        } else {
+    addEelBufferOffset(offset: number): void {
+        this.pluginData.eelBufferOffset += offset;
+    }
+
+    getEelBufferOffset(): number {
+        return this.pluginData.eelBufferOffset;
+    }
+
+    setEelBuffer(eelBuffer: EelBuffer, checkExisting = true): void {
+        const exists = !!this.pluginData.eelBuffers[eelBuffer.name];
+
+        if (checkExisting && exists) {
             this.error(
                 'SymbolAlreadyDeclaredError',
                 'EelBuffer with this name already exists: ' + eelBuffer.name,
                 null
             );
+        } else {
+            this.pluginData.eelBuffers[eelBuffer.name] = eelBuffer;
         }
     }
 
@@ -530,6 +535,10 @@ export class Js2EelCompiler {
 
     getChannels(): { inChannels: number; outChannels: number } {
         return { inChannels: this.pluginData.inChannels, outChannels: this.pluginData.outChannels };
+    }
+
+    setExtTailSize(extTailSize: number): void {
+        this.pluginData.extTailSize = extTailSize;
     }
 
     setCurrentChannel(channel: number): void {

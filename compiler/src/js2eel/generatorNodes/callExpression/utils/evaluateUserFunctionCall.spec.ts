@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../../test/helpers';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../../test/helpers.js';
 
 describe('evaluateUserFunctionCall()', () => {
     it('error if missing argument', () => {
@@ -24,8 +24,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -63,8 +63,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -102,8 +102,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -141,8 +141,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -180,8 +180,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -218,8 +218,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -258,8 +258,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -296,8 +296,8 @@ desc:functions
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init

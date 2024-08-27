@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { suffixArraySize } from './suffixArraySize';
+import { suffixArraySize } from './suffixArraySize.js';
 
 describe('suffixArraySize()', () => {
     it('Suffixes array size var correctly', () => {

@@ -19,7 +19,7 @@ export const useRecallScrollPosition = (
             }
         }, 250);
 
-        return () => {
+        return (): void => {
             clearInterval(timer);
         };
     }, [scrollElementId, scrollElementRef]);
@@ -68,7 +68,7 @@ export const useRecallScrollPosition = (
                 }
             }, 500);
 
-            return () => {
+            return (): void => {
                 clearInterval(scrollInterval);
             };
         }

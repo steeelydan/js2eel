@@ -77,6 +77,7 @@ export const memberExpressionCall = (
                             eelBuffer,
                             calleeObject,
                             calleeProperty,
+                            parentCallExpression,
                             instance
                         );
                     } else if (eelArray) {

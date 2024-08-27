@@ -43,7 +43,7 @@ export const EelReadonlyCodeEditor = (): VNode => {
         scrollContainerRef.current = eelReadonlyElRef.current.querySelector('.cm-scroller');
         setScrollId('eelReadonlyCodeEditor');
 
-        return () => {
+        return (): void => {
             eelEditorRef.current?.destroy();
         };
     }, [eelEditorRef, compileResult]);

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../../test/helpers';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../../test/helpers.js';
 
 describe('selectBox()', () => {
     it('Error if called in non-root scope', () => {
@@ -32,8 +32,8 @@ desc:selectBox
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -84,8 +84,8 @@ slider1:algorithm=0 < 0, 3, 1 {Sigmoid, Hyperbolic Tangent, Hard Clip} >Algorith
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -94,7 +94,7 @@ out_pin:In 1
         expect(result.errors[0].type).to.equal('EelConventionError');
     });
 
-    it('Error if slider number invalid', () => {
+    it('Error if argument invalid', () => {
         const compiler = new Js2EelCompiler();
         const result =
             compiler.compile(`config({ description: 'selectBox', inChannels: 2, outChannels: 2 });
@@ -121,8 +121,8 @@ desc:selectBox
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -172,8 +172,8 @@ slider1:algorithm=0 < 0, 3, 1 {Sigmoid, Hyperbolic Tangent, Hard Clip} >Algorith
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -209,8 +209,8 @@ desc:selectBox
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)

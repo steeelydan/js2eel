@@ -87,10 +87,10 @@ export const slider = (callExpression: CallExpression, instance: Js2EelCompiler)
 
     const sliderBoundVariable = args.variable.name;
 
-    if (instance.getSlider(sliderBoundVariable) || instance.getSelectBox(sliderBoundVariable)) {
+    if (instance.getSlider(sliderBoundVariable) || instance.getSelectBox(sliderBoundVariable) || instance.getFileSelector(sliderBoundVariable)) {
         instance.error(
             'BindingError',
-            `Error at slider registration: This variable is already bound to a slider or select box: ${sliderBoundVariable}`,
+            `Error at slider registration: This variable is already bound to a slider, select box or file selector: ${sliderBoundVariable}`,
             args.variable.node
         );
 

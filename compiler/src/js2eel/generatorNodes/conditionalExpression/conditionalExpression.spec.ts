@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../test/helpers';
+import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../test/helpers.js';
 
 describe('conditionalExpression()', () => {
     it('Test part is wrong node type', () => {
@@ -21,8 +21,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -54,8 +54,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -87,8 +87,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -120,8 +120,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -152,8 +152,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -184,8 +184,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -216,8 +216,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -248,8 +248,8 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -281,14 +281,14 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
 
-myEelbuf__B0 = 0 * 2;
-myEelbuf__B1 = 1 * 2;
+myEelbuf__B0 = 0 * 2 + 0;
+myEelbuf__B1 = 1 * 2 + 0;
 myEelbuf__size = 2;
 
 
@@ -322,14 +322,14 @@ desc:conditional
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
 
-myEelbuf__B0 = 0 * 2;
-myEelbuf__B1 = 1 * 2;
+myEelbuf__B0 = 0 * 2 + 0;
+myEelbuf__B1 = 1 * 2 + 0;
 myEelbuf__size = 2;
 
 

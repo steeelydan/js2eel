@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
 
 describe('onInit()', () => {
     it('Error if called elsewhere than root scope', () => {

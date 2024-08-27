@@ -114,7 +114,7 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
         if (!allowedValue) {
             errors.push({
                 type: 'TypeError',
-                msg: `${callee.name}: Argument type ${
+                msg: `${callee.name}: Argument ${i + 1} (${definedArg.name}): Argument type ${
                     givenArg.type
                 } not allowed. Allowed: ${definedArg.allowedValues
                     .map((allowedValue) => allowedValue.nodeType)
@@ -164,7 +164,7 @@ export const evaluateLibraryFunctionCall = <ArgName extends string>(
                 break;
             }
             case 'Identifier': {
-                const id = identifier(givenArg, instance);
+                const id = identifier(givenArg, instance, { isParam: true });
                 value = id;
                 rawValue = id;
                 break;

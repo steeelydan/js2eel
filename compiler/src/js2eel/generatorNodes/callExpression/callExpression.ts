@@ -1,5 +1,6 @@
 import { config } from './js2EelLib/config.js';
 import { slider } from './js2EelLib/slider.js';
+import { fileSelector } from './js2EelLib/fileSelector.js';
 import { selectBox } from './js2EelLib/selectBox.js';
 import { onInit } from './js2EelLib/onInit.js';
 import { onSlider } from './js2EelLib/onSlider.js';
@@ -17,6 +18,7 @@ import { EEL_LIBRARY_FUNCTION_NAMES } from '../../constants.js';
 
 import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { onBlock } from './js2EelLib/onBlock.js';
 
 export const callExpression = (
     callExpression: CallExpression,
@@ -28,7 +30,7 @@ export const callExpression = (
 
     if ('name' in callee) {
         switch (callee.name) {
-            // Library functions
+            // JS2EEL Library functions
             case 'config': {
                 config(callExpression, instance);
                 break;
@@ -41,16 +43,24 @@ export const callExpression = (
                 selectBox(callExpression, instance);
                 break;
             }
+            case 'fileSelector': {
+                fileSelector(callExpression, instance);
+                break;
+            }
             case 'onInit': {
                 instance.setOnInitSrc(onInit(callExpression, instance));
                 break;
             }
             case 'onSlider': {
-                instance.setOnSliderSrc(onSlider(callExpression, instance));
+                callExpressionSrc += onSlider(callExpression, instance);
+                break;
+            }
+            case 'onBlock': {
+                callExpressionSrc += onBlock(callExpression, instance);
                 break;
             }
             case 'onSample': {
-                instance.setOnSampleSrc(onSample(callExpression, instance));
+                callExpressionSrc += onSample(callExpression, instance);
                 break;
             }
             case 'eachChannel': {
@@ -59,7 +69,7 @@ export const callExpression = (
             }
 
             default: {
-                // Library functions
+                // EEL Library functions
                 if (EEL_LIBRARY_FUNCTION_NAMES.has(callee.name.toLowerCase())) {
                     // We can lowercase here because there's only lowercase symbols in EEL
                     callExpressionSrc += eelLibraryFunctionCall(callExpression, instance);

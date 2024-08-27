@@ -28,8 +28,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -73,8 +73,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -116,8 +116,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -165,8 +165,8 @@ slider1:algorithm=0 < 0, 2, 1 {Sigmoid, Hyperbolic Tangent} >Algorithm
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -214,8 +214,8 @@ slider1:algorithm=0 < 0, 2, 1 {Sigmoid, Hyperbolic Tangent} >Algorithm
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -263,8 +263,8 @@ slider1:algorithm=0 < 0, 2, 1 {Sigmoid, Hyperbolic Tangent} >Algorithm
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -312,8 +312,8 @@ slider1:algorithm=0 < 0, 2, 1 {Sigmoid, Hyperbolic Tangent} >Algorithm
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -348,8 +348,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -387,8 +387,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -426,8 +426,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -477,8 +477,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -507,8 +507,8 @@ desc:assignmentExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 myVar = ;
@@ -537,8 +537,8 @@ desc:sinewave
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../test/helpers';
+import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../test/helpers.js';
 
 describe('memberExpressionComputed', () => {
     it('1-dimensional: not allowed', () => {
@@ -20,8 +20,8 @@ desc:memberExpressionComputed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 someVar = ?ä__DENY_COMPILATION;
@@ -50,8 +50,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -86,8 +86,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -122,8 +122,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -158,8 +158,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -194,8 +194,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -230,8 +230,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -268,8 +268,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -311,8 +311,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -352,14 +352,14 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
 
-buf__B0 = 0 * 2;
-buf__B1 = 1 * 2;
+buf__B0 = 0 * 2 + 0;
+buf__B1 = 1 * 2 + 0;
 buf__size = 2;
 
 
@@ -396,8 +396,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -443,14 +443,14 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
 
-buf__B0 = 0 * 2;
-buf__B1 = 1 * 2;
+buf__B0 = 0 * 2 + 0;
+buf__B1 = 1 * 2 + 0;
 buf__size = 2;
 
 
@@ -486,8 +486,8 @@ desc:member_expression_computed
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample

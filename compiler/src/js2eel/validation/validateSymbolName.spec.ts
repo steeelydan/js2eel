@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { validateSymbolName } from './validateSymbolName';
+import { validateSymbolName } from './validateSymbolName.js';
 
 describe('validateSymbolName()', () => {
     it('Does not work with a name that is too long', () => {

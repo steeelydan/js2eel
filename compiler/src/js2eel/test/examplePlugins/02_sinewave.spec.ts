@@ -15,8 +15,8 @@ slider2:voldb=-9 < -72, 0, 0.1 >Volume [dB]
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @slider

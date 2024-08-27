@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../../test/helpers';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../../test/helpers.js';
 
 describe('slider()', () => {
     it('Error if called in non-root scope', () => {
@@ -22,8 +22,8 @@ desc:slider
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -53,8 +53,8 @@ slider1:volume=0 < -150, 18, 0.1 >Volume [dB]
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -80,8 +80,8 @@ desc:slider
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -110,8 +110,8 @@ slider1:volume=0 < -150, 18, 0.1 >Volume [dB]
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -139,8 +139,8 @@ slider1:volume=0 < -150, 18, 0.1 >Volume [dB]
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -166,8 +166,8 @@ desc:slider
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)

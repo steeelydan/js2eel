@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../../test/helpers';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../../test/helpers.js';
 
 describe('newEelBuffer()', () => {
     it('gives error if no arguments', () => {
@@ -19,8 +19,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -47,8 +47,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -74,8 +74,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -100,8 +100,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -126,8 +126,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -153,8 +153,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -180,8 +180,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -207,8 +207,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -234,8 +234,8 @@ desc:alert
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)

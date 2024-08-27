@@ -190,6 +190,25 @@ ${prefixChannel(i)} = ${i};
             }
             break;
         }
+        case 'onBlock': {
+            switch (body.type) {
+                case 'BlockStatement': {
+                    functionExpressionSrc += '@block\n\n';
+                    functionExpressionSrc += blockStatement(body, 'onBlock', instance);
+                    functionExpressionSrc += '\n\n';
+
+                    break;
+                }
+                default: {
+                    instance.error(
+                        'TypeError',
+                        `onBlock() callback body type ${body.type} not allowed`,
+                        body
+                    );
+                }
+            }
+            break;
+        }
         /* Should be caught further up */
         /* c8 ignore start */
         default: {

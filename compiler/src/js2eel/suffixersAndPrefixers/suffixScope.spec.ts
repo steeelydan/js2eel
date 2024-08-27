@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { suffixScopeByScopeSuffix } from './suffixScope';
+import { suffixScopeByScopeSuffix } from './suffixScope.js';
 
 describe('suffixScope()', () => {
     it("doesn't suffix if scope is 0", () => {

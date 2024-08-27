@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from './Js2EelCompiler';
-import { testEelSrc } from '../test/helpers';
+import { Js2EelCompiler } from './Js2EelCompiler.js';
+import { testEelSrc } from '../test/helpers.js';
 
 describe('Js2EelCompiler', () => {
     it('setReturn(). getReturn()', () => {
@@ -25,8 +25,8 @@ desc:somefunc
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -72,14 +72,14 @@ desc:somefunc
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
 
-myBuf__B0 = 0 * 6;
-myBuf__B1 = 1 * 6;
+myBuf__B0 = 0 * 6 + 0;
+myBuf__B1 = 1 * 6 + 0;
 myBuf__size = 6;
 
 
@@ -88,7 +88,7 @@ myBuf__size = 6;
         compiler.setEelArray({ dimensions: 2, name: 'myArr', size: 3 });
         expect(compiler.getErrors().length).to.equal(1);
         expect(compiler.getErrors()[0].type).to.equal('SymbolAlreadyDeclaredError');
-        compiler.setEelBuffer({ dimensions: 2, name: 'myBuf', sizeSrc: '6' });
+        compiler.setEelBuffer({ dimensions: 2, offset: 0, name: 'myBuf', size: 6 });
         expect(compiler.getErrors().length).to.equal(2);
         expect(compiler.getErrors()[1].type).to.equal('SymbolAlreadyDeclaredError');
     });
@@ -109,8 +109,8 @@ desc:somevar
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -258,14 +258,14 @@ onSample(() => {
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.1.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:somevar
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -281,12 +281,14 @@ someVar = 1;
 CH__0 = 0;
 
 someVar += ;
+?ä__DENY_COMPILATION;
 
 /* Channel 1 */
 
 CH__1 = 1;
 
 someVar += ;
+?ä__DENY_COMPILATION;
 
 
 
@@ -321,8 +323,8 @@ desc:somevar
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @sample
@@ -370,8 +372,8 @@ slider1:myVar=3 < 0, 4, 1 >mySlider1
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 `)
@@ -380,5 +382,37 @@ out_pin:In 1
         expect(result.success).to.equal(false);
         expect(result.errors.length).to.equal(1);
         expect(result.errors[0].type).to.equal('BindingError');
+    });
+
+    it('compiles @init code', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: 'init', inChannels: 2, outChannels: 2 });
+
+onInit(() => {
+    const myConst = 1;
+});`);
+
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.11.0 */
+
+desc:init
+
+in_pin:In 0
+in_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
+
+
+@init
+
+myConst__S2 = 1;
+
+
+`)
+        );
+
+        expect(result.success).to.equal(true);
+        expect(result.warnings.length).to.equal(1);
     });
 });

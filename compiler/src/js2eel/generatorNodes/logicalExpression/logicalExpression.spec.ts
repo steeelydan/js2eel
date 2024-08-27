@@ -1,7 +1,7 @@
 import { expect } from 'chai';
 
-import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../test/helpers';
+import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../test/helpers.js';
 
 describe('logicalExpression()', () => {
     it('logical expression containing identifiers', () => {
@@ -21,14 +21,14 @@ if (one && two) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -38,7 +38,7 @@ two = 0;
 
 
 (one && two) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -62,14 +62,14 @@ if (!one && !two) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -79,7 +79,7 @@ two = 0;
 
 
 (!one && !two) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -103,14 +103,14 @@ if (one > 0 && two < 2) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -120,7 +120,7 @@ two = 1;
 
 
 (one > 0 && two < 2) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -144,14 +144,14 @@ if (one > 0 && two < 2 && (1 < 2 || 2 < 3)) {
 `);
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -161,7 +161,7 @@ two = 1;
 
 
 ((one > 0 && two < 2) && (1 < 2 || 2 < 3)) ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -185,14 +185,14 @@ if (function myFunc() {} && two) {
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -202,7 +202,7 @@ two = 0;
 
 
 ?ä__DENY_COMPILATION ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );
@@ -227,14 +227,14 @@ if (one && function myFunc() {}) {
 `);
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:logicalExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -244,7 +244,7 @@ two = 0;
 
 
 ?ä__DENY_COMPILATION ? (
-__debug__one = one;
+    __debug__one = one;
 );
 `)
         );

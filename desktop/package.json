@@ -1,10 +1,10 @@
 {
     "name": "js2eel-desktop",
-    "version": "0.10.0",
+    "version": "0.11.0",
     "homepage": "https://js2eel.org",
     "description": "JS2EEL",
     "engines": {
-        "node": ">=18.0.0"
+        "node": ">=20.0.0"
     },
     "main": "build/main.js",
     "scripts": {
@@ -51,18 +51,18 @@
     "license": "GPL-3.0",
     "dependencies": {
         "@js2eel/compiler": "file:../compiler",
-        "chokidar": "3.5.3"
+        "chokidar": "3.6.0"
     },
     "devDependencies": {
-        "@electron/notarize": "1.2.4",
-        "@types/node": "20.3.3",
-        "@typescript-eslint/eslint-plugin": "5.60.1",
-        "@typescript-eslint/parser": "5.60.1",
-        "concurrently": "8.2.0",
-        "electron": "25.3.2",
-        "electron-builder": "24.6.3",
-        "eslint": "8.44.0",
-        "nodemon": "3.0.1",
-        "typescript": "5.1.6"
+        "@electron/notarize": "2.4.0",
+        "@types/node": "22.5.0",
+        "@typescript-eslint/eslint-plugin": "8.3.0",
+        "@typescript-eslint/parser": "8.3.0",
+        "concurrently": "8.2.2",
+        "electron": "32.0.1",
+        "electron-builder": "24.13.3",
+        "eslint": "8.57.0",
+        "nodemon": "3.1.4",
+        "typescript": "5.5.4"
     }
 }

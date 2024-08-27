@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from 'preact/hooks';
 import { EditorView } from 'codemirror';
 import { EditorState } from '@codemirror/state';
 import { json } from '@codemirror/lang-json';
-import { syntaxHighlighting, defaultHighlightStyle } from '@codemirror/language';
+import { syntaxHighlighting } from '@codemirror/language';
 import { searchKeymap } from '@codemirror/search';
 import { keymap, drawSelection } from '@codemirror/view';
 
@@ -47,7 +47,7 @@ export const JsonReadonlyCodeEditor = ({ scrollId, content }: Props): VNode => {
 
         setStateScrollId(scrollId);
 
-        return () => {
+        return (): void => {
             jsonEditorRef.current?.destroy();
         };
     }, [content, scrollId, stateScrollId]);

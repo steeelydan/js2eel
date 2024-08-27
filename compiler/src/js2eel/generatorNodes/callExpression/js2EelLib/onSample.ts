@@ -47,6 +47,10 @@ export const onSample = (callExpression: CallExpression, instance: Js2EelCompile
     const callback = callExpression.arguments[0] as ArrowFunctionExpression | FunctionExpression;
 
     onSampleSrc += functionExpression(callback, [], 'onSample', instance);
+    if (onSampleSrc) {
+        onSampleSrc = '@sample\n\n' + onSampleSrc;
+        onSampleSrc += '\n\n';
+    }
 
     instance.setUsedStage('onSample');
 

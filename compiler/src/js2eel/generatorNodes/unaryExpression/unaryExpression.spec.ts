@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../test/helpers';
+import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../test/helpers.js';
 
 describe('unaryExpression()', () => {
     it('does not evaluate unary expression with wrong argument type', () => {
@@ -14,14 +14,14 @@ const myVar2 = -function myFunc() {};
 
         expect(result.success).to.equal(false);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.0.22 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:test
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -53,8 +53,8 @@ desc:sinewave
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -89,14 +89,14 @@ onSample(() => {
 
         expect(result.success).to.equal(true);
         expect(testEelSrc(result.src)).to.equal(
-            testEelSrc(`/* Compiled with JS2EEL v0.9.1 */
+            testEelSrc(`/* Compiled with JS2EEL v0.10.0 */
 
 desc:unaryExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -107,8 +107,9 @@ result = 1;
 @sample
 
 !bools__D0__0 ? (
-result = 0;
-) : (result = 1;
+    result = 0;
+) : (
+    result = 1;
 );
 
 
@@ -143,8 +144,8 @@ desc:unaryExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -186,8 +187,8 @@ desc:unaryExpression
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init

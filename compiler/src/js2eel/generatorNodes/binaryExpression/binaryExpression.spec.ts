@@ -15,8 +15,8 @@ desc:teststuff
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -46,8 +46,8 @@ desc:teststuff
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -84,11 +84,11 @@ selectBox(
 );
 
 if (algorithm === myVar) {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -96,8 +96,8 @@ slider1:algorithm=0 < 0, 3, 1 {Sigmoid, Hyperbolic Tangent, Hard Clip} >Algorith
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
 @init
@@ -105,7 +105,8 @@ out_pin:In 1
 myVar = 1;
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 
@@ -135,11 +136,11 @@ selectBox(
 );
 
 if (algorithm === 1) {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -147,11 +148,12 @@ slider1:algorithm=0 < 0, 3, 1 {Sigmoid, Hyperbolic Tangent, Hard Clip} >Algorith
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 
@@ -181,11 +183,11 @@ selectBox(
 );
 
 if (algorithm === "sigmund") {
-    //
+    let a = 1;
 }
 `;
 
-        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.0.24 */
+        const EEL_EXPECTED = `/* Compiled with JS2EEL v0.10.0 */
 
 desc:binaryExpression
 
@@ -193,11 +195,12 @@ slider1:algorithm=0 < 0, 3, 1 {Sigmoid, Hyperbolic Tangent, Hard Clip} >Algorith
 
 in_pin:In 0
 in_pin:In 1
-out_pin:In 0
-out_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
 
 
- ? (
+?ä__DENY_COMPILATION ? (
+    a__S1 = 1;
 );
 `;
 

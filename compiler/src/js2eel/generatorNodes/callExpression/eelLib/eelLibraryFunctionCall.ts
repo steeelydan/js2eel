@@ -7,19 +7,12 @@ import { binaryExpression } from '../../binaryExpression/binaryExpression.js';
 import { callExpression as compileCallExpression } from '../callExpression.js';
 import { memberExpression } from '../../memberExpression/memberExpression.js';
 import { evaluateLibraryFunctionCall } from '../utils/evaluateLibraryFunctionCall.js';
+import { defaultNumericArgAllowedValues } from '../../helpers.js';
+import { JSFX_DENY_COMPILATION } from '../../../constants.js';
 
 import type { CallExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
-import type { EelGeneratorError, FunctionCallAllowedValues } from '../../../types.js';
-
-const defaultNumericArgAllowedValues: FunctionCallAllowedValues = [
-    { nodeType: 'Literal', validationSchema: Joi.number() },
-    { nodeType: 'Identifier' },
-    { nodeType: 'BinaryExpression' },
-    { nodeType: 'UnaryExpression', validationSchema: Joi.number() },
-    { nodeType: 'CallExpression' },
-    { nodeType: 'MemberExpression' }
-];
+import type { EelGeneratorError } from '../../../types.js';
 
 export const eelLibraryFunctionCall = (
     callExpression: CallExpression,
@@ -142,9 +135,216 @@ export const eelLibraryFunctionCall = (
 
             break;
         }
+        // Memory functions
+        case 'memset': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'destination',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'value',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'length',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        // File functions
+        case 'file_open': {
+            const { args, errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileSelectorVariable',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            if (errors) {
+                instance.multipleErrors(errors);
+
+                return JSFX_DENY_COMPILATION;
+            }
+
+            const fileSelector = instance.getFileSelector(args.fileSelectorVariable.value);
+
+            if (!fileSelector) {
+                instance.error(
+                    'BindingError',
+                    `file_open can only be called with a variable that is bound to a file selector`,
+                    callExpression
+                );
+
+                return JSFX_DENY_COMPILATION;
+            }
+
+            return `file_open(slider${fileSelector.sliderNumber})`;
+        }
+        case 'file_close': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'file_riff': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'numberOfCh',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'sampleRate',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'file_avail': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'file_mem': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'fileHandle',
+                        required: true,
+                        allowedValues: [{ nodeType: 'Identifier' }]
+                    },
+                    {
+                        name: 'offset',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'length',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        // FFT functions
+        case 'fft':
+        case 'ifft': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'startIndex',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'size',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
+        case 'convolve_c': {
+            const { errors } = evaluateLibraryFunctionCall(
+                callExpression,
+                [
+                    {
+                        name: 'destination',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'source',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    },
+                    {
+                        name: 'size',
+                        required: true,
+                        allowedValues: defaultNumericArgAllowedValues
+                    }
+                ],
+                instance
+            );
+
+            evaluationErrors = errors;
+
+            break;
+        }
 
         default: {
-            //
+            instance.error(
+                'UnknownSymbolError',
+                `EEL library function not yet implemented: ${callee.name}`,
+                callee
+            );
+
+            return JSFX_DENY_COMPILATION;
         }
     }
 
@@ -159,7 +359,7 @@ export const eelLibraryFunctionCall = (
 
         switch (arg.type) {
             case 'Identifier': {
-                argsSrc += identifier(arg, instance);
+                argsSrc += identifier(arg, instance, { isParam: true });
                 break;
             }
             case 'BinaryExpression': {
