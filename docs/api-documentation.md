@@ -428,7 +428,7 @@ Opens a file from a file slider. Once open, you may use all of the file function
 @param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types
 
 ```typescript
-file_open(fileSelector: any): any;
+file_open(fileSelector: any): number;
 ```
 ### file_close()
 Closes a file opened with file_open().

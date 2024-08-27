@@ -448,7 +448,7 @@ declare function memset(): void;
  *
  * @param fileSelector A variable that is bound to the respective file selector. Will be compiled to sliderXY. FIXME types
  */
-declare function file_open(fileSelector: any): any;
+declare function file_open(fileSelector: any): number;
 
 /**
  *  Closes a file opened with file_open().
