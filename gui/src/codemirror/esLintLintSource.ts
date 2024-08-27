@@ -6,13 +6,9 @@ export const createEsLintLintSource = (
     setEslintErrors: (errors: Diagnostic[]) => void
 ): LintSource => {
     const eslintConfig = {
-        parserOptions: {
+        languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module'
-        },
-        env: {
-            browser: true,
-            node: false
         },
         rules: {
             semi: "error"

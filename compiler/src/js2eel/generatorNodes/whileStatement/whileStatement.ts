@@ -41,8 +41,8 @@ export const whileStatement = (
         default: {
             instance.error(
                 'TypeError',
-                `While statement body type not allowed: ${whileStatement.test.type}`,
-                whileStatement.test
+                `While statement body type not allowed: ${whileStatement.body.type}`,
+                whileStatement.body
             );
 
             return JSFX_DENY_COMPILATION;

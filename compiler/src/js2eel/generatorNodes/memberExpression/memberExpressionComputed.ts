@@ -223,17 +223,7 @@ export const memberExpressionComputed = (
             break;
         }
         case 'BinaryExpression': {
-            if (potentialBuffer) {
-                positionText += binaryExpression(property, instance);
-            } else {
-                instance.error(
-                    'TypeError',
-                    `Property access on array is not allowed with this type: ${property.type}`,
-                    memberExpression.property
-                );
-
-                positionText += JSFX_DENY_COMPILATION;
-            }
+            positionText += binaryExpression(property, instance);
 
             break;
         }
