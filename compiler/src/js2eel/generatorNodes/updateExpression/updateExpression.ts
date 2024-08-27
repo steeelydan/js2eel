@@ -1,5 +1,5 @@
-import { identifier } from '../identifier/identifier';
-import { JSFX_DENY_COMPILATION } from '../../constants';
+import { identifier } from '../identifier/identifier.js';
+import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { UpdateExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

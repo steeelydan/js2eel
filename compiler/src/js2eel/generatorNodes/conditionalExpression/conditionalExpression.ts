@@ -1,8 +1,8 @@
-import { literal } from '../literal/literal';
-import { identifier } from '../identifier/identifier';
-import { unaryExpression } from '../unaryExpression/unaryExpression';
-import { binaryExpression } from '../binaryExpression/binaryExpression';
-import { memberExpression } from '../memberExpression/memberExpression';
+import { literal } from '../literal/literal.js';
+import { identifier } from '../identifier/identifier.js';
+import { unaryExpression } from '../unaryExpression/unaryExpression.js';
+import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { memberExpression } from '../memberExpression/memberExpression.js';
 
 import type { ConditionalExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

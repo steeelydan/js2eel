@@ -7,6 +7,7 @@
     },
     "main": "dist/cjs/index.js",
     "module": "dist/esm/index.js",
+    "type": "module",
     "types": "dist/types/index.d.ts",
     "exports": {
         ".": {
@@ -21,8 +22,8 @@
         "dist:esm": "tsc -p tsconfig.esm.json",
         "dist:cjs": "tsc -p tsconfig.cjs.json",
         "dist": "npm run parseTypeDocs && rm -rf ./dist/* && npm run dist:esm && npm run dist:cjs && node ./scripts/setVersionConstant.mjs",
-        "test": "npm run dist:cjs && c8 mocha './dist/cjs/**/*.spec.js' --reporter-option maxDiffSize=0",
-        "test:single": "mocha './dist/cjs/**/*.spec.js' --reporter-option maxDiffSize=0 --grep",
+        "test": "npm run dist:esm && c8 mocha './dist/esm/**/*.spec.js' --reporter-option maxDiffSize=0",
+        "test:single": "mocha './dist/esm/**/*.spec.js' --reporter-option maxDiffSize=0 --grep",
         "check": "eslint ./src && tsc --noEmit",
         "parseTypeDocs": "node ./scripts/parseTypeDocs.mjs"
     },
@@ -43,22 +44,23 @@
     "author": "steeelydan",
     "license": "GPL-3.0",
     "dependencies": {
-        "acorn": "8.9.0",
-        "joi": "17.9.2"
+        "acorn": "8.12.1",
+        "joi": "17.13.3"
     },
     "devDependencies": {
-        "@types/chai": "4.3.5",
-        "@types/estree": "1.0.1",
-        "@types/mocha": "10.0.1",
-        "@types/node": "20.3.3",
-        "@typescript-eslint/eslint-plugin": "5.60.1",
-        "@typescript-eslint/parser": "5.60.1",
-        "c8": "8.0.0",
-        "chai": "4.3.7",
-        "concurrently": "8.2.0",
-        "eslint": "8.44.0",
-        "mocha": "10.2.0",
-        "tsc-watch": "6.0.4",
-        "typescript": "5.1.6"
+        "@types/chai": "4.3.18",
+        "@types/estree": "1.0.5",
+        "@types/mocha": "10.0.7",
+        "@types/node": "22.5.0",
+        "@typescript-eslint/eslint-plugin": "8.3.0",
+        "@typescript-eslint/parser": "8.3.0",
+        "c8": "10.1.2",
+        "chai": "5.1.1",
+        "concurrently": "8.2.2",
+        "eslint": "8.57.0",
+        "eslint-plugin-import": "2.29.1",
+        "mocha": "10.7.3",
+        "tsc-watch": "6.2.0",
+        "typescript": "5.5.4"
     }
 }

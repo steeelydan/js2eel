@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../test/helpers';
+import { Js2EelCompiler } from '../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../test/helpers.js';
 
 describe('arrayExpression()', () => {
     it('content is objects: No spread expression', () => {

@@ -1,7 +1,7 @@
-import { identifier } from '../identifier/identifier';
-import { unaryExpression } from '../unaryExpression/unaryExpression';
-import { binaryExpression } from '../binaryExpression/binaryExpression';
-import { JSFX_DENY_COMPILATION } from '../../constants';
+import { identifier } from '../identifier/identifier.js';
+import { unaryExpression } from '../unaryExpression/unaryExpression.js';
+import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { JSFX_DENY_COMPILATION } from '../../constants.js';
 
 import type { LogicalExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

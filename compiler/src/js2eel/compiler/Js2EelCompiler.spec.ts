@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from './Js2EelCompiler';
-import { testEelSrc } from '../test/helpers';
+import { Js2EelCompiler } from './Js2EelCompiler.js';
+import { testEelSrc } from '../test/helpers.js';
 
 describe('Js2EelCompiler', () => {
     it('setReturn(). getReturn()', () => {

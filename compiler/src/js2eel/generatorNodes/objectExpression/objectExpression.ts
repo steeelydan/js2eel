@@ -1,4 +1,4 @@
-import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope';
+import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
 
 import type { Identifier, ObjectExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

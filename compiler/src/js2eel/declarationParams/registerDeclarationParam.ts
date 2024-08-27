@@ -1,5 +1,5 @@
-import { getLowerCasedDeclaredSymbol } from '../environment/getLowerCaseDeclaredSymbol';
-import { ALL_RESERVED_SYMBOL_NAMES } from '../constants';
+import { getLowerCasedDeclaredSymbol } from '../environment/getLowerCaseDeclaredSymbol.js';
+import { ALL_RESERVED_SYMBOL_NAMES } from '../constants.js';
 
 import type { Identifier } from 'estree';
 import type { Js2EelCompiler } from '../compiler/Js2EelCompiler';

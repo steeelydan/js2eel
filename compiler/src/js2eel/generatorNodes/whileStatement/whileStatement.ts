@@ -1,8 +1,8 @@
-import { JSFX_DENY_COMPILATION } from '../../constants';
-import { binaryExpression } from '../binaryExpression/binaryExpression';
-import { blockStatement } from '../blockStatement/blockStatement';
-import { indent } from '../../suffixersAndPrefixers/indent';
-import { removeLastLinebreak } from '../../suffixersAndPrefixers/removeLastLinebreak';
+import { JSFX_DENY_COMPILATION } from '../../constants.js';
+import { binaryExpression } from '../binaryExpression/binaryExpression.js';
+import { blockStatement } from '../blockStatement/blockStatement.js';
+import { indent } from '../../suffixersAndPrefixers/indent.js';
+import { removeLastLinebreak } from '../../suffixersAndPrefixers/removeLastLinebreak.js';
 
 import type { WhileStatement } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

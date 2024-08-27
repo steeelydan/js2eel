@@ -1,6 +1,6 @@
 import { expect } from 'chai';
-import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
-import { testEelSrc } from '../../../test/helpers';
+import { Js2EelCompiler } from '../../../compiler/Js2EelCompiler.js';
+import { testEelSrc } from '../../../test/helpers.js';
 
 describe('console()', () => {
     it('Creates a debug variable if we console.log', () => {

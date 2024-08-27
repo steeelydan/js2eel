@@ -1,5 +1,5 @@
-import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope';
-import { prefixParam } from '../../suffixersAndPrefixers/prefixParam';
+import { suffixScopeByScopeSuffix } from '../../suffixersAndPrefixers/suffixScope.js';
+import { prefixParam } from '../../suffixersAndPrefixers/prefixParam.js';
 
 import type { Identifier, MemberExpression } from 'estree';
 import type { Js2EelCompiler } from '../../compiler/Js2EelCompiler';

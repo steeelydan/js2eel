@@ -7,7 +7,7 @@ export class JsParser {
         this.src = jsSrc;
     }
 
-    parse(): { tree: acorn.Node | null; error?: any } {
+    parse(): { tree: acorn.Node | null; error?: unknown } {
         try {
             const tree = acorn.parse(this.src, {
                 ecmaVersion: 2022,

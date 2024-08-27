@@ -1,5 +1,5 @@
 import Joi from 'joi';
-import { evaluateLibraryFunctionCall } from '../../callExpression/utils/evaluateLibraryFunctionCall';
+import { evaluateLibraryFunctionCall } from '../../callExpression/utils/evaluateLibraryFunctionCall.js';
 
 import type { NewExpression } from 'estree';
 import type { Js2EelCompiler } from '../../../compiler/Js2EelCompiler';
