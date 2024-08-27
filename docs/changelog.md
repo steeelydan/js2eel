@@ -6,6 +6,7 @@
     -   @block section (`onBlock`)
     -   `while` loops
     -   Start location getter for `EelBuffer`: `EelBuffer.start()`
+    -   Swap function for `EelBuffer`: `EelBuffer.swap(otherEelBuffer)`
     -   New memory function: `memset()`
     -   New file functions: `file_open()`, `file_close()`, `file_avail()`, `file_riff()`, `file_mem()`
     -   FFT functions: `fft()`, `ifft()`, `convolve_c()`
