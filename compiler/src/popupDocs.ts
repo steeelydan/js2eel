@@ -15,8 +15,8 @@ export const POPUP_DOCS: {
     "type": "function",
     "text": "Configures the plugin.",
     "example": "```javascript\nconfig({ description: 'volume', inChannels: 2, outChannels: 2 });\n```",
-    "signature": "config({\n    description,\n    inChannels,\n    outChannels\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n}): void;",
-    "autoCompleteTemplate": "config({description: '${}', inChannels: , outChannels: });"
+    "signature": "config({\n    description,\n    inChannels,\n    outChannels,\n    extTailSize\n}: {\n    description: number;\n    inChannels: number;\n    outChannels: number;\n    extTailSize?: number;\n}): void;",
+    "autoCompleteTemplate": "config({description: '${}', inChannels: , outChannels: , extTailSize: });"
 },
 slider: {
     "name": "slider",
@@ -937,13 +937,5 @@ convolve_c: {
     "example": null,
     "signature": "convolve_c(destination: number, source: number, size: number): void;",
     "autoCompleteTemplate": "convolve_c(${destination}, ${source}, ${size});"
-},
-extTailSize: {
-    "name": "extTailSize",
-    "type": "function",
-    "text": "Set to nonzero if the plug-in produces silence from silence. If positive, specifies length in samples that the plug-in should keep processing after silence (either the output tail length, or the number of samples needed for the plug-in state to settle). If set to -1, REAPER will use automatic output silence detection and let plug-in state settle. If set to -2, then REAPER will assume the plug-in has no tail and no inter-sample state.",
-    "example": null,
-    "signature": "extTailSize(samples: number): void;",
-    "autoCompleteTemplate": "extTailSize(${samples});"
 }
 };

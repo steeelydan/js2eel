@@ -1,10 +1,10 @@
-config({ description: 'sd_amp_sim', inChannels: 2, outChannels: 2 });
+config({ description: 'sd_amp_sim', inChannels: 2, outChannels: 2, extTailSize: 32768 });
 
 let fftSize = -1;
 let needsReFft = true;
 let convolutionSource = new EelBuffer(1, 131072); // 128 * 1024;
 let lastAmpModel = -1;
-let importedBuffer = new EelBuffer(1, 131072); // 256 * 1024;
+let importedBuffer = new EelBuffer(1, 131072); // 128 * 1024;
 let importedBufferChAmount = 0;
 let importedBufferSize;
 let chunkSize;
@@ -18,10 +18,6 @@ const interpolationStepCount = 1.0;
 let ampModel;
 
 fileSelector(1, ampModel, 'amp_models', 'none', 'Impulse Response');
-
-onInit(() => {
-    extTailSize(32768);
-});
 
 onSlider(() => {
     if (ampModel !== lastAmpModel) {
@@ -123,7 +119,6 @@ onBlock(() => {
 onSample(() => {
     if (importedBufferSize > 0) {
         if (bufferPosition >= chunkSize) {
-            // Swap current and last blocks, zero-pad last block
             lastBlock.swap(currentBlock);
 
             memset(currentBlock.start() + chunkSize * 2, 0, (fftSize - chunkSize) * 2);

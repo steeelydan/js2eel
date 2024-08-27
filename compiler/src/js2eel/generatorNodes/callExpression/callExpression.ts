@@ -6,7 +6,6 @@ import { onInit } from './js2EelLib/onInit.js';
 import { onSlider } from './js2EelLib/onSlider.js';
 import { onSample } from './js2EelLib/onSample.js';
 import { eachChannel } from './js2EelLib/eachChannel.js';
-import { extTailSize } from './js2EelLib/extTailSize.js';
 import { eelLibraryFunctionCall } from './eelLib/eelLibraryFunctionCall.js';
 
 import { memberExpressionCall } from '../memberExpression/memberExpressionCall.js';
@@ -66,10 +65,6 @@ export const callExpression = (
             }
             case 'eachChannel': {
                 callExpressionSrc += eachChannel(callExpression, instance);
-                break;
-            }
-            case 'extTailSize': {
-                callExpressionSrc += extTailSize(callExpression, instance);
                 break;
             }
 

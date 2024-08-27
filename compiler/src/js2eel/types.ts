@@ -65,6 +65,7 @@ export type PluginData = {
     description: string;
     inChannels: number;
     outChannels: number;
+    extTailSize: number | null;
     currentChannel: number;
     eachChannelParamMap: EachChannelParamMap;
     currentScopePath: string;

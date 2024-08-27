@@ -21,6 +21,8 @@ out_pin:Out 1
 
 @init
 
+ext_tail_size = 32768;
+
 fftSize = -1;
 needsReFft = 1;
 lastAmpModel = -1;
@@ -36,25 +38,22 @@ currentBlock__B0 = 0 * 65536 + 327680;
 currentBlock__size = 65536;
 
 
-ext_tail_size = 32768;
-
-
 @slider
 
 ampModel = slider1;
 
 ampModel !== lastAmpModel ? (
     lastAmpModel = ampModel;
-    fileHandle__S5 = file_open(slider1);
-    importedBufferSampleRate__S5 = 0;
-    fileHandle__S5 > 0 ? (
-        file_riff(fileHandle__S5, importedBufferChAmount, importedBufferSampleRate__S5);
+    fileHandle__S3 = file_open(slider1);
+    importedBufferSampleRate__S3 = 0;
+    fileHandle__S3 > 0 ? (
+        file_riff(fileHandle__S3, importedBufferChAmount, importedBufferSampleRate__S3);
         importedBufferChAmount ? (
-            importedBufferSize = file_avail(fileHandle__S5) / (importedBufferChAmount);
+            importedBufferSize = file_avail(fileHandle__S3) / (importedBufferChAmount);
             needsReFft = 1;
-            file_mem(fileHandle__S5, importedBuffer__B0, importedBufferSize * importedBufferChAmount);
+            file_mem(fileHandle__S3, importedBuffer__B0, importedBufferSize * importedBufferChAmount);
         );
-        file_close(fileHandle__S5);
+        file_close(fileHandle__S3);
     );
 );
 
@@ -73,32 +72,32 @@ needsReFft ? (
     chunkSize2x = chunkSize * 2;
     bufferPosition = 0;
     inverseFftSize = 1 / (fftSize);
-    i__S10 = 0;
-    i2__S10 = 0;
-    interpolationCounter__S10 = 0;
-    while (interpolationCounter__S10 < min(fftSize, importedBufferSize)) (
-        ipos__S13 = i__S10;
-        ipart__S13 = (i__S10 - ipos__S13);
-        convolutionSource__B0[i2__S10] = (importedBuffer__B0[ipos__S13 * importedBufferChAmount] * (1 - ipart__S13) + importedBuffer__B0[((ipos__S13 + 1) * importedBufferChAmount - 1)] * ipart__S13);
-        convolutionSource__B0[(i2__S10 + 1)] = (importedBuffer__B0[(ipos__S13 * importedBufferChAmount - 1)] * (1 - ipart__S13) + importedBuffer__B0[((ipos__S13 + 2) * importedBufferChAmount - 1)] * ipart__S13);
-        i__S10 += interpolationStepCount;
-        i2__S10 += 2;
-        interpolationCounter__S10 += 1;
+    i__S8 = 0;
+    i2__S8 = 0;
+    interpolationCounter__S8 = 0;
+    while (interpolationCounter__S8 < min(fftSize, importedBufferSize)) (
+        ipos__S11 = i__S8;
+        ipart__S11 = (i__S8 - ipos__S11);
+        convolutionSource__B0[i2__S8] = (importedBuffer__B0[ipos__S11 * importedBufferChAmount] * (1 - ipart__S11) + importedBuffer__B0[((ipos__S11 + 1) * importedBufferChAmount - 1)] * ipart__S11);
+        convolutionSource__B0[(i2__S8 + 1)] = (importedBuffer__B0[(ipos__S11 * importedBufferChAmount - 1)] * (1 - ipart__S11) + importedBuffer__B0[((ipos__S11 + 2) * importedBufferChAmount - 1)] * ipart__S11);
+        i__S8 += interpolationStepCount;
+        i2__S8 += 2;
+        interpolationCounter__S8 += 1;
     );
-    zeroPadCounter__S10 = 0;
-    while (zeroPadCounter__S10 < (fftSize - importedBufferSize)) (
-        convolutionSource__B0[i2__S10] = 0;
-        convolutionSource__B0[(i2__S10 + 1)] = 0;
-        i2__S10 += 2;
-        zeroPadCounter__S10 += 1;
+    zeroPadCounter__S8 = 0;
+    while (zeroPadCounter__S8 < (fftSize - importedBufferSize)) (
+        convolutionSource__B0[i2__S8] = 0;
+        convolutionSource__B0[(i2__S8 + 1)] = 0;
+        i2__S8 += 2;
+        zeroPadCounter__S8 += 1;
     );
     fft(convolutionSource__B0, fftSize);
-    i__S10 = 0;
-    normalizeCounter__S10 = 0;
-    while (normalizeCounter__S10 < fftSize * 2) (
-        convolutionSource__B0[i__S10] *= inverseFftSize;
-        i__S10 += 1;
-        normalizeCounter__S10 += 1;
+    i__S8 = 0;
+    normalizeCounter__S8 = 0;
+    while (normalizeCounter__S8 < fftSize * 2) (
+        convolutionSource__B0[i__S8] *= inverseFftSize;
+        i__S8 += 1;
+        normalizeCounter__S8 += 1;
     );
     needsReFft = 0;
 );
@@ -117,14 +116,14 @@ importedBufferSize > 0 ? (
         ifft(currentBlock__B0, fftSize);
         bufferPosition = 0;
     );
-    bufferPosition2x__S18 = bufferPosition * 2;
-    lastBlock__B0[bufferPosition2x__S18] = spl0;
-    lastBlock__B0[(bufferPosition2x__S18 + 1)] = 0;
-    spl0 = currentBlock__B0[bufferPosition2x__S18];
-    spl1 = currentBlock__B0[(bufferPosition2x__S18 + 1)];
+    bufferPosition2x__S16 = bufferPosition * 2;
+    lastBlock__B0[bufferPosition2x__S16] = spl0;
+    lastBlock__B0[(bufferPosition2x__S16 + 1)] = 0;
+    spl0 = currentBlock__B0[bufferPosition2x__S16];
+    spl1 = currentBlock__B0[(bufferPosition2x__S16 + 1)];
     bufferPosition < (fftSize - chunkSize) ? (
-        spl0 += lastBlock__B0[(chunkSize2x + bufferPosition2x__S18)];
-        spl1 += lastBlock__B0[((chunkSize2x + bufferPosition2x__S18) + 1)];
+        spl0 += lastBlock__B0[(chunkSize2x + bufferPosition2x__S16)];
+        spl1 += lastBlock__B0[((chunkSize2x + bufferPosition2x__S16) + 1)];
     );
     bufferPosition += 1;
 );

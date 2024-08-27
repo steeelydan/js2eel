@@ -63,6 +63,7 @@ export class Js2EelCompiler {
         description: '',
         inChannels: 2,
         outChannels: 2,
+        extTailSize: null,
         currentChannel: 0,
         eachChannelParamMap: {},
         currentScopePath: 'root',
@@ -143,6 +144,7 @@ export class Js2EelCompiler {
             description: '',
             inChannels: 2,
             outChannels: 2,
+            extTailSize: null,
             currentChannel: 0,
             eachChannelParamMap: {},
             currentScopePath: 'root',
@@ -261,6 +263,10 @@ export class Js2EelCompiler {
         let initStageText = '';
 
         const initStageHeader = '@init\n\n';
+
+        if (this.pluginData.extTailSize !== null) {
+            initStageText += `ext_tail_size = ${this.pluginData.extTailSize};\n\n`;
+        }
 
         this.pluginData.initVariableNames.forEach((initVariableName) => {
             // Cannot declare slider identifier in eel2
@@ -526,6 +532,14 @@ export class Js2EelCompiler {
 
     getChannels(): { inChannels: number; outChannels: number } {
         return { inChannels: this.pluginData.inChannels, outChannels: this.pluginData.outChannels };
+    }
+
+    setExtTailSize(extTailSize: number): void {
+        this.pluginData.extTailSize = extTailSize;
+    }
+
+    getExtTailSize(): number | null {
+        return this.pluginData.extTailSize;
     }
 
     setCurrentChannel(channel: number): void {
