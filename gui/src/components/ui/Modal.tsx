@@ -29,7 +29,7 @@ export const Modal = ({ title, children, onOutsideClick, setModalOpen }: Props):
 
         window.addEventListener('keydown', keyPressHandler);
 
-        return () => {
+        return (): void => {
             window.removeEventListener('keydown', keyPressHandler);
         };
     }, [setModalOpen, setTakeCurrentFileAsTemplate]);

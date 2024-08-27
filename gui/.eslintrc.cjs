@@ -19,6 +19,7 @@ module.exports = {
     plugins: ['@typescript-eslint'],
     rules: {
         'no-warning-comments': 'warn',
+        '@typescript-eslint/no-explicit-any': ['warn'],
         '@typescript-eslint/explicit-function-return-type': 'error',
         '@typescript-eslint/consistent-type-imports': 'error',
         '@typescript-eslint/ban-ts-comment': 1,

@@ -114,7 +114,7 @@ export const JsCodeEditor = (): VNode => {
 
         document.addEventListener('keydown', onKeyPress);
 
-        return () => {
+        return (): void => {
             document.removeEventListener('keydown', onKeyPress);
         };
     }, [currentFile, jsEditorRef, storage, setSaved, setModalOpen, setTakeCurrentFileAsTemplate]);
@@ -136,7 +136,7 @@ export const JsCodeEditor = (): VNode => {
         scrollContainerRef.current = jsEditorElRef.current.querySelector('.cm-scroller');
         setScrollId('jsCodeEditor');
 
-        return () => {
+        return (): void => {
             if (jsCompileTimeoutRef.current) {
                 clearTimeout(jsCompileTimeoutRef.current);
             }
