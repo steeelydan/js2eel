@@ -27,7 +27,7 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 | ------ | ------------ | ----------------------------------- |
 | ✅     | `@init`      | `onInit()`                          |
 | ✅     | `@slider`    | `onSlider()`                        |
-| 🕒     | `@block`     |                                     |
+| ✅     | `@block`     |                                     |
 | ✅     | `@sample`    | `onSample()`                        |
 | 🕒     | `@serialize` |                                     |
 | 🕒     | `@gfx`       | Declarative with React-like syntax? |
@@ -111,7 +111,7 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 | ✅     | Conditional Branching           |                                                                                                                  |
 | 🕒     | `loop(counter, actions...)`     | We should have generic loops even if sample- and channel related iterations should be handled by `eachChannel()` |
 | 🕒     | `while(actions..., condition)`  |                                                                                                                  |
-| 🕒     | `while(condition) (actions...)` |                                                                                                                  |
+| ✅     | `while(condition) (actions...)` |                                                                                                                  |
 
 ## Operators
 
@@ -213,16 +213,16 @@ Find the JS2EEL type declarations [here](https://github.com/steeelydan/js2eel/bl
 | ------ | ------------------------------------------ | ------- |
 | 🕒     | `mdct(start_index, size)`                  |         |
 | 🕒     | `imdct(start_index, size)`                 |         |
-| 🕒     | `fft(start_index, size)`                   |         |
-| 🕒     | `ifft(start_index, size)`                  |         |
+| ✅     | `fft(start_index, size)`                   |         |
+| ✅     | `ifft(start_index, size)`                  |         |
 | 🕒     | `fft_real(start_index, size)`              |         |
 | 🕒     | `ifft_real(start_index, size)`             |         |
 | 🕒     | `fft_permute(index, size)`                 |         |
 | 🕒     | `fft_ipermute(index, size)`                |         |
-| 🕒     | `convolve_c(dest, src, size)`              |         |
+| ✅     | `convolve_c(dest, src, size)`              |         |
 | 🕒     | `freembuf(top)`                            |         |
 | 🕒     | `memcpy(dest, source, length)`             |         |
-| 🕒     | `memset(dest, value, length)`              |         |
+| ✅     | `memset(dest, value, length)`              |         |
 | 🕒     | `mem_multiply_sum(buf1, buf2, length)`     |         |
 | 🕒     | `mem_insert_shuffle(buf, len, value)`      |         |
 | 🕒     | `__memtop()`                               |         |

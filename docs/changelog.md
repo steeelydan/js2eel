@@ -4,6 +4,7 @@
     -   Allow configuration of `ext_tail_size` (`config.extTailSize`)
     -   File selector slider
     -   @block section (`onBlock`)
+    -   `while` loops
     -   Start location getter for `EelBuffer`: `EelBuffer.start()`
     -   New memory function: `memset()`
     -   New file functions: `file_open()`, `file_close()`, `file_avail()`, `file_riff()`, `file_mem()`
