@@ -383,4 +383,36 @@ out_pin:Out 1
         expect(result.errors.length).to.equal(1);
         expect(result.errors[0].type).to.equal('BindingError');
     });
+
+    it('compiles @init code', () => {
+        const compiler = new Js2EelCompiler();
+        const result =
+            compiler.compile(`config({ description: 'init', inChannels: 2, outChannels: 2 });
+
+onInit(() => {
+    const myConst = 1;
+});`);
+
+        expect(testEelSrc(result.src)).to.equal(
+            testEelSrc(`/* Compiled with JS2EEL v0.11.0 */
+
+desc:init
+
+in_pin:In 0
+in_pin:In 1
+out_pin:Out 0
+out_pin:Out 1
+
+
+@init
+
+myConst__S2 = 1;
+
+
+`)
+        );
+
+        expect(result.success).to.equal(true);
+        expect(result.warnings.length).to.equal(1);
+    });
 });

@@ -302,13 +302,16 @@ export class Js2EelCompiler {
             }
         }
 
+        const initSrcText = this.getOnInitSrc();
+
+        if (initStageText || initSrcText) {
+            this.src.eelSrcFinal += initStageHeader;
+        }
+
         if (initStageText) {
-            initStageText = initStageHeader + initStageText;
             this.src.eelSrcFinal += initStageText;
             this.src.eelSrcFinal += '\n\n';
         }
-
-        const initSrcText = this.getOnInitSrc();
 
         if (initSrcText) {
             this.src.eelSrcFinal += initSrcText;
@@ -536,10 +539,6 @@ export class Js2EelCompiler {
 
     setExtTailSize(extTailSize: number): void {
         this.pluginData.extTailSize = extTailSize;
-    }
-
-    getExtTailSize(): number | null {
-        return this.pluginData.extTailSize;
     }
 
     setCurrentChannel(channel: number): void {
