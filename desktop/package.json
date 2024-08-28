@@ -22,7 +22,10 @@
         "files": [
             "build/**/*",
             "gui-dist/**/*",
-            "distResources/**/*"
+            "distResources/**/*",
+            "!node_modules/@js2eel/compiler/**/*",
+            "node_modules/@js2eel/compiler/dist/**/*",
+            "node_modules/@js2eel/compiler/package.json"
         ],
         "directories": {
             "output": "../dist/desktop",
